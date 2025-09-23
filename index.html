@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receitas Milionárias - Culinária e Empreendedorismo</title>
+    
+    <meta name="description" content="Receitas Milionárias: a plataforma que une gastronomia e empreendedorismo. Acesse receitas exclusivas e ganhe dinheiro com nosso programa de afiliados.">
+    <meta name="keywords" content="receitas, culinária, gastronomia, negócio, renda extra, afiliados, empreendedorismo, bolo, salada, massa">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="icon" href="static/images/favicon.png" type="image/png">
+</head>
+<body>
+
+    <div id="preloader">
+        <img src="static/images/logo.png" alt="Receitas Milionárias" class="preloader-logo">
+    </div>
+
+    <div id="menu-overlay" class="menu-overlay">
+        <div class="menu-panel">
+            <div class="menu-header">
+                <img src="static/images/logo.png" alt="Receitas Milionárias Logo" class="menu-logo">
+                <button id="close-menu" class="close-menu"><i class="fas fa-times"></i></button>
+            </div>
+            <nav class="overlay-nav">
+                <a href="#receitas">Receitas</a>
+                <a href="#afiliados">Seja Afiliado</a>
+                <a href="#testimonials">Depoimentos</a>
+                <a href="#faq">FAQ</a>
+            </nav>
+            <div class="menu-footer">
+                <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-up" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Cadastre-se</a>
+                <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-in" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">Login</a>
+                <div class="menu-social">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Youtube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="https://wa.me/55DDDDDDDDD" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco no WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <header class="navbar">
+        <div class="container">
+            <a href="#" class="logo">
+                <img src="static/images/logo.png" alt="Receitas Milionárias Logo">
+            </a>
+            <nav class="nav-links">
+                <a href="#receitas">Receitas</a>
+                <a href="#afiliados">Seja Afiliado</a>
+                <a href="#testimonials">Depoimentos</a>
+                <a href="#faq">FAQ</a>
+            </nav>
+            <div class="nav-buttons">
+                <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-in" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">Login</a>
+                <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-up" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Cadastre-se</a>
+            </div>
+            <button id="open-menu" class="hamburger" aria-label="Abrir menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Transforme sua paixão por culinária em um negócio lucrativo.</h1>
+                <p>Acesse receitas exclusivas e descubra uma nova fonte de renda com nosso programa de afiliados.</p>
+                <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-up" class="btn btn-primary btn-large" target="_blank" rel="noopener noreferrer">Comece Agora</a>
+            </div>
+        </section>
+
+        <section id="receitas" class="featured-recipes fade-in-section">
+            <div class="container">
+                <h2>Receitas em Destaque</h2>
+                <p class="section-subtitle">Explore algumas das nossas receitas mais populares, criadas para inspirar e encantar. Escolha uma categoria para começar.</p>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">Todas</button>
+                    <button class="filter-btn" data-filter="massas">Massas</button>
+                    <button class="filter-btn" data-filter="saladas">Saladas</button>
+                    <button class="filter-btn" data-filter="sobremesas">Sobremesas</button>
+                    <button class="filter-btn" data-filter="carnes">Carnes</button>
+                </div>
+                <div class="recipe-grid">
+                    <div class="recipe-item" data-category="massas">
+                        <a href="receita.html" class="recipe-link">
+                            <article class="recipe-card">
+                                <div class="recipe-card-img-container">
+                                    <img src="static/images/macarrao-pesto.jpg" alt="Macarrão ao Pesto">
+                                </div>
+                                <div class="recipe-card-content">
+                                    <h3>Macarrão ao Pesto</h3>
+                                    <p>Uma receita clássica italiana, rápida, cheia de sabor e perfeita para um jantar especial durante a semana.</p>
+                                </div>
+                                <div class="recipe-card-footer">
+                                    <span><i class="fas fa-clock"></i> 25 min</span>
+                                    <span><i class="fas fa-utensils"></i> Fácil</span>
+                                </div>
+                            </article>
+                        </a>
+                    </div>
+                    <div class="recipe-item" data-category="carnes">
+                         <a href="receita.html" class="recipe-link">
+                            <article class="recipe-card">
+                                <div class="recipe-card-img-container">
+                                    <img src="static/images/frango-grelhado.jpg" alt="Frango Grelhado com Legumes">
+                                </div>
+                                <div class="recipe-card-content">
+                                    <h3>Frango Grelhado</h3>
+                                    <p>Uma opção saudável, suculenta e deliciosa para uma refeição leve, acompanhada de legumes frescos.</p>
+                                </div>
+                                <div class="recipe-card-footer">
+                                    <span><i class="fas fa-clock"></i> 30 min</span>
+                                    <span><i class="fas fa-utensils"></i> Fácil</span>
+                                </div>
+                            </article>
+                        </a>
+                    </div>
+                    <div class="recipe-item" data-category="saladas">
+                        <a href="receita.html" class="recipe-link">
+                            <article class="recipe-card">
+                                <div class="recipe-card-img-container">
+                                    <img src="static/images/salada-verao.jpg" alt="Salada de Verão">
+                                </div>
+                                <div class="recipe-card-content">
+                                    <h3>Salada de Verão</h3>
+                                    <p>Refrescante e colorida, a pedida ideal para os dias quentes, combinando frutas e folhas verdes.</p>
+                                </div>
+                                <div class="recipe-card-footer">
+                                    <span><i class="fas fa-clock"></i> 15 min</span>
+                                    <span><i class="fas fa-utensils"></i> Fácil</span>
+                                </div>
+                            </article>
+                        </a>
+                    </div>
+                    <div class="recipe-item" data-category="sobremesas">
+                        <a href="receita.html" class="recipe-link">
+                            <article class="recipe-card">
+                                <div class="recipe-card-img-container">
+                                    <img src="static/images/torta-amendoas.jpg" alt="Torta de Amêndoas">
+                                </div>
+                                <div class="recipe-card-content">
+                                    <h3>Torta de Amêndoas</h3>
+                                    <p>Uma sobremesa elegante e irresistível para ocasiões especiais, com uma textura crocante e macia.</p>
+                                </div>
+                                <div class="recipe-card-footer">
+                                    <span><i class="fas fa-clock"></i> 60 min</span>
+                                    <span><i class="fas fa-utensils"></i> Médio</span>
+                                </div>
+                            </article>
+                        </a>
+                    </div>
+                     <div class="recipe-item" data-category="saladas">
+                        <a href="receita.html" class="recipe-link">
+                            <article class="recipe-card">
+                                <div class="recipe-card-img-container">
+                                     <img src="static/images/salada-verao.jpg" alt="Salada Caesar">
+                                </div>
+                                <div class="recipe-card-content">
+                                    <h3>Salada Caesar</h3>
+                                    <p>A clássica salada que agrada a todos os paladares, com seu molho cremoso e croutons crocantes.</p>
+                                </div>
+                                <div class="recipe-card-footer">
+                                    <span><i class="fas fa-clock"></i> 20 min</span>
+                                    <span><i class="fas fa-utensils"></i> Fácil</span>
+                                </div>
+                            </article>
+                        </a>
+                    </div>
+                    <div class="recipe-item" data-category="massas">
+                        <a href="receita.html" class="recipe-link">
+                            <article class="recipe-card">
+                                <div class="recipe-card-img-container">
+                                    <img src="static/images/macarrao-pesto.jpg" alt="Lasanha à Bolonhesa">
+                                </div>
+                                <div class="recipe-card-content">
+                                    <h3>Lasanha à Bolonhesa</h3>
+                                    <p>Um prato reconfortante e cheio de tradição para reunir a família em volta da mesa.</p>
+                                </div>
+                                <div class="recipe-card-footer">
+                                    <span><i class="fas fa-clock"></i> 90 min</span>
+                                    <span><i class="fas fa-utensils"></i> Médio</span>
+                                </div>
+                            </article>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="afiliados" class="affiliate-program fade-in-section">
+            <div class="container">
+                <div class="affiliate-content">
+                    <h2>Oportunidade de Ouro: Seja um Afiliado</h2>
+                    <p>Nossa plataforma não é só para compartilhar receitas exclusivas; ela também permite que você ganhe dinheiro e construa algo significativo se tornando um afiliado.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="results" class="results-section fade-in-section">
+            <div class="container">
+                <h2>Resultados do Nosso Programa</h2>
+                <p class="section-subtitle">Os números falam por si. Junte-se a uma comunidade crescente de afiliados que estão transformando paixão em lucro.</p>
+                <div class="results-grid">
+                    <div class="result-item">
+                        <h3 class="counter" data-target="1273">0</h3>
+                        <p>Afiliados ativos</p>
+                    </div>
+                    <div class="result-item">
+                        <h3>R$ <span class="counter" data-target="215450">0</span></h3>
+                        <p>Comissões pagas</p>
+                    </div>
+                    <div class="result-item">
+                        <h3>R$ <span class="counter" data-target="14.95">0</span></h3>
+                        <p>Ticket médio</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works" class="how-it-works-section fade-in-section">
+            <div class="container">
+                <h2>Como Você Ganha</h2>
+                <p class="section-subtitle">Nosso sistema foi pensado para ser simples, transparente e vantajoso para você. Veja como funciona em 4 passos:</p>
+                <div class="how-it-works-grid">
+                    <div class="work-item">
+                        <div class="icon-wrapper"><i class="fas fa-link"></i></div>
+                        <h4>Link Exclusivo</h4>
+                        <p>Compartilhe seu link de afiliado para indicar as receitas e o kit de assinatura.</p>
+                    </div>
+                    <div class="work-item">
+                        <div class="icon-wrapper"><i class="fas fa-dollar-sign"></i></div>
+                        <h4>R$ 9,90/mês</h4>
+                        <p>Por cada assinatura indicada do plano de R$ 29,90.</p>
+                    </div>
+                    <div class="work-item">
+                        <div class="icon-wrapper"><i class="fas fa-sync-alt"></i></div>
+                        <h4>Pagamento Recorrente</h4>
+                        <p>Receba a comissão todos os meses enquanto a assinatura do seu indicado estiver ativa.</p>
+                    </div>
+                    <div class="work-item">
+                        <div class="icon-wrapper"><i class="fas fa-chart-line"></i></div>
+                        <h4>Painel de Controle</h4>
+                        <p>Acompanhe seus cliques, conversões e saldo para saque em um painel completo.</p>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-up" class="btn btn-primary btn-large" target="_blank" rel="noopener noreferrer">Quero Ser Afiliado</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="testimonials-section fade-in-section">
+            <div class="container">
+                <h2>O Que Nossos Afiliados Dizem</h2>
+                <p class="section-subtitle">A confiança de nossos parceiros é nosso maior ativo. Veja o que eles têm a dizer sobre a experiência com a plataforma.</p>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p>"A plataforma é incrível! Finalmente consegui uma renda extra fazendo o que amo, que é cozinhar e compartilhar. O painel de controle é super fácil de usar."</p>
+                        <h4>- Maria S., São Paulo</h4>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p>"Nunca pensei que poderia ganhar dinheiro com meu hobby. As comissões recorrentes são a melhor parte. Todo mês tenho um dinheiro extra garantido."</p>
+                        <h4>- João L., Rio de Janeiro</h4>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p>"O Receitas Milionárias uniu o útil ao agradável. Tenho acesso a receitas maravilhosas e ainda sou paga para indicar para minhas amigas. Recomendo!"</p>
+                        <h4>- Ana P., Belo Horizonte</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="faq-section fade-in-section">
+            <div class="container">
+                <h2>Dúvidas Frequentes</h2>
+                <p class="section-subtitle">Tudo o que você precisa saber para começar a lucrar com sua paixão. Se sua dúvida não estiver aqui, entre em contato conosco.</p>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>Como funciona o programa de afiliados?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>É simples! Ao se inscrever no nosso plano, você recebe um link exclusivo. Para cada nova assinatura realizada através do seu link, você ganha R$ 9,90 por mês enquanto a assinatura do seu indicado permanecer ativa. Você pode acompanhar seus ganhos em um painel de controle completo.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>Preciso pagar algo para ser afiliado?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Sim, o programa de afiliados é um benefício exclusivo para os assinantes do plano de R$ 29,90/mês. Com ele, você tem acesso a todas as receitas premium e à oportunidade de monetizar sua paixão pela culinária.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>Quando e como recebo minhas comissões?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Os pagamentos são processados mensalmente através da nossa plataforma. Assim que você atingir o valor mínimo para saque, poderá solicitar a transferência para sua conta bancária cadastrada. Tudo de forma transparente e segura.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="calculadora" class="earnings-calculator fade-in-section">
+            <div class="container">
+                <h2>Calculadora de Ganhos</h2>
+                <p class="section-subtitle">Simule seu ganho mensal recorrente com base no número de assinaturas ativas que você indicar. Arraste a barra e veja seu potencial de lucro.</p>
+                <div class="calculator-enhanced">
+                    <div class="calculator-slider">
+                        <label for="referrals">Assinaturas ativas: <span id="referrals-count">30</span></label>
+                        <input type="range" id="referrals" name="referrals" min="1" max="500" value="30">
+                    </div>
+                    <div class="calculator-results">
+                        <div class="result-box">
+                            <p>Por indicado</p>
+                            <span>R$ 9,90/mês</span>
+                        </div>
+                        <div class="result-box">
+                            <p>Ganhos mensais</p>
+                            <span id="monthly-earnings">R$ 297,00</span>
+                        </div>
+                        <div class="result-box">
+                            <p>Ganhos anuais</p>
+                            <span id="annual-earnings">R$ 3.564,00</span>
+                        </div>
+                    </div>
+                    <div class="calculator-footer">
+                        <p>Preço do plano: R$ 29,90/mês</p>
+                        <p class="disclaimer">*Valores estimados. Recebimento enquanto a assinatura permanecer ativa.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="sobre" class="about-me fade-in-section">
+            <div class="container">
+                <img src="static/images/jefferson-pereira.png" alt="Foto de Jefferson Pereira" class="profile-pic">
+                <div class="about-text">
+                    <h2>Quem Sou Eu</h2>
+                    <p>Sou Jefferson Pereira, um entusiasta da culinária com um sonho: ter meu próprio negócio no mundo da comida. Mesmo vindo de outras áreas, minha paixão me levou a criar a 'Receitas Milionárias'.</p>
+                    <p>Minha plataforma não é só para compartilhar receitas exclusivas; ela também permite que as pessoas se tornem afiliadas, ganhem dinheiro e construam algo significativo. É a realização do meu sonho de unir gastronomia e oportunidade.</p>
+                    <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-up" class="btn btn-primary btn-large" target="_blank" rel="noopener noreferrer">Faça Parte Deste Sonho</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <img src="static/images/logo.png" alt="Receitas Milionárias Logo" class="footer-logo">
+                    <p>Democratizando a culinária, criando oportunidades.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Navegação</h4>
+                    <ul>
+                        <li><a href="#receitas">Receitas</a></li>
+                        <li><a href="#afiliados">Seja Afiliado</a></li>
+                        <li><a href="#testimonials">Depoimentos</a>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#sobre">Quem Sou Eu</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>Siga-nos</h4>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Youtube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Receitas Milionárias. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="static/js/script.js"></script>
+</body>
+</html>
