@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Receitas Milionárias - Culinária e Empreendedorismo</title>
-    
-    <meta name="description" content="Receitas Milionárias: a plataforma que une gastronomia e empreendedorismo. Acesse receitas exclusivas e ganhe dinheiro com nosso programa de afiliados.">
-    <meta name="keywords" content="receitas, culinária, gastronomia, negócio, renda extra, afiliados, empreendedorismo, bolo, salada, massa">
+
+    <meta name="description"
+        content="Receitas Milionárias: a plataforma que une gastronomia e empreendedorismo. Acesse receitas exclusivas e ganhe dinheiro com nosso programa de afiliados.">
+    <meta name="keywords"
+        content="receitas, culinária, gastronomia, negócio, renda extra, afiliados, empreendedorismo, bolo, salada, massa">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="static/css/style.css">
-    <link rel="icon" href="static/images/favicon.png" type="image/png">
+    <link rel="icon" href="static/images/logo.png" type="image/png">
 </head>
+
 <body>
 
     <div id="preloader">
@@ -34,8 +40,10 @@
                 <a href="#faq">FAQ</a>
             </nav>
             <div class="menu-footer">
-                <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-up" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Cadastre-se</a>
-                <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-in" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">Login</a>
+                <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-up" class="btn btn-primary"
+                    target="_blank" rel="noopener noreferrer">Cadastre-se</a>
+                <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-in" class="btn btn-secondary"
+                    target="_blank" rel="noopener noreferrer">Login</a>
                 <div class="menu-social">
                     <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                     <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
@@ -45,13 +53,14 @@
         </div>
     </div>
 
-    <a href="https://wa.me/55DDDDDDDDD" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco no WhatsApp">
+    <a href="https://wa.me/5515997575655" class="whatsapp-float" target="_blank" rel="noopener noreferrer"
+        aria-label="Fale conosco no WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
     <header class="navbar">
         <div class="container">
-            <a href="#" class="logo">
+            <a href="index.html" class="logo">
                 <img src="static/images/logo.png" alt="Receitas Milionárias Logo">
             </a>
             <nav class="nav-links">
@@ -61,8 +70,10 @@
                 <a href="#faq">FAQ</a>
             </nav>
             <div class="nav-buttons">
-                <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-in" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">Login</a>
-                <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-up" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Cadastre-se</a>
+                <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-in" class="btn btn-secondary"
+                    target="_blank" rel="noopener noreferrer">Login</a>
+                <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-up" class="btn btn-primary"
+                    target="_blank" rel="noopener noreferrer">Cadastre-se</a>
             </div>
             <button id="open-menu" class="hamburger" aria-label="Abrir menu">
                 <i class="fas fa-bars"></i>
@@ -75,123 +86,133 @@
             <div class="container">
                 <h1>Transforme sua paixão por culinária em um negócio lucrativo.</h1>
                 <p>Acesse receitas exclusivas e descubra uma nova fonte de renda com nosso programa de afiliados.</p>
-                <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-up" class="btn btn-primary btn-large" target="_blank" rel="noopener noreferrer">Comece Agora</a>
+                <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-up"
+                    class="btn btn-primary btn-large" target="_blank" rel="noopener noreferrer">Comece Agora</a>
             </div>
         </section>
 
-        <section id="receitas" class="featured-recipes fade-in-section">
+        <section id="receitas" class="featured-recipes-preview fade-in-section">
             <div class="container">
                 <h2>Receitas em Destaque</h2>
-                <p class="section-subtitle">Explore algumas das nossas receitas mais populares, criadas para inspirar e encantar. Escolha uma categoria para começar.</p>
-                <div class="filters-toolbar">
-                    <div class="search-filter">
-                        <input type="text" id="search-input" placeholder="Buscar por nome ou ingrediente...">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <div class="dropdown-filter" id="category-filter">
-                        <button class="filter-btn">
-                            <span>Categorias</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="dropdown-content">
-                            <!-- As categorias serão inseridas aqui pelo JS -->
-                        </div>
-                    </div>
-                    <div class="dropdown-filter" id="tag-filter">
-                        <button class="filter-btn">
-                            <span>Tags</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="dropdown-content">
-                            <!-- As tags serão inseridas aqui pelo JS -->
-                        </div>
-                    </div>
-                    <button class="btn-clear-filters" id="clear-filters-btn" title="Limpar todos os filtros">
-                        <i class="fas fa-times"></i> Limpar
-                    </button>
+                <p class="section-subtitle">Explore algumas das nossas receitas mais populares, criadas para inspirar e
+                    encantar.</p>
+                <div class="recipe-grid-preview" id="featured-grid">
+                    <!-- Preenchido dinamicamente pelo JS -->
                 </div>
-
-                <div class="recipe-grid">
-                    <!-- As receitas serão inseridas aqui pelo JS -->
-                </div>
-
-                <div class="results-and-pagination">
-                    <div class="results-count" id="results-count">
-                        <!-- Contagem de resultados será inserida aqui -->
-                    </div>
-                    <div id="pagination-controls">
-                        <!-- Controles de paginação (botões) serão inseridos aqui -->
-                    </div>
-                    <div class="per-page-selector">
-                        <label for="limit-select">Itens por página:</label>
-                        <select id="limit-select">
-                            <option value="15">15</option>
-                            <option value="30">30</option>
-                            <option value="45">45</option>
-                        </select>
-                    </div>
+                <div class="text-center" style="margin-top: 50px;">
+                    <a href="receitas.html" class="btn btn-primary btn-large">Ver Todas as Receitas</a>
                 </div>
             </div>
         </section>
 
         <section id="afiliados" class="affiliate-program fade-in-section">
             <div class="container">
-                <div class="affiliate-content">
-                    <h2>Oportunidade de Ouro: Seja um Afiliado</h2>
-                    <p>Nossa plataforma não é só para compartilhar receitas exclusivas; ela também permite que você ganhe dinheiro e construa algo significativo se tornando um afiliado.</p>
+                <div class="affiliate-grid-layout">
+                    <div class="affiliate-intro-text">
+                        <h2>Oportunidade de Ouro: Seja um Afiliado</h2>
+                        <p>Nossa plataforma não é só para compartilhar receitas exclusivas; ela também permite que você
+                            ganhe dinheiro e construa algo significativo se tornando um afiliado.</p>
+                        <a href="#how-it-works" class="btn btn-primary">Veja Como Funciona</a>
+                    </div>
+                    <div class="results-grid-container">
+                        <div class="result-item">
+                            <i class="fas fa-users"></i>
+                            <div class="result-text">
+                                <h3 class="counter" data-target="1273">0</h3>
+                                <p>Chefs Empreendedores</p>
+                            </div>
+                        </div>
+                        <div class="result-item">
+                            <i class="fas fa-hand-holding-usd"></i>
+                            <div class="result-text">
+                                <h3>+ R$ <span class="counter" data-target="215450">0</span></h3>
+                                <p>em comissões distribuídas</p>
+                            </div>
+                        </div>
+                        <div class="result-item">
+                            <i class="fas fa-plus-circle"></i>
+                            <div class="result-text">
+                                <h3 class="counter" data-target="10">0</h3>
+                                <p>Novas Receitas todo Mês</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="results" class="results-section fade-in-section">
+        <section id="cta-kit" class="cta-kit-section fade-in-section">
             <div class="container">
-                <h2>Resultados do Nosso Programa</h2>
-                <p class="section-subtitle">Os números falam por si. Junte-se a uma comunidade crescente de afiliados que estão transformando paixão em lucro.</p>
-                <div class="results-grid">
-                    <div class="result-item">
-                        <h3 class="counter" data-target="1273">0</h3>
-                        <p>Afiliados ativos</p>
+                <div class="cta-kit-grid">
+                    <div class="cta-kit-image">
+                        <img src="static/images/receitas_capa.png" alt="Kit Completo Receita Milionária">
                     </div>
-                    <div class="result-item">
-                        <h3>R$ <span class="counter" data-target="215450">0</span></h3>
-                        <p>Comissões pagas</p>
-                    </div>
-                    <div class="result-item">
-                        <h3>R$ <span class="counter" data-target="14.95">0</span></h3>
-                        <p>Ticket médio</p>
+                    <div class="cta-kit-content">
+                        <h3>Kit Completo Receita Milionária</h3>
+                        <p class="offer-badge">Oferta por tempo limitado</p>
+                        <div class="pricing">
+                            <span class="old-price">De R$ 99,90</span>
+                            <span class="new-price">por R$ 29,90</span>
+                        </div>
+                        <ul class="features-list">
+                            <li><i class="fas fa-check-circle"></i> Acesso vitalício a todas as atualizações</li>
+                            <li><i class="fas fa-check-circle"></i> +100 receitas exclusivas</li>
+                            <li><i class="fas fa-check-circle"></i> Vídeo-aulas passo a passo</li>
+                            <li><i class="fas fa-check-circle"></i> Planilhas de custo e precificação</li>
+                            <li><i class="fas fa-check-circle"></i> Comunidade e suporte</li>
+                            <li><i class="fas fa-check-circle"></i> 2 bônus especiais</li>
+                        </ul>
+                        <a href="#" class="btn btn-primary btn-large cta-button">Garantir meu acesso por R$ 29,90</a>
+                        <p class="guarantee-text">
+                            <i class="fas fa-shield-alt"></i>
+                            Garantia incondicional de 7 dias. Não gostou? Devolvemos 100% do valor.
+                        </p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="how-it-works" class="how-it-works-section fade-in-section">
+        <section id="what-you-get" class="what-you-get-section fade-in-section">
             <div class="container">
-                <h2>Como Você Ganha</h2>
-                <p class="section-subtitle">Nosso sistema foi pensado para ser simples, transparente e vantajoso para você. Veja como funciona em 4 passos:</p>
-                <div class="how-it-works-grid">
-                    <div class="work-item">
-                        <div class="icon-wrapper"><i class="fas fa-link"></i></div>
-                        <h4>Link Exclusivo</h4>
-                        <p>Compartilhe seu link de afiliado para indicar as receitas e o kit de assinatura.</p>
+                <h2>O que você recebe ao entrar</h2>
+                <p class="section-subtitle">Tudo que você precisa para cozinhar bem e evoluir rápido.</p>
+                <div class="what-you-get-grid">
+                    <!-- Card 1 -->
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-book-open"></i></div>
+                        <h4>E-book com +100 receitas</h4>
+                        <p>Receitas testadas, com rendimento, tempo e variações.</p>
                     </div>
-                    <div class="work-item">
-                        <div class="icon-wrapper"><i class="fas fa-dollar-sign"></i></div>
-                        <h4>R$ 9,90/mês</h4>
-                        <p>Por cada assinatura indicada do plano de R$ 29,90.</p>
+                    <!-- Card 2 -->
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-video"></i></div>
+                        <h4>Vídeo-aulas técnicas</h4>
+                        <p>Cortes, cocções, mise en place e truques de chef.</p>
                     </div>
-                    <div class="work-item">
-                        <div class="icon-wrapper"><i class="fas fa-sync-alt"></i></div>
-                        <h4>Pagamento Recorrente</h4>
-                        <p>Receba a comissão todos os meses enquanto a assinatura do seu indicado estiver ativa.</p>
+                    <!-- Card 3 -->
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-calculator"></i></div>
+                        <h4>Planilhas de custo</h4>
+                        <p>Precifique, planeje compras e evite desperdícios.</p>
                     </div>
-                    <div class="work-item">
-                        <div class="icon-wrapper"><i class="fas fa-chart-line"></i></div>
-                        <h4>Painel de Controle</h4>
-                        <p>Acompanhe seus cliques, conversões e saldo para saque em um painel completo.</p>
+                    <!-- Card 4 -->
+                    <div class="feature-card bonus">
+                        <div class="feature-icon"><i class="fas fa-camera-retro"></i></div>
+                        <h4>Bônus • Fotografia</h4>
+                        <p>Composição e luz para fotos atraentes.</p>
                     </div>
-                </div>
-                <div class="text-center">
-                    <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-up" class="btn btn-primary btn-large" target="_blank" rel="noopener noreferrer">Quero Ser Afiliado</a>
+                    <!-- Card 5 -->
+                    <div class="feature-card bonus">
+                        <div class="feature-icon"><i class="fas fa-wine-glass-alt"></i></div>
+                        <h4>Bônus • Harmonização</h4>
+                        <p>Combinações simples e certeiras.</p>
+                    </div>
+                    <!-- Card 6 -->
+                    <div class="feature-card">
+                        <div class="feature-icon"><i class="fas fa-users-cog"></i></div>
+                        <h4>Comunidade & suporte</h4>
+                        <p>Dicas quinzenais e atualizações do material.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -199,27 +220,34 @@
         <section id="testimonials" class="testimonials-section fade-in-section">
             <div class="container">
                 <h2>O Que Nossos Afiliados Dizem</h2>
-                <p class="section-subtitle">A confiança de nossos parceiros é nosso maior ativo. Veja o que eles têm a dizer sobre a experiência com a plataforma.</p>
+                <p class="section-subtitle">A confiança de nossos parceiros é nosso maior ativo. Veja o que eles têm a
+                    dizer sobre a experiência com a plataforma.</p>
                 <div class="testimonials-grid">
                     <div class="testimonial-card">
                         <div class="stars">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i>
                         </div>
-                        <p>"A plataforma é incrível! Finalmente consegui uma renda extra fazendo o que amo, que é cozinhar e compartilhar. O painel de controle é super fácil de usar."</p>
+                        <p>"A plataforma é incrível! Finalmente consegui uma renda extra fazendo o que amo, que é
+                            cozinhar e compartilhar. O painel de controle é super fácil de usar."</p>
                         <h4>- Maria S., São Paulo</h4>
                     </div>
                     <div class="testimonial-card">
                         <div class="stars">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i>
                         </div>
-                        <p>"Nunca pensei que poderia ganhar dinheiro com meu hobby. As comissões recorrentes são a melhor parte. Todo mês tenho um dinheiro extra garantido."</p>
+                        <p>"Nunca pensei que poderia ganhar dinheiro com meu hobby. As comissões recorrentes são a
+                            melhor parte. Todo mês tenho um dinheiro extra garantido."</p>
                         <h4>- João L., Rio de Janeiro</h4>
                     </div>
                     <div class="testimonial-card">
                         <div class="stars">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i>
                         </div>
-                        <p>"O Receitas Milionárias uniu o útil ao agradável. Tenho acesso a receitas maravilhosas e ainda sou paga para indicar para minhas amigas. Recomendo!"</p>
+                        <p>"O Receitas Milionárias uniu o útil ao agradável. Tenho acesso a receitas maravilhosas e
+                            ainda sou paga para indicar para minhas amigas. Recomendo!"</p>
                         <h4>- Ana P., Belo Horizonte</h4>
                     </div>
                 </div>
@@ -229,7 +257,8 @@
         <section id="faq" class="faq-section fade-in-section">
             <div class="container">
                 <h2>Dúvidas Frequentes</h2>
-                <p class="section-subtitle">Tudo o que você precisa saber para começar a lucrar com sua paixão. Se sua dúvida não estiver aqui, entre em contato conosco.</p>
+                <p class="section-subtitle">Tudo o que você precisa saber para começar a lucrar com sua paixão. Se sua
+                    dúvida não estiver aqui, entre em contato conosco.</p>
                 <div class="faq-container">
                     <div class="faq-item">
                         <button class="faq-question">
@@ -237,7 +266,10 @@
                             <i class="fas fa-chevron-down"></i>
                         </button>
                         <div class="faq-answer">
-                            <p>É simples! Ao se inscrever no nosso plano, você recebe um link exclusivo. Para cada nova assinatura realizada através do seu link, você ganha R$ 9,90 por mês enquanto a assinatura do seu indicado permanecer ativa. Você pode acompanhar seus ganhos em um painel de controle completo.</p>
+                            <p>É simples! Ao se inscrever no nosso plano, você recebe um link exclusivo. Para cada nova
+                                assinatura realizada através do seu link, você ganha R$ 9,90 por mês enquanto a
+                                assinatura do seu indicado permanecer ativa. Você pode acompanhar seus ganhos em um
+                                painel de controle completo.</p>
                         </div>
                     </div>
                     <div class="faq-item">
@@ -246,7 +278,9 @@
                             <i class="fas fa-chevron-down"></i>
                         </button>
                         <div class="faq-answer">
-                            <p>Sim, o programa de afiliados é um benefício exclusivo para os assinantes do plano de R$ 29,90/mês. Com ele, você tem acesso a todas as receitas premium e à oportunidade de monetizar sua paixão pela culinária.</p>
+                            <p>Sim, o programa de afiliados é um benefício exclusivo para os assinantes do plano de R$
+                                29,90/mês. Com ele, você tem acesso a todas as receitas premium e à oportunidade de
+                                monetizar sua paixão pela culinária.</p>
                         </div>
                     </div>
                     <div class="faq-item">
@@ -255,7 +289,9 @@
                             <i class="fas fa-chevron-down"></i>
                         </button>
                         <div class="faq-answer">
-                            <p>Os pagamentos são processados mensalmente através da nossa plataforma. Assim que você atingir o valor mínimo para saque, poderá solicitar a transferência para sua conta bancária cadastrada. Tudo de forma transparente e segura.</p>
+                            <p>Os pagamentos são processados mensalmente através da nossa plataforma. Assim que você
+                                atingir o valor mínimo para saque, poderá solicitar a transferência para sua conta
+                                bancária cadastrada. Tudo de forma transparente e segura.</p>
                         </div>
                     </div>
                 </div>
@@ -265,45 +301,95 @@
         <section id="calculadora" class="earnings-calculator fade-in-section">
             <div class="container">
                 <h2>Calculadora de Ganhos</h2>
-                <p class="section-subtitle">Simule seu ganho mensal recorrente com base no número de assinaturas ativas que você indicar. Arraste a barra e veja seu potencial de lucro.</p>
-                <div class="calculator-enhanced">
-                    <div class="calculator-slider">
-                        <label for="referrals-input">Assinaturas ativas:</label>
-                        <div class="calculator-inputs">
-                            <input type="number" id="referrals-input" min="1" value="30" aria-label="Número de assinaturas ativas">
-                            <input type="range" id="referrals-slider" min="1" max="500" value="30" aria-label="Seletor de assinaturas ativas">
+                <p class="section-subtitle">
+                    Simule seu ganho mensal recorrente com base no número de assinaturas ativas que você indicar.
+                    Arraste a barra e veja seu potencial de lucro.
+                </p>
+
+                <!-- GRID: calculadora + infos -->
+                <div class="calc-section-grid">
+                    <!-- Coluna: Calculadora -->
+                    <div class="calc-col">
+                        <div class="calculator-enhanced">
+                            <div class="calculator-slider">
+                                <div class="calculator-input-group">
+                                    <label for="referrals-input">Assinaturas ativas:</label>
+                                    <input type="number" id="referrals-input" min="1" value="30"
+                                        aria-label="Número de assinaturas ativas">
+                                </div>
+                                <input type="range" id="referrals-slider" min="1" max="2000" value="30"
+                                    aria-label="Seletor de assinaturas ativas">
+                            </div>
+
+                            <div class="calculator-results">
+                                <div class="result-box">
+                                    <p>Por indicado</p>
+                                    <span>R$ 9,90/mês</span>
+                                </div>
+                                <div class="result-box">
+                                    <p>Ganhos mensais</p>
+                                    <span id="monthly-earnings">R$ 297,00</span>
+                                </div>
+                                <div class="result-box">
+                                    <p>Ganhos anuais</p>
+                                    <span id="annual-earnings">R$ 3.564,00</span>
+                                </div>
+                            </div>
+
+                            <div class="calculator-footer">
+                                <p>Preço do plano: R$ 29,90/mês</p>
+                                <p class="disclaimer">*Valores estimados. Recebimento enquanto a assinatura permanecer
+                                    ativa.</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="calculator-results">
-                        <div class="result-box">
-                            <p>Por indicado</p>
-                            <span>R$ 9,90/mês</span>
+
+                    <!-- Coluna: Informações ao lado -->
+                    <aside class="info-card">
+                        <h3>Como você ganha</h3>
+                        <p class="info-sub">
+                            Indique o plano de <span class="money">R$ 29,90</span> e receba
+                            <span class="money">R$ 9,90/mês</span> por assinatura ativa indicada.
+                        </p>
+
+                        <ul class="info-list">
+                            <li><strong>Link exclusivo</strong> para compartilhar receitas e o kit.</li>
+                            <li><strong>R$ 9,90/mês</strong> por assinatura indicada do plano <strong>R$ 29,90</strong>.
+                            </li>
+                            <li><strong>Pagamento recorrente</strong> enquanto a assinatura estiver ativa.</li>
+                            <li>Painel com cliques, conversões e saldo para saque.</li>
+                        </ul>
+
+                        <a href="#afiliados" class="info-link">
+                            <i class="fas fa-link"></i> Quero ser afiliado
+                        </a>
+
+                        <div class="info-chips">
+                            <span class="info-badge">Recorrente</span>
+                            <span class="info-badge">Link exclusivo</span>
+                            <span class="info-badge">Saque seguro</span>
                         </div>
-                        <div class="result-box">
-                            <p>Ganhos mensais</p>
-                            <span id="monthly-earnings">R$ 297,00</span>
-                        </div>
-                        <div class="result-box">
-                            <p>Ganhos anuais</p>
-                            <span id="annual-earnings">R$ 3.564,00</span>
-                        </div>
-                    </div>
-                    <div class="calculator-footer">
-                        <p>Preço do plano: R$ 29,90/mês</p>
-                        <p class="disclaimer">*Valores estimados. Recebimento enquanto a assinatura permanecer ativa.</p>
-                    </div>
+                    </aside>
                 </div>
+                <!-- /GRID -->
             </div>
         </section>
+
 
         <section id="sobre" class="about-me fade-in-section">
             <div class="container">
                 <img src="static/images/jefferson-pereira.png" alt="Foto de Jefferson Pereira" class="profile-pic">
                 <div class="about-text">
                     <h2>Quem Sou Eu</h2>
-                    <p>Sou Jefferson Pereira, sempre sonhei em trabalhar com algo que pudesse ajudar as pessoas, depois de um bom tempo estudando o Mercado Digital, tive a grandiosa ideia de fazer essa Plataforma de Culinária com Afiliados, eu falo que foi Deus que me deu essa luz, onde posso trabalhar e ao mesmo tempo ajudar pessoas que estejam procurando uma Renda Extra e até mesmo aprender mais sobre Culinária.</p>
+                    <p>Sou Jefferson Pereira, sempre sonhei em trabalhar com algo que pudesse ajudar as pessoas, depois
+                        de um bom tempo estudando o Mercado Digital, tive a grandiosa ideia de fazer essa Plataforma de
+                        Culinária com Afiliados, eu falo que foi Deus que me deu essa luz, onde posso trabalhar e ao
+                        mesmo tempo ajudar pessoas que estejam procurando uma Renda Extra e até mesmo aprender mais
+                        sobre Culinária.</p>
                     <p><strong>Sonhe Para Viver - Viva Para Sonhar</strong></p>
-                    <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-up" class="btn btn-primary btn-large" target="_blank" rel="noopener noreferrer">Faça Parte Deste Sonho</a>
+                    <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-up"
+                        class="btn btn-primary btn-large" target="_blank" rel="noopener noreferrer">Faça Parte Deste
+                        Sonho</a>
                 </div>
             </div>
         </section>
@@ -342,4 +428,5 @@
 
     <script src="static/js/script.js"></script>
 </body>
+
 </html>

@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Receita - Receitas Milionárias</title>
+    <title>Receitas - Receitas Milionárias</title>
     
-    <meta name="description" content="Aprenda a fazer um delicioso e clássico Macarrão ao Pesto. Receita rápida e cheia de sabor para o seu dia a dia.">
+    <meta name="description" content="Explore todas as receitas da plataforma Receitas Milionárias. Encontre pratos deliciosos, filtre por categoria e tags.">
+    <meta name="keywords" content="receitas, culinária, gastronomia, bolo, salada, massa">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="static/css/style.css">
-    <link rel="stylesheet" href="static/css/receita.css">
     <link rel="icon" href="static/images/logo.png" type="image/png">
 </head>
 <body>
@@ -28,7 +28,7 @@
                 <button id="close-menu" class="close-menu"><i class="fas fa-times"></i></button>
             </div>
             <nav class="overlay-nav">
-                <a href="index.html#receitas">Receitas</a>
+                <a href="receitas.html">Receitas</a>
                 <a href="index.html#afiliados">Seja Afiliado</a>
                 <a href="index.html#testimonials">Depoimentos</a>
                 <a href="index.html#faq">FAQ</a>
@@ -36,18 +36,9 @@
             <div class="menu-footer">
                 <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-up" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Cadastre-se</a>
                 <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-in" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">Login</a>
-                <div class="menu-social">
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="Youtube"><i class="fab fa-youtube"></i></a>
-                </div>
             </div>
         </div>
     </div>
-
-    <a href="https://wa.me/5515997575655" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco no WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
 
     <header class="navbar">
         <div class="container">
@@ -55,7 +46,7 @@
                 <img src="static/images/logo.png" alt="Receitas Milionárias Logo">
             </a>
             <nav class="nav-links">
-                <a href="index.html#receitas">Receitas</a>
+                <a href="receitas.html">Receitas</a>
                 <a href="index.html#afiliados">Seja Afiliado</a>
                 <a href="index.html#testimonials">Depoimentos</a>
                 <a href="index.html#faq">FAQ</a>
@@ -70,70 +61,58 @@
         </div>
     </header>
 
-    <main class="recipe-detail-page">
-        <section id="recipe-hero" class="recipe-hero">
+    <main>
+        <section id="receitas" class="featured-recipes fade-in-section" style="padding-top: 80px;">
             <div class="container">
-                <div id="recipe-breadcrumbs" class="breadcrumbs"></div>
+                <h2>Nossas Receitas</h2>
+                <p class="section-subtitle">Explore um universo de sabores. Use os filtros para encontrar o prato perfeito para qualquer ocasião.</p>
+                <div class="filters-toolbar">
+                    <div class="search-filter">
+                        <input type="text" id="search-input" placeholder="Buscar por nome ou ingrediente...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="dropdown-filter" id="category-filter">
+                        <button class="filter-btn">
+                            <span>Categorias</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-content">
+                            <!-- As categorias serão inseridas aqui pelo JS -->
+                        </div>
+                    </div>
+                    <div class="dropdown-filter" id="tag-filter">
+                        <button class="filter-btn">
+                            <span>Tags</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-content">
+                            <!-- As tags serão inseridas aqui pelo JS -->
+                        </div>
+                    </div>
+                    <button class="btn-clear-filters" id="clear-filters-btn" title="Limpar todos os filtros">
+                        <i class="fas fa-times"></i> Limpar
+                    </button>
                 </div>
-        </section>
 
-        <section class="recipe-info-bar">
-            <div class="container">
-                <div class="info-card">
-                    <div class="info-item" id="recipe-prep-time">
-                        <i class="fas fa-clock"></i>
-                        <span><strong>Preparo:</strong> -- min</span>
-                    </div>
-                    <div class="info-item" id="recipe-difficulty">
-                        <i class="fas fa-utensils"></i>
-                        <span><strong>Dificuldade:</strong> --</span>
-                    </div>
-                    <div class="info-item" id="recipe-calories">
-                        <i class="fas fa-fire-alt"></i>
-                        <span><strong>Calorias:</strong> -- kcal</span>
-                    </div>
-                    <div class="info-item" id="recipe-creator">
-                        <i class="fas fa-user"></i>
-                        <span><strong>Criador:</strong> --</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="recipe-intro">
-            <div class="container">
-                <div class="intro-layout">
-                    <div class="intro-image-wrapper">
-                        <img id="intro-main-image" src="static/images/placeholder_pudim.jpg" alt="Imagem principal da receita" loading="eager">
-                    </div>
-                    <div class="intro-content">
-                        <h1 id="recipe-title">Carregando...</h1>
-                        <p id="recipe-summary"></p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <div class="section-divider container"></div>
-
-        <section class="recipe-content">
-            <div class="container">
-                <div id="recipe-ingredients-list" class="ingredients-card">
-                    <h2><i class="fas fa-carrot"></i> Ingredientes</h2>
-                </div>
-                <div id="recipe-instructions-list" class="instructions-card">
-                    <h2><i class="fas fa-book-open"></i> Modo de Preparo</h2>
-                </div>
-            </div>
-        </section>
-
-        <section class="recommended-recipes fade-in-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2><i class="fas fa-star"></i> Você também pode gostar</h2>
-                    <p class="section-subtitle">Gostou desta receita? Talvez você também se interesse por estas outras opções deliciosas.</p>
-                </div>
                 <div class="recipe-grid">
+                    <!-- As receitas serão inseridas aqui pelo JS -->
+                </div>
+
+                <div class="results-and-pagination">
+                    <div class="results-count" id="results-count">
+                        <!-- Contagem de resultados será inserida aqui -->
+                    </div>
+                    <div id="pagination-controls">
+                        <!-- Controles de paginação (botões) serão inseridos aqui -->
+                    </div>
+                    <div class="per-page-selector">
+                        <label for="limit-select">Itens por página:</label>
+                        <select id="limit-select">
+                            <option value="15">15</option>
+                            <option value="30">30</option>
+                            <option value="45">45</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </section>
@@ -149,9 +128,9 @@
                 <div class="footer-links">
                     <h4>Navegação</h4>
                     <ul>
-                        <li><a href="index.html#receitas">Receitas</a></li>
+                        <li><a href="receitas.html">Receitas</a></li>
                         <li><a href="index.html#afiliados">Seja Afiliado</a></li>
-                        <li><a href="index.html#testimonials">Depoimentos</a></li>
+                        <li><a href="index.html#testimonials">Depoimentos</a>
                         <li><a href="index.html#faq">FAQ</a></li>
                         <li><a href="index.html#sobre">Quem Sou Eu</a></li>
                     </ul>
@@ -164,12 +143,11 @@
                 </div>
             </div>
         </div>
-         <div class="footer-bottom">
+        <div class="footer-bottom">
             <p>&copy; 2025 Receitas Milionárias. Todos os direitos reservados.</p>
         </div>
     </footer>
 
     <script src="static/js/script.js"></script>
-    <script src="static/js/receita.js"></script>
 </body>
 </html>
