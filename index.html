@@ -83,115 +83,52 @@
             <div class="container">
                 <h2>Receitas em Destaque</h2>
                 <p class="section-subtitle">Explore algumas das nossas receitas mais populares, criadas para inspirar e encantar. Escolha uma categoria para começar.</p>
-                <div class="filter-buttons">
-                    <button class="filter-btn active" data-filter="all">Todas</button>
-                    <button class="filter-btn" data-filter="massas">Massas</button>
-                    <button class="filter-btn" data-filter="saladas">Saladas</button>
-                    <button class="filter-btn" data-filter="sobremesas">Sobremesas</button>
-                    <button class="filter-btn" data-filter="carnes">Carnes</button>
+                <div class="filters-toolbar">
+                    <div class="search-filter">
+                        <input type="text" id="search-input" placeholder="Buscar por nome ou ingrediente...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="dropdown-filter" id="category-filter">
+                        <button class="filter-btn">
+                            <span>Categorias</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-content">
+                            <!-- As categorias serão inseridas aqui pelo JS -->
+                        </div>
+                    </div>
+                    <div class="dropdown-filter" id="tag-filter">
+                        <button class="filter-btn">
+                            <span>Tags</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="dropdown-content">
+                            <!-- As tags serão inseridas aqui pelo JS -->
+                        </div>
+                    </div>
+                    <button class="btn-clear-filters" id="clear-filters-btn" title="Limpar todos os filtros">
+                        <i class="fas fa-times"></i> Limpar
+                    </button>
                 </div>
+
                 <div class="recipe-grid">
-                    <div class="recipe-item" data-category="massas">
-                        <a href="receita.html" class="recipe-link">
-                            <article class="recipe-card">
-                                <div class="recipe-card-img-container">
-                                    <img src="static/images/macarrao-pesto.jpg" alt="Macarrão ao Pesto">
-                                </div>
-                                <div class="recipe-card-content">
-                                    <h3>Macarrão ao Pesto</h3>
-                                    <p>Uma receita clássica italiana, rápida, cheia de sabor e perfeita para um jantar especial durante a semana.</p>
-                                </div>
-                                <div class="recipe-card-footer">
-                                    <span><i class="fas fa-clock"></i> 25 min</span>
-                                    <span><i class="fas fa-utensils"></i> Fácil</span>
-                                </div>
-                            </article>
-                        </a>
+                    <!-- As receitas serão inseridas aqui pelo JS -->
+                </div>
+
+                <div class="results-and-pagination">
+                    <div class="results-count" id="results-count">
+                        <!-- Contagem de resultados será inserida aqui -->
                     </div>
-                    <div class="recipe-item" data-category="carnes">
-                         <a href="receita.html" class="recipe-link">
-                            <article class="recipe-card">
-                                <div class="recipe-card-img-container">
-                                    <img src="static/images/frango-grelhado.jpg" alt="Frango Grelhado com Legumes">
-                                </div>
-                                <div class="recipe-card-content">
-                                    <h3>Frango Grelhado</h3>
-                                    <p>Uma opção saudável, suculenta e deliciosa para uma refeição leve, acompanhada de legumes frescos.</p>
-                                </div>
-                                <div class="recipe-card-footer">
-                                    <span><i class="fas fa-clock"></i> 30 min</span>
-                                    <span><i class="fas fa-utensils"></i> Fácil</span>
-                                </div>
-                            </article>
-                        </a>
+                    <div id="pagination-controls">
+                        <!-- Controles de paginação (botões) serão inseridos aqui -->
                     </div>
-                    <div class="recipe-item" data-category="saladas">
-                        <a href="receita.html" class="recipe-link">
-                            <article class="recipe-card">
-                                <div class="recipe-card-img-container">
-                                    <img src="static/images/salada-verao.jpg" alt="Salada de Verão">
-                                </div>
-                                <div class="recipe-card-content">
-                                    <h3>Salada de Verão</h3>
-                                    <p>Refrescante e colorida, a pedida ideal para os dias quentes, combinando frutas e folhas verdes.</p>
-                                </div>
-                                <div class="recipe-card-footer">
-                                    <span><i class="fas fa-clock"></i> 15 min</span>
-                                    <span><i class="fas fa-utensils"></i> Fácil</span>
-                                </div>
-                            </article>
-                        </a>
-                    </div>
-                    <div class="recipe-item" data-category="sobremesas">
-                        <a href="receita.html" class="recipe-link">
-                            <article class="recipe-card">
-                                <div class="recipe-card-img-container">
-                                    <img src="static/images/torta-amendoas.jpg" alt="Torta de Amêndoas">
-                                </div>
-                                <div class="recipe-card-content">
-                                    <h3>Torta de Amêndoas</h3>
-                                    <p>Uma sobremesa elegante e irresistível para ocasiões especiais, com uma textura crocante e macia.</p>
-                                </div>
-                                <div class="recipe-card-footer">
-                                    <span><i class="fas fa-clock"></i> 60 min</span>
-                                    <span><i class="fas fa-utensils"></i> Médio</span>
-                                </div>
-                            </article>
-                        </a>
-                    </div>
-                     <div class="recipe-item" data-category="saladas">
-                        <a href="receita.html" class="recipe-link">
-                            <article class="recipe-card">
-                                <div class="recipe-card-img-container">
-                                     <img src="static/images/salada-verao.jpg" alt="Salada Caesar">
-                                </div>
-                                <div class="recipe-card-content">
-                                    <h3>Salada Caesar</h3>
-                                    <p>A clássica salada que agrada a todos os paladares, com seu molho cremoso e croutons crocantes.</p>
-                                </div>
-                                <div class="recipe-card-footer">
-                                    <span><i class="fas fa-clock"></i> 20 min</span>
-                                    <span><i class="fas fa-utensils"></i> Fácil</span>
-                                </div>
-                            </article>
-                        </a>
-                    </div>
-                    <div class="recipe-item" data-category="massas">
-                        <a href="receita.html" class="recipe-link">
-                            <article class="recipe-card">
-                                <div class="recipe-card-img-container">
-                                    <img src="static/images/macarrao-pesto.jpg" alt="Lasanha à Bolonhesa">
-                                </div>
-                                <div class="recipe-card-content">
-                                    <h3>Lasanha à Bolonhesa</h3>
-                                    <p>Um prato reconfortante e cheio de tradição para reunir a família em volta da mesa.</p>
-                                </div>
-                                <div class="recipe-card-footer">
-                                    <span><i class="fas fa-clock"></i> 90 min</span>
-                                    <span><i class="fas fa-utensils"></i> Médio</span>
-                                </div>
-                            </article>
-                        </a>
+                    <div class="per-page-selector">
+                        <label for="limit-select">Itens por página:</label>
+                        <select id="limit-select">
+                            <option value="15">15</option>
+                            <option value="30">30</option>
+                            <option value="45">45</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -331,8 +268,11 @@
                 <p class="section-subtitle">Simule seu ganho mensal recorrente com base no número de assinaturas ativas que você indicar. Arraste a barra e veja seu potencial de lucro.</p>
                 <div class="calculator-enhanced">
                     <div class="calculator-slider">
-                        <label for="referrals">Assinaturas ativas: <span id="referrals-count">30</span></label>
-                        <input type="range" id="referrals" name="referrals" min="1" max="500" value="30">
+                        <label for="referrals-input">Assinaturas ativas:</label>
+                        <div class="calculator-inputs">
+                            <input type="number" id="referrals-input" min="1" value="30" aria-label="Número de assinaturas ativas">
+                            <input type="range" id="referrals-slider" min="1" max="500" value="30" aria-label="Seletor de assinaturas ativas">
+                        </div>
                     </div>
                     <div class="calculator-results">
                         <div class="result-box">
@@ -361,8 +301,8 @@
                 <img src="static/images/jefferson-pereira.png" alt="Foto de Jefferson Pereira" class="profile-pic">
                 <div class="about-text">
                     <h2>Quem Sou Eu</h2>
-                    <p>Sou Jefferson Pereira, um entusiasta da culinária com um sonho: ter meu próprio negócio no mundo da comida. Mesmo vindo de outras áreas, minha paixão me levou a criar a 'Receitas Milionárias'.</p>
-                    <p>Minha plataforma não é só para compartilhar receitas exclusivas; ela também permite que as pessoas se tornem afiliadas, ganhem dinheiro e construam algo significativo. É a realização do meu sonho de unir gastronomia e oportunidade.</p>
+                    <p>Sou Jefferson Pereira, sempre sonhei em trabalhar com algo que pudesse ajudar as pessoas, depois de um bom tempo estudando o Mercado Digital, tive a grandiosa ideia de fazer essa Plataforma de Culinária com Afiliados, eu falo que foi Deus que me deu essa luz, onde posso trabalhar e ao mesmo tempo ajudar pessoas que estejam procurando uma Renda Extra e até mesmo aprender mais sobre Culinária.</p>
+                    <p><strong>Sonhe Para Viver - Viva Para Sonhar</strong></p>
                     <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-up" class="btn btn-primary btn-large" target="_blank" rel="noopener noreferrer">Faça Parte Deste Sonho</a>
                 </div>
             </div>

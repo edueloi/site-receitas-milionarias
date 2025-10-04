@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Receita: Macarrão ao Pesto - Receitas Milionárias</title>
+    <title>Receita - Receitas Milionárias</title>
     
     <meta name="description" content="Aprenda a fazer um delicioso e clássico Macarrão ao Pesto. Receita rápida e cheia de sabor para o seu dia a dia.">
 
@@ -70,60 +70,43 @@
     </header>
 
     <main class="recipe-detail-page">
-        <section class="recipe-hero" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('static/images/macarrao-pesto.jpg');">
+        <section id="recipe-hero" class="recipe-hero">
             <div class="container">
-                <h1>Macarrão ao Pesto</h1>
-                <p>Uma receita clássica italiana, rápida e cheia de sabor para o seu dia a dia.</p>
+                <h1 id="recipe-title">Carregando...</h1>
+                <p id="recipe-summary"></p>
             </div>
         </section>
 
         <section class="recipe-info-bar">
             <div class="container">
-                <div class="info-item">
+                <div class="info-item" id="recipe-prep-time">
                     <i class="fas fa-clock"></i>
-                    <span><strong>Preparo:</strong> 25 min</span>
+                    <span><strong>Preparo:</strong> -- min</span>
                 </div>
-                <div class="info-item">
+                <div class="info-item" id="recipe-difficulty">
                     <i class="fas fa-utensils"></i>
-                    <span><strong>Dificuldade:</strong> Fácil</span>
+                    <span><strong>Dificuldade:</strong> --</span>
                 </div>
-                <div class="info-item">
+                <div class="info-item" id="recipe-calories">
                     <i class="fas fa-fire-alt"></i>
-                    <span><strong>Calorias:</strong> 550 kcal</span>
+                    <span><strong>Calorias:</strong> -- kcal</span>
                 </div>
-                <div class="info-item">
+                <div class="info-item" id="recipe-creator">
                     <i class="fas fa-user"></i>
-                    <span><strong>Criador:</strong> Jefferson P.</span>
+                    <span><strong>Criador:</strong> --</span>
                 </div>
             </div>
         </section>
 
         <section class="recipe-content">
             <div class="container">
-                <div class="ingredients-card">
+                <div id="recipe-ingredients-list" class="ingredients-card">
                     <h2><i class="fas fa-carrot"></i> Ingredientes</h2>
-                    <ul>
-                        <li>400g de macarrão (espaguete ou penne)</li>
-                        <li>2 xícaras de folhas de manjericão fresco</li>
-                        <li>1/2 xícara de queijo parmesão ralado</li>
-                        <li>1/4 xícara de pinoli ou nozes</li>
-                        <li>2 dentes de alho amassados</li>
-                        <li>1/2 xícara de azeite de oliva extra virgem</li>
-                        <li>Sal e pimenta do reino a gosto</li>
-                        <li>Tomates cereja para decorar (opcional)</li>
-                    </ul>
+                    <!-- Ingredientes serão inseridos aqui -->
                 </div>
-                <div class="instructions-card">
+                <div id="recipe-instructions-list" class="instructions-card">
                     <h2><i class="fas fa-book-open"></i> Modo de Preparo</h2>
-                    <ol>
-                        <li>Cozinhe o macarrão em água salgada fervente conforme as instruções da embalagem até ficar 'al dente'.</li>
-                        <li>Enquanto o macarrão cozinha, prepare o molho pesto. Em um processador ou liquidificador, junte o manjericão, o parmesão, o pinoli (ou nozes) e o alho.</li>
-                        <li>Pulse algumas vezes até triturar. Com o processador ligado, adicione o azeite em fio, até obter uma mistura cremosa e homogênea.</li>
-                        <li>Tempere o molho com sal e pimenta do reino a gosto.</li>
-                        <li>Escorra o macarrão, reservando uma concha da água do cozimento.</li>
-                        <li>Em uma tigela grande, misture o macarrão cozido com o molho pesto. Se o molho estiver muito espesso, adicione um pouco da água do cozimento reservada para diluir.</li>
-                        <li>Sirva imediatamente, decorado com tomates cereja e um pouco mais de queijo parmesão por cima.</li>
-                    </ol>
+                    <!-- Passos serão inseridos aqui -->
                 </div>
             </div>
         </section>
@@ -133,57 +116,7 @@
                 <h2>Você também pode gostar</h2>
                 <p class="section-subtitle">Gostou desta receita? Talvez você também se interesse por estas outras opções deliciosas do nosso acervo.</p>
                 <div class="recipe-grid">
-                    <div class="recipe-item" data-category="carnes">
-                        <a href="#" class="recipe-link">
-                           <article class="recipe-card">
-                               <div class="recipe-card-img-container">
-                                   <img src="static/images/frango-grelhado.jpg" alt="Frango Grelhado com Legumes">
-                               </div>
-                               <div class="recipe-card-content">
-                                   <h3>Frango Grelhado</h3>
-                                   <p>Uma opção saudável e deliciosa para uma refeição leve.</p>
-                               </div>
-                               <div class="recipe-card-footer">
-                                    <span><i class="fas fa-clock"></i> 30 min</span>
-                                    <span><i class="fas fa-utensils"></i> Fácil</span>
-                                </div>
-                           </article>
-                       </a>
-                   </div>
-                   <div class="recipe-item" data-category="saladas">
-                       <a href="#" class="recipe-link">
-                           <article class="recipe-card">
-                               <div class="recipe-card-img-container">
-                                   <img src="static/images/salada-verao.jpg" alt="Salada de Verão">
-                               </div>
-                               <div class="recipe-card-content">
-                                   <h3>Salada de Verão</h3>
-                                   <p>Refrescante e colorida, a pedida ideal para os dias quentes.</p>
-                               </div>
-                               <div class="recipe-card-footer">
-                                    <span><i class="fas fa-clock"></i> 15 min</span>
-                                    <span><i class="fas fa-utensils"></i> Fácil</span>
-                                </div>
-                           </article>
-                       </a>
-                   </div>
-                   <div class="recipe-item" data-category="sobremesas">
-                       <a href="#" class="recipe-link">
-                           <article class="recipe-card">
-                               <div class="recipe-card-img-container">
-                                   <img src="static/images/torta-amendoas.jpg" alt="Torta de Amêndoas">
-                               </div>
-                               <div class="recipe-card-content">
-                                   <h3>Torta de Amêndoas</h3>
-                                   <p>Uma sobremesa elegante e irresistível para ocasiões especiais.</p>
-                               </div>
-                               <div class="recipe-card-footer">
-                                    <span><i class="fas fa-clock"></i> 60 min</span>
-                                    <span><i class="fas fa-utensils"></i> Médio</span>
-                                </div>
-                           </article>
-                       </a>
-                   </div>
+                    <!-- Receitas recomendadas podem ser inseridas aqui no futuro -->
                 </div>
             </div>
         </section>
