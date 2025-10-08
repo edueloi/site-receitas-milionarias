@@ -42,6 +42,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const getCategoryId = (r) => r?.categoria?.id ?? r?.categoria_id ?? r?.categoriaId ?? null;
 
+
+
+  // ======================================================
+  // Toast Notifications
+  // ======================================================
+  function showToast(message, type = 'success') {
+    const toastId = 'toast-notification';
+    let toast = document.getElementById(toastId);
+    if (toast) toast.remove();
+
+    toast = document.createElement('div');
+    toast.id = toastId;
+    toast.className = `toast-notification ${type}`;
+    toast.setAttribute('role', 'alert');
+    toast.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${message}`;
+    document.body.appendChild(toast);
+
+    setTimeout(() => toast.classList.add('visible'), 10);
+    setTimeout(() => {
+      toast.classList.remove('visible');
+      setTimeout(() => toast.remove(), 500);
+    }, 4000);
+  }
+
   // ======================================================
   // Carrossel (galeria) com animação
   // ======================================================
@@ -266,6 +290,29 @@ document.addEventListener('DOMContentLoaded', () => {
       introMainImageEl.alt = recipe.titulo;
       recipeTitleEl.textContent = recipe.titulo;
       recipeSummaryEl.textContent = recipe.resumo ?? '';
+
+      // Adiciona o botão de compartilhar
+      const shareContainer = document.getElementById('share-button-container');
+      if (shareContainer) {
+        const shareButton = document.createElement('button');
+        shareButton.className = 'share-button';
+        shareButton.innerHTML = '<i class="fas fa-share-alt"></i> Compartilhar';
+        shareButton.setAttribute('aria-label', 'Compartilhar esta receita');
+        shareButton.onclick = () => {
+          const affiliateCode = localStorage.getItem('rm_afiliado');
+          let shareUrl = `${window.location.origin}${window.location.pathname}?id=${recipe.id}`;
+          if (affiliateCode) {
+            shareUrl += `&ref=${affiliateCode}`;
+          }
+          navigator.clipboard.writeText(shareUrl).then(() => {
+            showToast('Link de compartilhamento copiado!');
+          }).catch(err => {
+            console.error('Erro ao copiar o link:', err);
+            showToast('Não foi possível copiar o link.', 'error');
+          });
+        };
+        shareContainer.appendChild(shareButton);
+      }
 
       const prepEl    = document.getElementById('recipe-prep-time');
       const difEl     = document.getElementById('recipe-difficulty');

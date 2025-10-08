@@ -40,6 +40,64 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const getCategoryId = (r) => r?.categoria?.id ?? r?.categoria_id ?? r?.categoriaId ?? null;
 
+(function() {
+  const STORAGE_KEY = 'rm_afiliado';
+
+  function getRefFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('ref');
+  }
+
+  function saveAffiliate(code) {
+    if (!code) return;
+    try {
+      localStorage.setItem(STORAGE_KEY, code);
+      console.log(`[AFILIADO] Código salvo: ${code}`);
+    } catch (e) {
+      console.error('[AFILIADO] Erro ao salvar no localStorage:', e);
+    }
+  }
+
+  function getAffiliate() {
+    return localStorage.getItem(STORAGE_KEY);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Captura o 'ref' da URL e salva no localStorage
+    const refFromUrl = getRefFromUrl();
+    const currentRef = getAffiliate();
+    if (refFromUrl && refFromUrl !== currentRef) {
+      saveAffiliate(refFromUrl);
+    }
+    const finalRef = getAffiliate(); // Pega o código mais atual
+    console.log('[AFILIADO] Código atual:', finalRef);
+
+    // Se houver um código de afiliado, modifica os links de cadastro
+    if (finalRef) {
+      const signupLinks = document.querySelectorAll('a[href*="/authentication/sign-up"]');
+      signupLinks.forEach(a => {
+        try {
+          // Garante que a URL base não tenha o código duplicado
+          const baseUrl = a.href.split('/authentication/sign-up')[0] + '/authentication/sign-up';
+          if (!a.href.endsWith(finalRef)) { // Evita adicionar várias vezes
+            const finalUrl = `${baseUrl}/${finalRef}`;
+            a.href = finalUrl;
+            console.log(`[AFILIADO] Link de cadastro modificado para: ${finalUrl}`);
+          }
+        } catch(err) {
+          console.error('[AFILIADO] Erro ao modificar link de cadastro:', err);
+        }
+      });
+    }
+  });
+
+  // Expondo globalmente para outros scripts poderem usar
+  window.RM_AFF = {
+    get: getAffiliate,
+  };
+
+})();
+
   // ======================================================
   // Preloader
   // ======================================================

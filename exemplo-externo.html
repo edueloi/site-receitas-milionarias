@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exemplo de Site Externo</title>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; }
+    form { display: flex; flex-direction: column; max-width: 400px; gap: 1rem; }
+    input { padding: 0.5rem; }
+    button { padding: 0.75rem; background-color: #007bff; color: white; border: none; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+  <h1>Site Externo de Receitas</h1>
+  <p>Esta é uma página de exemplo para demonstrar a captura do código de afiliado.</p>
+
+  <h2>Formulário de Cadastro</h2>
+  <form id="signup-form" onsubmit="handleSubmit(event)">
+    <label for="name">Nome:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="affiliate-input-visible">Código de Afiliado (opcional):</label>
+    <input id="affiliate-input-visible" name="affiliate_visible" placeholder="Código de Afiliado (opcional)">
+    
+    <input type="hidden" id="affiliate-hidden" name="affiliate">
+
+    <button type="submit">Cadastrar</button>
+  </form>
+
+  <hr style="margin-top: 2rem; margin-bottom: 2rem;">
+
+  <h2>Debug</h2>
+  <p>Código de afiliado capturado: <b id="debug-affiliate-code">Nenhum</b></p>
+
+  <script src="static/js/affiliate-tracker.js"></script>
+  <script>
+    // Script para preencher o formulário e a área de debug
+    (function () {
+      document.addEventListener('DOMContentLoaded', () => {
+        const visible = document.getElementById('affiliate-input-visible');
+        const hidden = document.getElementById('affiliate-hidden');
+        const debugElement = document.getElementById('debug-affiliate-code');
+        
+        const rmCode = window.RM_AFF && window.RM_AFF.get ? window.RM_AFF.get() : null;
+
+        if (rmCode) {
+          if (visible) visible.value = rmCode;
+          if (hidden) hidden.value = rmCode;
+          if (debugElement) debugElement.textContent = rmCode;
+        }
+
+        if (visible) {
+          visible.addEventListener('input', (e) => {
+            const val = e.target.value.trim();
+            if (hidden) hidden.value = val;
+            if (val) {
+              window.RM_AFF.save(val, { source: 'user-input' });
+              if (debugElement) debugElement.textContent = val;
+            } else {
+              window.RM_AFF.remove();
+              if (debugElement) debugElement.textContent = 'Nenhum';
+            }
+          });
+        }
+
+        const form = document.getElementById('signup-form');
+        if (form) {
+          form.addEventListener('submit', () => {
+            const current = visible && visible.value ? visible.value.trim() : (window.RM_AFF.get() || '');
+            if (hidden) hidden.value = current;
+          });
+        }
+      });
+    })();
+
+    // Função para simular o envio do formulário
+    function handleSubmit(event) {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      const data = Object.fromEntries(formData.entries());
+      alert("Dados que seriam enviados para o backend:\n\n" + JSON.stringify(data, null, 2));
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crie sua Conta - Receitas Milionárias</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/cadastro.css">
+    
+    <link rel="icon" href="static/images/logo.png" type="image/png">
+</head>
+<body>
+
+    <div id="preloader">
+        <img src="static/images/logo.png" alt="Receitas Milionárias" class="preloader-logo">
+    </div>
+
+    <main class="signup-page-container">
+        <div class="signup-image-panel">
+            <div class="overlay-content">
+                <h3>Junte-se à Elite da Culinária</h3>
+                <p>A plataforma Receitas Milionárias é o seu passaporte para o sucesso. Cadastre-se e comece a transformar suas receitas em lucro.</p>
+            </div>
+        </div>
+
+        <div class="signup-form-panel">
+            <div class="form-wrapper">
+                <a href="index.html" class="logo-link">
+                    <img src="static/images/logo.png" alt="Receitas Milionárias Logo" class="form-logo">
+                </a>
+                <h2 class="form-title">Crie sua Conta</h2>
+                
+                <div id="stepper" class="stepper-container">
+                    <div class="step active" data-step-index="0"><div class="step-icon">1</div><span class="step-label">Informações</span></div>
+                    <div class="step-connector"></div>
+                    <div class="step" data-step-index="1"><div class="step-icon">2</div><span class="step-label">Segurança</span></div>
+                    <div class="step-connector"></div>
+                    <div class="step" data-step-index="2"><div class="step-icon">3</div><span class="step-label">Pagamento</span></div>
+                </div>
+
+                <form id="signup-form" novalidate>
+                    <div class="form-step active" data-step="0">
+                        <div class="form-grid">
+                            <div class="form-field half"><label for="firstName"><i class="fas fa-user"></i><input type="text" id="firstName" name="firstName" required placeholder="Nome"></label></div>
+                            <div class="form-field half"><label for="lastName"><i class="fas fa-user-friends"></i><input type="text" id="lastName" name="lastName" required placeholder="Sobrenome"></label></div>
+                            <div class="form-field"><label for="email"><i class="fas fa-envelope"></i><input type="email" id="email" name="email" required placeholder="Email"></label></div>
+                            <div class="form-field half"><label for="phone"><i class="fas fa-phone"></i><input type="tel" id="phone" name="phone" required placeholder="Telefone Celular"></label></div>
+                            <div class="form-field half"><label for="cpf"><i class="fas fa-id-card"></i><input type="text" id="cpf" name="cpf" required placeholder="CPF"></label></div>
+                            <div class="form-field"><label for="birthDate"><i class="fas fa-calendar-alt"></i><input type="text" id="birthDate" name="birthDate" required placeholder="Data de Nascimento" onfocus="this.type='date'" onblur="if(!this.value)this.type='text'"></label></div>
+                        </div>
+                    </div>
+
+                    <div class="form-step" data-step="1">
+                        <div class="form-grid">
+                            <div class="form-field half">
+                                <label for="password"><i class="fas fa-lock"></i><input type="password" id="password" name="password" required placeholder="Senha">
+                                <i class="fas fa-eye-slash toggle-password" data-target="password"></i></label>
+                            </div>
+                            <div class="form-field half">
+                                <label for="confirmPassword"><i class="fas fa-lock"></i><input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirmar Senha">
+                                <i class="fas fa-eye-slash toggle-password" data-target="confirmPassword"></i></label>
+                            </div>
+                            <div class="form-field"><label for="affiliateCode"><i class="fas fa-gift"></i><input type="text" id="affiliateCode" name="affiliateCode" placeholder="Código de Afiliado (opcional)"></label></div>
+                        </div>
+                    </div>
+
+                    <div class="form-step" data-step="2">
+                        <div class="payment-section">
+                            <i class="fas fa-shield-alt payment-icon"></i>
+                            <h3>Finalize sua Assinatura</h3>
+                            <p>Ao clicar no botão, você será redirecionado ao nosso ambiente de pagamento 100% seguro.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="form-navigation">
+                        <button type="button" id="back-btn" class="btn btn-secondary">Voltar</button>
+                        <button type="button" id="next-btn" class="btn btn-primary">Avançar</button>
+                        <button type="submit" id="finish-btn" class="btn btn-primary">Finalizar e Pagar</button>
+                    </div>
+                </form>
+
+                <div class="form-footer">
+                    <p>Já tem uma conta? <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-in">Entrar</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="toast-container"></div>
+
+    <script src="static/js/script.js"></script>
+    <script src="static/js/cadastro.js"></script>
+</body>
+</html>
