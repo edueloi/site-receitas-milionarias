@@ -62,6 +62,14 @@
                             <div class="form-field half">
                                 <label for="password"><i class="fas fa-lock"></i><input type="password" id="password" name="password" required placeholder="Senha">
                                 <i class="fas fa-eye-slash toggle-password" data-target="password"></i></label>
+                                <div class="password-feedback" id="password-feedback">
+                                    <ul class="feedback-list">
+                                        <li id="length"><i class="fas fa-times-circle"></i><span>Pelo menos 8 caracteres</span></li>
+                                        <li id="case"><i class="fas fa-times-circle"></i><span>Letras maiúsculas e minúsculas</span></li>
+                                        <li id="number"><i class="fas fa-times-circle"></i><span>Pelo menos um número</span></li>
+                                        <li id="special"><i class="fas fa-times-circle"></i><span>Pelo menos um caractere especial</span></li>
+                                    </ul>
+                                </div>
                             </div>
                             <div class="form-field half">
                                 <label for="confirmPassword"><i class="fas fa-lock"></i><input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirmar Senha">

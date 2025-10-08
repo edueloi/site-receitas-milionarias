@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         affiliateCode: document.getElementById('affiliateCode'),
     };
     const affiliateFieldContainer = document.getElementById('affiliate-field-container');
+    const passwordFeedback = document.getElementById('password-feedback'); // Seleciona o container de feedback
 
     const showToast = (message, type = 'error') => {
         const toastContainer = document.getElementById('toast-container');
@@ -70,6 +71,45 @@ document.addEventListener('DOMContentLoaded', () => {
         finishBtn.style.display = currentStep === steps.length - 1 ? 'inline-block' : 'none';
     };
 
+    const validatePasswordStrength = (password) => {
+        const feedback = {
+            length: document.getElementById('length'),
+            case: document.getElementById('case'),
+            number: document.getElementById('number'),
+            special: document.getElementById('special'),
+        };
+        let isValid = true;
+
+        // Critérios
+        const hasLength = password.length >= 8;
+        const hasUpperCase = /[A-Z]/.test(password);
+        const hasLowerCase = /[a-z]/.test(password);
+        const hasNumber = /[0-9]/.test(password);
+        const hasSpecial = /[^A-Za-z0-9]/.test(password);
+
+        // Atualiza feedback visual
+        const updateFeedback = (element, condition) => {
+            element.classList.toggle('valid', condition);
+            element.classList.toggle('invalid', !condition);
+            // Corrige o ícone trocando a classe no elemento <i>
+            const icon = element.querySelector('i');
+            if (icon) {
+                icon.className = condition ? 'fas fa-check-circle' : 'fas fa-times-circle';
+            }
+        };
+
+        updateFeedback(feedback.length, hasLength);
+        updateFeedback(feedback.case, hasUpperCase && hasLowerCase);
+        updateFeedback(feedback.number, hasNumber);
+        updateFeedback(feedback.special, hasSpecial);
+
+        if (!hasLength || !hasUpperCase || !hasLowerCase || !hasNumber || !hasSpecial) {
+            isValid = false;
+        }
+
+        return isValid;
+    };
+
     const validateField = (input) => {
         const label = input.closest('label');
         if (!label) return true;
@@ -79,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isValid && input.id === 'email' && !validateEmailFormat(input.value)) isValid = false;
         if (isValid && input.id === 'cpf' && input.value.length !== 14) isValid = false;
         if (isValid && input.id === 'phone' && input.value.length !== 15) isValid = false;
-        if (isValid && input.id === 'password' && input.value.length < 6) isValid = false;
+        if (isValid && input.id === 'password') isValid = validatePasswordStrength(input.value);
         if (isValid && input.id === 'confirmPassword' && input.value !== inputs.password.value) isValid = false;
         
         if (!input.required && !input.value) {
@@ -112,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Event Listeners ---
     nextBtn.addEventListener('click', () => {
         if (validateStep()) {
-            showToast('Tudo certo! Próximo passo.', 'success');
+            // Removido o toast de sucesso para não ser repetitivo
             showStep(currentStep + 1);
         }
     });
@@ -121,6 +161,27 @@ document.addEventListener('DOMContentLoaded', () => {
     Object.values(inputs).forEach(input => {
         if(input) input.addEventListener('blur', () => validateField(input));
     });
+
+    // ===== INÍCIO DA CORREÇÃO =====
+    if (inputs.password && passwordFeedback) {
+        // Mostra o feedback quando o usuário clica no campo
+        inputs.password.addEventListener('focus', () => {
+            passwordFeedback.style.display = 'block';
+        });
+
+        // Esconde o feedback quando o usuário clica fora E o campo está vazio
+        inputs.password.addEventListener('blur', () => {
+            if (inputs.password.value === '') {
+                passwordFeedback.style.display = 'none';
+            }
+        });
+        
+        // Valida a força da senha em tempo real enquanto digita
+        inputs.password.addEventListener('input', () => {
+            validatePasswordStrength(inputs.password.value);
+        });
+    }
+    // ===== FIM DA CORREÇÃO =====
 
     signupForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -166,16 +227,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
-    // CORREÇÃO: Lógica do código de afiliado com bloqueio e ocultação
+    
     if (window.RM_AFF && typeof window.RM_AFF.get === 'function' && inputs.affiliateCode) {
         const affiliateCode = window.RM_AFF.get();
         if (affiliateCode) {
             inputs.affiliateCode.value = affiliateCode;
-            inputs.affiliateCode.readOnly = true; // Bloqueia o campo
-            
+            inputs.affiliateCode.readOnly = true;
             if(affiliateFieldContainer) {
-                affiliateFieldContainer.classList.add('hidden'); // Oculta o campo
+                affiliateFieldContainer.classList.add('hidden');
             }
         }
     }

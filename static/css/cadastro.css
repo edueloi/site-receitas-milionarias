@@ -19,80 +19,94 @@
 /* ==========================================================================
    Layout Principal e Utilitários
    ========================================================================== */
-html,
-body {
-    height: 100%;
-    margin: 0;
-    overflow: hidden;
+html {
+    scroll-behavior: smooth;
 }
 
 body {
+    margin: 0;
     font-family: var(--font-body);
     background-color: var(--color-background);
+    min-height: 100vh;
 }
 
 .hidden {
     display: none !important;
 }
 
-/* Classe para ocultar o campo de afiliado */
-
 .signup-page-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    height: 100vh;
-}
-
-@media (min-width: 1024px) {
-    .signup-page-container {
-        grid-template-columns: 45% 55%;
-    }
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .signup-image-panel {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url(../images/capa_index.png);
     background-size: cover;
     background-position: center;
     color: #fff;
-    padding: 2rem;
-}
-
-@media (min-width: 1024px) {
-    .signup-image-panel {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
+    padding: 3rem 2rem;
+    animation: backgroundScale 10s ease-in-out infinite alternate;
 }
 
 .overlay-content h3 {
     font-family: var(--font-title);
-    font-size: clamp(2.5rem, 5vw, 3rem);
+    font-size: clamp(2rem, 7vw, 2.5rem);
     margin-bottom: 1rem;
+    animation: slideInUp 0.8s ease-out forwards;
 }
 
 .overlay-content p {
-    font-size: 1.1rem;
+    font-size: clamp(1rem, 4vw, 1.1rem);
     line-height: 1.7;
     opacity: 0.95;
+    max-width: 600px;
+    animation: slideInUp 0.8s ease-out forwards 0.3s;
 }
 
 .signup-form-panel {
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 1rem 0;
+    align-items: flex-start; /* Alinha ao topo para melhor visualização em telas menores */
+    padding: 2rem 0;
     background-color: var(--color-panel);
-    overflow-y: auto;
+    flex-grow: 1;
+}
+
+/* ==========================================================================
+   Media Queries para Responsividade
+   ========================================================================== */
+
+@media (min-width: 1024px) {
+    .signup-page-container {
+        flex-direction: row;
+    }
+
+    .signup-image-panel {
+        flex-basis: 45%;
+        min-height: 100vh;
+    }
+
+    .signup-form-panel {
+        flex-basis: 55%;
+        align-items: center; /* Centraliza verticalmente no desktop */
+        padding: 1rem 0;
+    }
+
+    .overlay-content h3 {
+        font-size: clamp(2.5rem, 5vw, 3rem);
+    }
 }
 
 .form-wrapper {
     width: 100%;
     max-width: 520px;
-    padding: 0 1.5rem;
+    padding: 0 1rem; /* Reduzido para telas menores */
     text-align: center;
 }
 
@@ -127,8 +141,8 @@ body {
 .stepper-container {
     display: flex;
     align-items: center;
-    margin: 2rem auto;
-    max-width: 400px;
+    margin: 1.5rem auto;
+    max-width: 360px; /* Ajustado para caber melhor */
 }
 
 .step-icon {
@@ -152,10 +166,17 @@ body {
 }
 
 .step-label {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--color-text-secondary);
-    margin-top: 0.5rem;
+    display: none; /* Oculto por padrão em telas pequenas */
+}
+
+@media (min-width: 576px) {
+    .step-label {
+        display: block;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--color-text-secondary);
+        margin-top: 0.5rem;
+    }
 }
 
 .step.active .step-label,
@@ -171,7 +192,8 @@ body {
 
 .form-step {
     display: none;
-    min-height: 250px;
+    min-height: auto; /* Altura automática para fluir com o conteúdo */
+    padding-bottom: 1rem; /* Espaçamento inferior */
 }
 
 .form-step.active {
@@ -273,6 +295,56 @@ body {
 }
 
 /* ==========================================================================
+   Feedback de Senha
+   ========================================================================== */
+.password-feedback {
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    padding-left: 0.5rem;
+    display: none; /* Oculto por padrão */
+    text-align: left;
+}
+
+.feedback-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.feedback-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.3rem;
+    transition: color 0.3s ease;
+}
+
+.feedback-list li i {
+    margin-right: 0.5rem;
+    font-size: 0.9rem;
+    width: 16px; /* Largura fixa para alinhamento */
+}
+
+.feedback-list li.invalid {
+    color: var(--color-error);
+}
+
+.feedback-list li.valid {
+    color: var(--color-success);
+}
+
+.feedback-list li.valid i::before {
+    content: "\f058"; /* Ícone de círculo de verificação sólido do Font Awesome */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+}
+
+.feedback-list li.invalid i::before {
+    content: "\f057"; /* Ícone de círculo de X do Font Awesome */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+}
+
+/* ==========================================================================
    Botões, Pagamento e Footer
    ========================================================================== */
 .payment-section {
@@ -303,15 +375,14 @@ body {
 
 .form-navigation {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column; /* Empilha os botões verticalmente por padrão */
     align-items: center;
     margin-top: 2rem;
     gap: 1rem;
 }
 
 .btn {
-    width: auto;
-    flex-grow: 1;
+    width: 100%; /* Ocupa a largura total em telas pequenas */
     padding: 0.9rem 1.5rem;
     border-radius: var(--border-radius);
     font-weight: 700;
@@ -324,6 +395,7 @@ body {
 .btn-primary {
     background-color: var(--color-gold);
     color: #fff;
+    order: 2; /* Garante que o botão primário venha depois */
 }
 
 .btn-primary:hover {
@@ -335,8 +407,29 @@ body {
     background-color: transparent;
     border-color: var(--color-border);
     color: var(--color-text-secondary);
-    flex-grow: 0;
-    width: 120px;
+    order: 1; /* Botão de voltar vem primeiro */
+}
+
+@media (min-width: 576px) {
+    .form-navigation {
+        flex-direction: row; /* Layout lado a lado em telas maiores */
+        justify-content: space-between;
+    }
+
+    .btn {
+        width: auto;
+    }
+
+    .btn-primary {
+        flex-grow: 1;
+        order: 0; /* Ordem padrão */
+    }
+
+    .btn-secondary {
+        flex-grow: 0;
+        width: 120px;
+        order: 0; /* Ordem padrão */
+    }
 }
 
 .form-footer {
@@ -410,5 +503,33 @@ body {
     to {
         transform: translateX(120%);
         opacity: 0;
+    }
+}
+
+/* ==========================================================================
+   Novas Animações para a Seção de Imagem
+   ========================================================================== */
+
+/* Animação para o título (fade-in e slide-up) */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animação para o background da imagem (zoom sutil e alternado) */
+@keyframes backgroundScale {
+    0% {
+        background-size: 100% 100%;
+    }
+
+    100% {
+        background-size: 105% 105%;
     }
 }
