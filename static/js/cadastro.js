@@ -25,12 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
         password: document.getElementById('password'), confirmPassword: document.getElementById('confirmPassword'),
         affiliateCode: document.getElementById('affiliateCode'),
     };
+    const affiliateFieldContainer = document.getElementById('affiliate-field-container');
 
-    /**
-     * Sistema de Notificação (Toasts)
-     * @param {string} message - A mensagem a ser exibida.
-     * @param {string} type - 'success' ou 'error'.
-     */
     const showToast = (message, type = 'error') => {
         const toastContainer = document.getElementById('toast-container');
         const toast = document.createElement('div');
@@ -42,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             toast.classList.add('hide');
             toast.addEventListener('animationend', () => toast.remove());
-        }, 4000); // Oculta após 4 segundos
+        }, 4000);
     };
 
     // --- Lógica de Navegação e Stepper ---
@@ -74,37 +70,28 @@ document.addEventListener('DOMContentLoaded', () => {
         finishBtn.style.display = currentStep === steps.length - 1 ? 'inline-block' : 'none';
     };
 
-    /**
-     * Validação em Tempo Real para um único campo
-     * @param {HTMLElement} input - O elemento do input a ser validado.
-     * @returns {boolean} - True se for válido, false caso contrário.
-     */
     const validateField = (input) => {
         const label = input.closest('label');
+        if (!label) return true;
         let isValid = true;
 
-        // Regras de validação
-        if (input.required && !input.value) isValid = false;
-        if (input.id === 'email' && !validateEmailFormat(input.value)) isValid = false;
-        if (input.id === 'cpf' && input.value.length !== 14) isValid = false;
-        if (input.id === 'phone' && input.value.length !== 15) isValid = false;
-        if (input.id === 'password' && input.value.length < 6) isValid = false;
-        if (input.id === 'confirmPassword' && input.value !== inputs.password.value) isValid = false;
+        if (input.required && !input.value.trim()) isValid = false;
+        if (isValid && input.id === 'email' && !validateEmailFormat(input.value)) isValid = false;
+        if (isValid && input.id === 'cpf' && input.value.length !== 14) isValid = false;
+        if (isValid && input.id === 'phone' && input.value.length !== 15) isValid = false;
+        if (isValid && input.id === 'password' && input.value.length < 6) isValid = false;
+        if (isValid && input.id === 'confirmPassword' && input.value !== inputs.password.value) isValid = false;
         
-        // Aplica ou remove classes de sucesso/erro
-        if(input.value) { // Só aplica estilo se houver valor
+        if (!input.required && !input.value) {
+            isValid = true;
+            label.classList.remove('valid', 'invalid');
+        } else {
             label.classList.toggle('valid', isValid);
             label.classList.toggle('invalid', !isValid);
-        } else {
-            label.classList.remove('valid', 'invalid');
         }
         return isValid;
     };
 
-    /**
-     * Validação da Etapa Atual antes de avançar
-     * @returns {boolean}
-     */
     const validateStep = () => {
         const currentFormStep = formSteps[currentStep];
         const fieldsToValidate = currentFormStep.querySelectorAll('input[required]');
@@ -131,7 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     backBtn.addEventListener('click', () => showStep(currentStep - 1));
 
-    // Validação em tempo real ao sair do campo
     Object.values(inputs).forEach(input => {
         if(input) input.addEventListener('blur', () => validateField(input));
     });
@@ -181,11 +167,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // CORREÇÃO: Lógica do código de afiliado com bloqueio e ocultação
     if (window.RM_AFF && typeof window.RM_AFF.get === 'function' && inputs.affiliateCode) {
         const affiliateCode = window.RM_AFF.get();
         if (affiliateCode) {
             inputs.affiliateCode.value = affiliateCode;
-            inputs.affiliateCode.readOnly = true;
+            inputs.affiliateCode.readOnly = true; // Bloqueia o campo
+            
+            if(affiliateFieldContainer) {
+                affiliateFieldContainer.classList.add('hidden'); // Oculta o campo
+            }
         }
     }
 

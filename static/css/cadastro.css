@@ -17,7 +17,7 @@
 }
 
 /* ==========================================================================
-   Layout Principal e Painéis
+   Layout Principal e Utilitários
    ========================================================================== */
 html,
 body {
@@ -30,6 +30,12 @@ body {
     font-family: var(--font-body);
     background-color: var(--color-background);
 }
+
+.hidden {
+    display: none !important;
+}
+
+/* Classe para ocultar o campo de afiliado */
 
 .signup-page-container {
     display: grid;
@@ -234,7 +240,6 @@ body {
     background: transparent;
 }
 
-/* Estado Foco */
 .form-field label:focus-within {
     border-color: var(--color-border-focus);
     box-shadow: 0 0 0 3px rgba(201, 166, 53, 0.2);
@@ -244,7 +249,6 @@ body {
     color: var(--color-border-focus);
 }
 
-/* Estado Inválido (Erro) */
 .form-field label.invalid {
     border-color: var(--color-error);
 }
@@ -253,7 +257,6 @@ body {
     color: var(--color-error);
 }
 
-/* Estado Válido (Sucesso) */
 .form-field label.valid {
     border-color: var(--color-success);
 }
@@ -383,7 +386,6 @@ body {
     margin-right: 10px;
 }
 
-/* Variações de Cor do Toast */
 .toast--success {
     background-color: var(--color-success);
 }
