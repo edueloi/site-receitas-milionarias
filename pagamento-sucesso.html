@@ -6,58 +6,63 @@
     <title>Pagamento Aprovado - Receitas Milionárias</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="static/css/style.css">
-    <link rel="stylesheet" href="static/css/cadastro.css">
-    <link rel="icon" href="static/images/logo.png" type="image/png">
     <style>
-        .status-page-container {
+        body {
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            text-align: center;
+            height: 100vh;
             background-color: #f8f9fa;
-            padding: 2rem;
+            font-family: 'Montserrat', sans-serif;
         }
-        .status-card {
+        .status-container {
+            text-align: center;
+            padding: 40px;
             background-color: #fff;
-            padding: 3rem;
-            border-radius: 16px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.05);
             max-width: 500px;
+            width: 90%;
         }
         .status-icon {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-        }
-        .success .status-icon {
+            font-size: 60px;
             color: #28a745;
+            margin-bottom: 20px;
         }
-        .status-card h2 {
-            font-family: var(--font-title);
-            font-size: 2.2rem;
-            margin-bottom: 1rem;
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #333;
         }
-        .status-card p {
-            margin-bottom: 2rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
+        p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .btn-primary {
+            background-color: #c08c4d;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #a8793e;
         }
     </style>
 </head>
 <body>
-    <main class="status-page-container">
-        <div class="status-card success">
-            <div class="status-icon">
-                <i class="fas fa-check-circle"></i>
-            </div>
-            <h2>Pagamento Aprovado!</h2>
-            <p>Seja bem-vindo(a) à família Receitas Milionárias! Seu cadastro foi concluído e seu acesso à plataforma está liberado. Enviamos um email com mais detalhes.</p>
-            <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-in" class="btn btn-primary">Acessar minha conta</a>
-        </div>
-    </main>
+    <div class="status-container">
+        <i class="fas fa-check-circle status-icon"></i>
+        <h1>Pagamento Aprovado!</h1>
+        <p>Sua conta foi ativada com sucesso. Agora você tem acesso total à plataforma Receitas Milionárias.</p>
+        <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-in" class="btn btn-primary">Ir para o Login</a>
+    </div>
 </body>
 </html>

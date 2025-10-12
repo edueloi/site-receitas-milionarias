@@ -271,6 +271,8 @@ document.addEventListener("DOMContentLoaded", () => {
             firstName: inputs.firstName.value,
             lastName: inputs.lastName.value,
             affiliateId: inputs.affiliateCode.value || "",
+            success_url: `${window.location.origin}/site-html/pagamento-sucesso.html`,
+            cancel_url: `${window.location.origin}/site-html/pagamento-cancelado.html`,
           }),
         }
       );

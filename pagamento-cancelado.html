@@ -6,58 +6,63 @@
     <title>Pagamento Cancelado - Receitas Milionárias</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="static/css/style.css">
-    <link rel="stylesheet" href="static/css/cadastro.css">
-    <link rel="icon" href="static/images/logo.png" type="image/png">
     <style>
-        .status-page-container {
+        body {
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            text-align: center;
+            height: 100vh;
             background-color: #f8f9fa;
-            padding: 2rem;
+            font-family: 'Montserrat', sans-serif;
         }
-        .status-card {
+        .status-container {
+            text-align: center;
+            padding: 40px;
             background-color: #fff;
-            padding: 3rem;
-            border-radius: 16px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.05);
             max-width: 500px;
+            width: 90%;
         }
         .status-icon {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
+            font-size: 60px;
+            color: #dc3545; /* Red for cancellation */
+            margin-bottom: 20px;
         }
-        .error .status-icon {
-            color: #dc3545;
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #333;
         }
-        .status-card h2 {
-            font-family: var(--font-title);
-            font-size: 2.2rem;
-            margin-bottom: 1rem;
+        p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 30px;
         }
-        .status-card p {
-            margin-bottom: 2rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: background-color 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
         }
     </style>
 </head>
 <body>
-    <main class="status-page-container">
-        <div class="status-card error">
-            <div class="status-icon">
-                <i class="fas fa-times-circle"></i>
-            </div>
-            <h2>Pagamento Cancelado</h2>
-            <p>Ocorreu um problema ou o pagamento foi cancelado. Não se preocupe, nenhuma cobrança foi feita. Você pode tentar novamente a qualquer momento.</p>
-            <a href="cadastro.html" class="btn btn-primary">Tentar novamente</a>
-        </div>
-    </main>
+    <div class="status-container">
+        <i class="fas fa-times-circle status-icon"></i>
+        <h1>Pagamento Cancelado</h1>
+        <p>O processo de pagamento não foi concluído. Sua conta continua com o status pendente. Você pode tentar novamente quando desejar.</p>
+        <a href="cadastro.html" class="btn-secondary">Tentar Novamente</a>
+    </div>
 </body>
 </html>
