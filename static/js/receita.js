@@ -299,9 +299,12 @@ document.addEventListener('DOMContentLoaded', () => {
         shareButton.innerHTML = '<i class="fas fa-share-alt"></i> Compartilhar';
         shareButton.setAttribute('aria-label', 'Compartilhar esta receita');
         shareButton.onclick = () => {
-          const affiliateCode = localStorage.getItem('rm_afiliado');
+          let affiliateCode = localStorage.getItem('rm_afiliado');
           let shareUrl = `${window.location.origin}${window.location.pathname}?id=${recipe.id}`;
           if (affiliateCode) {
+            if (affiliateCode.startsWith('afiliado_')) {
+              affiliateCode = affiliateCode.replace('afiliado_', '');
+            }
             shareUrl += `&ref=${affiliateCode}`;
           }
           navigator.clipboard.writeText(shareUrl).then(() => {

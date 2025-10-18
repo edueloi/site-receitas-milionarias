@@ -51,8 +51,12 @@ document.addEventListener('DOMContentLoaded', () => {
   function saveAffiliate(code) {
     if (!code) return;
     try {
-      localStorage.setItem(STORAGE_KEY, code);
-      console.log(`[AFILIADO] Código salvo: ${code}`);
+      let processedCode = code;
+      if (code.startsWith('afiliado_')) {
+        processedCode = code.replace('afiliado_', '');
+      }
+      localStorage.setItem(STORAGE_KEY, processedCode);
+      console.log(`[AFILIADO] Código salvo: ${processedCode}`);
     } catch (e) {
       console.error('[AFILIADO] Erro ao salvar no localStorage:', e);
     }
