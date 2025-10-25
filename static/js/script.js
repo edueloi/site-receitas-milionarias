@@ -292,7 +292,7 @@ const API_BASE_URL = (isLocalHost && runningLiveServer)
       } catch (error) {
         console.error('Falha ao buscar receitas:', error);
         receitasContainer.innerHTML =
-          '<p class="error-message">Não foi possível carregar as receitas. Verifique o servidor e tente novamente.</p>';
+          '<p class="error-message">Não foi possível carregar as receitas.</p>';
       }
     };
 
