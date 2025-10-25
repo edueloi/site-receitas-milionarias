@@ -4,12 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // ======================================================
   // Helpers / Config (essenciais para esta página)
   // ======================================================
-  const isLocalHost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
-  const runningLiveServer = isLocalHost && window.location.port === '5500';
+const isLocalHost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+const runningLiveServer = isLocalHost && window.location.port === '5500';
 
-  const API_BASE_URL = (isLocalHost && runningLiveServer)
-    ? 'https://api.receitasmilionarias.com.br'      // Dev: front 5500 -> back 3001
-    : window.location.origin;      // Prod: mesmo domínio/host
+const API_BASE_URL = (isLocalHost && runningLiveServer)
+  ? 'https://api.receitasmilionarias.com.br'
+  : window.location.origin;
 
   const buildImageUrl = (imagem_url) => {
     if (!imagem_url) return 'static/images/receitas_capa.png';
