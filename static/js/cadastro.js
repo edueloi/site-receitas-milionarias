@@ -236,7 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       // 1️⃣ Cria o usuário no banco
       const userResponse = await fetch(
-        "http://localhost:8080/users/register",
+        "https://api.receitasmilionarias.com.br/users/register",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -262,7 +262,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // 2️⃣ Inicia o checkout Stripe
       const paymentResponse = await fetch(
-        "http://localhost:8080/create-checkout-session",
+        "https://api.receitasmilionarias.com.br/create-checkout-session",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

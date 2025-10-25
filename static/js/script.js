@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const runningLiveServer = isLocalHost && window.location.port === '5500';
 
   const API_BASE_URL = (isLocalHost && runningLiveServer)
-    ? 'http://localhost:8080'                 // Dev: front 5500 -> back 8080
+    ? 'https://api.receitasmilionarias.com.br'                 // Dev: front 5500 -> back 8080
     : window.location.origin;                  // Prod: mesmo domínio/host
 
   const buildImageUrl = (imagem_url) => {
