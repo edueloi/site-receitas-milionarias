@@ -5,11 +5,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // Helpers / Config (essenciais para esta página)
   // ======================================================
 const isLocalHost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
-const runningLiveServer = isLocalHost && window.location.port === '5500';
+const runningLiveServer = isLocalHost && (window.location.port === '5500' || window.location.port === '5173');
 
+// Em dev, aponte para seu backend local; em produção, SEMPRE use o subdomínio da API:
 const API_BASE_URL = (isLocalHost && runningLiveServer)
-  ? 'https://api.receitasmilionarias.com.br'
-  : window.location.origin;
+  ? 'http://localhost:8080'
+  : 'https://api.receitasmilionarias.com.br';
+
 
   const buildImageUrl = (imagem_url) => {
     if (!imagem_url) return 'static/images/receitas_capa.png';

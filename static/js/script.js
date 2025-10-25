@@ -3,12 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // Helpers / Config
   // ======================================================
 const isLocalHost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
-const runningLiveServer = isLocalHost && window.location.port === '5500';
+const runningLiveServer = isLocalHost && (window.location.port === '5500' || window.location.port === '5173');
 
-// Em produção, **sempre** usar o subdomínio da API.
-// Em dev (Live Server), pode apontar pra localhost se preferir.
-const API_BASE_URL = isLocalHost
-  ? 'http://localhost:8080' // ajuste se seu backend local usa outra porta
+// Em dev, aponte para seu backend local; em produção, SEMPRE use o subdomínio da API:
+const API_BASE_URL = (isLocalHost && runningLiveServer)
+  ? 'http://localhost:8080'
   : 'https://api.receitasmilionarias.com.br';
 
 
