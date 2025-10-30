@@ -264,7 +264,9 @@ const API_BASE_URL = (isLocalHost && runningLiveServer)
       if (resultsCountContainer) resultsCountContainer.innerText = '';
       if (paginationControls) paginationControls.innerHTML = '';
 
-      const params = new URLSearchParams({ page: state.page, limit: state.limit });
+  const params = new URLSearchParams({ page: state.page, limit: state.limit });
+  // listar apenas receitas ativas no site público
+  params.append('status', 'ativo');
       if (state.search) params.append('search', state.search);
       if (state.categorias.length > 0) params.append('categorias', state.categorias.join(','));
       if (state.tags.length > 0) params.append('tags', state.tags.join(','));
@@ -329,6 +331,16 @@ const API_BASE_URL = (isLocalHost && runningLiveServer)
                 <div class="recipe-meta">
                   <span><i class="fas fa-clock"></i> ${recipe.tempo_preparo_min || '?'} min</span>
                   <span><i class="fas fa-utensils"></i> ${recipe.dificuldade || '?'}</span>
+                </div>
+                <div class="recipe-rating-comments">
+                  <span class="rating">
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    ${recipe.resultados_avaliacao && recipe.resultados_avaliacao.media_avaliacoes ? parseFloat(recipe.resultados_avaliacao.media_avaliacoes).toFixed(1) : '0.0'}
+                  </span>
+                  <span class="comments">
+                    <i class="fas fa-comment" aria-hidden="true"></i>
+                    ${recipe.resultados_avaliacao ? recipe.resultados_avaliacao.quantidade_avaliacoes : 0}
+                  </span>
                 </div>
                 <span class="read-more-link">Ver Receita <i class="fas fa-arrow-right"></i></span>
               </div>
@@ -574,7 +586,7 @@ const API_BASE_URL = (isLocalHost && runningLiveServer)
 
       // 1) pela mesma categoria (pede bastante, filtra e depois corta 3)
       if (catId) {
-        const res = await fetch(`${API_BASE_URL}/recipes?categorias=${catId}&page=1&limit=20`);
+        const res = await fetch(`${API_BASE_URL}/recipes?categorias=${catId}&page=1&limit=20&status=ativo`);
         if (!res.ok) throw new Error(`Erro ${res.status}`);
         const data = await res.json();
         list = Array.isArray(data) ? data : (data.data || []);
@@ -591,7 +603,7 @@ const API_BASE_URL = (isLocalHost && runningLiveServer)
 
       // 2) fallback para preencher até 3 (tenta manter a mesma categoria)
       if (list.length < 3) {
-        const res2 = await fetch(`${API_BASE_URL}/recipes?page=1&limit=20`);
+  const res2 = await fetch(`${API_BASE_URL}/recipes?page=1&limit=20&status=ativo`);
         if (res2.ok) {
           const data2 = await res2.json();
           const pool  = Array.isArray(data2) ? data2 : (data2.data || []);
@@ -699,6 +711,15 @@ const API_BASE_URL = (isLocalHost && runningLiveServer)
       const response = await fetch(`${API_BASE_URL}/recipes/${recipeId}`);
       if (!response.ok) throw new Error('Receita não encontrada');
       const recipe = await response.json();
+
+      // Não renderiza receitas que não estão ativas (public site)
+      if (recipe.status && recipe.status !== 'ativo') {
+        const titleEl = document.getElementById('recipe-title');
+        const summaryEl = document.getElementById('recipe-summary');
+        if (titleEl) titleEl.textContent = 'Receita não encontrada / indisponível';
+        if (summaryEl) summaryEl.textContent = 'A receita solicitada não está disponível.';
+        return;
+      }
 
       document.title = `Receita: ${recipe.titulo} - Receitas Milionárias`;
 
@@ -818,7 +839,7 @@ const API_BASE_URL = (isLocalHost && runningLiveServer)
     const loadFeatured = async () => {
       featuredGrid.innerHTML = '<div class="grid-loader"></div>';
       try {
-        const res = await fetch(`${API_BASE_URL}/recipes?page=1&limit=12`);
+  const res = await fetch(`${API_BASE_URL}/recipes?page=1&limit=12&status=ativo`);
         if (!res.ok) throw new Error(`Erro ${res.status}`);
         const data = await res.json();
         const list = Array.isArray(data) ? data : (data.data || []);
