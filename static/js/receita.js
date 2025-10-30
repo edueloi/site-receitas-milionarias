@@ -191,30 +191,53 @@ document.addEventListener("DOMContentLoaded", () => {
       const rating = Number(r.resultados_avaliacao?.media_avaliacoes ?? 0);
       const votes = Number(r.resultados_avaliacao?.quantidade_comentarios ?? 0);
       let ratingHtml = "";
+      // Só exibe receitas com status 'ativo'
+      if (r.status && r.status.toLowerCase() !== "ativo") {
+        return;
+      }
       if (rating > 0 || votes > 0) {
-        ratingHtml = `<span class="recipe-rating"><i class="fas fa-star"></i> ${rating.toFixed(1)} <small>(${votes})</small></span>`;
+        ratingHtml = `<span class="recipe-rating"><i class="fas fa-star"></i> ${rating.toFixed(
+          1
+        )} <small>(${votes})</small></span>`;
       }
 
       const card = document.createElement("a");
       card.href = `receita.html?id=${r.id}`;
       card.className = "recipe-link";
+      // Define se a receita está pendente ou ativa
+      const isPending = r.status && r.status.toLowerCase() === "pendente";
+      const isActive = r.status && r.status.toLowerCase() === "ativo";
+      const cardStatus = isPending ? "Pendente" : isActive ? "Ativo" : "";
+      const cardStatusClass = isPending
+        ? "status-pendente"
+        : isActive
+        ? "status-ativo"
+        : "";
+
       card.innerHTML = `
-        <article class="recipe-card">
+        <article class="recipe-card${isPending ? " recipe-card-pending" : ""}">
           <div class="recipe-card-img-container">
-            <img src="${imageUrl}" alt="${r.titulo}" loading="lazy">
-            <span class="recipe-category-tag">${categoryName}</span>
+        <img src="${imageUrl}" alt="${r.titulo}" loading="lazy"${
+        isPending ? ' style="filter: grayscale(1); opacity: 0.7;"' : ""
+      }>
+        <span class="recipe-category-tag">${categoryName}</span>
+        ${
+          cardStatus
+            ? `<span class="recipe-status-tag ${cardStatusClass}">${cardStatus}</span>`
+            : ""
+        }
           </div>
           <div class="recipe-card-content">
-            <h3>${r.titulo}</h3>
-            <p>${r.resumo || ""}</p>
+        <h3>${r.titulo}</h3>
+        <p>${r.resumo || ""}</p>
           </div>
           <div class="recipe-card-footer">
-            <div class="recipe-meta">
-              <span><i class="fas fa-clock"></i> ${prep} min</span>
-              <span><i class="fas fa-utensils"></i> ${dif}</span>
-            </div>
-            ${ratingHtml}
-            <span class="read-more-link">Ver Receita <i class="fas fa-arrow-right"></i></span>
+        <div class="recipe-meta">
+          <span><i class="fas fa-clock"></i> ${prep} min</span>
+          <span><i class="fas fa-utensils"></i> ${dif}</span>
+        </div>
+        ${ratingHtml}
+        <span class="read-more-link">Ver Receita <i class="fas fa-arrow-right"></i></span>
           </div>
         </article>`;
       container.appendChild(card);
@@ -256,7 +279,7 @@ document.addEventListener("DOMContentLoaded", () => {
           for (const r of pool) {
             if (list.length >= 3) break;
             const id = String(r.id);
-            if (!seen.has(id) && (!r.status || r.status === 'ativo')) {
+            if (!seen.has(id) && (!r.status || r.status === "ativo")) {
               seen.add(id);
               list.push(r);
             }
@@ -264,9 +287,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
-  // Assegura que não existem receitas com status explícito diferente de 'ativo'
-  const filtered = list.filter(r => !r.status || r.status === 'ativo');
-  const top3 = sortNewestFirst(filtered).slice(0, 3);
+      // Assegura que não existem receitas com status explícito diferente de 'ativo'
+      const filtered = list.filter((r) => !r.status || r.status === "ativo");
+      const top3 = sortNewestFirst(filtered).slice(0, 3);
       renderRecommended(top3, grid);
     } catch (e) {
       console.error("Falha ao carregar recomendados:", e);
