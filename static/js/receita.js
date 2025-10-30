@@ -287,10 +287,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
-      // Assegura que não existem receitas com status explícito diferente de 'ativo'
-      const filtered = list.filter((r) => !r.status || r.status === "ativo");
-      const top3 = sortNewestFirst(filtered).slice(0, 3);
-      renderRecommended(top3, grid);
+  // Garante que só receitas com status 'ativo' aparecem
+  const filtered = list.filter((r) => r.status && r.status.toLowerCase() === "ativo");
+  const top3 = sortNewestFirst(filtered).slice(0, 3);
+  renderRecommended(top3, grid);
     } catch (e) {
       console.error("Falha ao carregar recomendados:", e);
       grid.innerHTML =
