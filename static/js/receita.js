@@ -188,6 +188,13 @@ document.addEventListener("DOMContentLoaded", () => {
       const prep = r.tempo_preparo_min ?? "?";
       const dif = r.dificuldade ?? "?";
 
+      const rating = Number(r.resultados_avaliacao?.media_avaliacoes ?? 0);
+      const votes = Number(r.resultados_avaliacao?.quantidade_comentarios ?? 0);
+      let ratingHtml = "";
+      if (rating > 0 || votes > 0) {
+        ratingHtml = `<span class="recipe-rating"><i class="fas fa-star"></i> ${rating.toFixed(1)} <small>(${votes})</small></span>`;
+      }
+
       const card = document.createElement("a");
       card.href = `receita.html?id=${r.id}`;
       card.className = "recipe-link";
@@ -206,6 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
               <span><i class="fas fa-clock"></i> ${prep} min</span>
               <span><i class="fas fa-utensils"></i> ${dif}</span>
             </div>
+            ${ratingHtml}
             <span class="read-more-link">Ver Receita <i class="fas fa-arrow-right"></i></span>
           </div>
         </article>`;
@@ -248,7 +256,7 @@ document.addEventListener("DOMContentLoaded", () => {
           for (const r of pool) {
             if (list.length >= 3) break;
             const id = String(r.id);
-            if (!seen.has(id)) {
+            if (!seen.has(id) && (!r.status || r.status === 'ativo')) {
               seen.add(id);
               list.push(r);
             }
@@ -256,7 +264,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
-      const top3 = sortNewestFirst(list).slice(0, 3);
+  // Assegura que não existem receitas com status explícito diferente de 'ativo'
+  const filtered = list.filter(r => !r.status || r.status === 'ativo');
+  const top3 = sortNewestFirst(filtered).slice(0, 3);
       renderRecommended(top3, grid);
     } catch (e) {
       console.error("Falha ao carregar recomendados:", e);

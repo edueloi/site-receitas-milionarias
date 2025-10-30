@@ -300,7 +300,9 @@ const API_BASE_URL = (isLocalHost && runningLiveServer)
 
     const renderRecipes = (recipes) => {
       receitasContainer.innerHTML = '';
-      if (!recipes || recipes.length === 0) {
+      // Filtra receitas inativas (se houver campo status)
+      const visibleRecipes = (recipes || []).filter(r => !r.status || r.status === 'ativo');
+      if (!visibleRecipes || visibleRecipes.length === 0) {
         let message = 'Nenhuma receita encontrada';
         if (state.search || state.categorias.length > 0 || state.tags.length > 0) {
           message += ' com os filtros selecionados.';
@@ -311,7 +313,7 @@ const API_BASE_URL = (isLocalHost && runningLiveServer)
         return;
       }
 
-      recipes.forEach((recipe) => {
+      visibleRecipes.forEach((recipe) => {
         const categoryName = recipe.categoria ? recipe.categoria.nome : 'Destaque';
         const imageUrl = buildImageUrl(recipe.imagem_url);
         const recipeItem = document.createElement('div');
@@ -805,8 +807,14 @@ const API_BASE_URL = (isLocalHost && runningLiveServer)
         featuredGrid.innerHTML = '<p class="error-message">Sem receitas em destaque no momento.</p>';
         return;
       }
+      // Filtra receitas inativas por segurança
+      const visible = (recipes || []).filter(r => !r.status || r.status === 'ativo');
+      if (visible.length === 0) {
+        featuredGrid.innerHTML = '<p class="error-message">Sem receitas em destaque no momento.</p>';
+        return;
+      }
       featuredGrid.innerHTML = '';
-      recipes.forEach((r) => {
+      visible.forEach((r) => {
         const categoryName = r.categoria ? r.categoria.nome : 'Destaque';
         const imageUrl     = buildImageUrl(r.imagem_url);
         const prep = r.tempo_preparo_min ?? '?';
