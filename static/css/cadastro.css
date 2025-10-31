@@ -379,7 +379,7 @@ body {
 .form-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 1.25rem;
 }
 
 .form-field {
@@ -392,7 +392,7 @@ body {
 
 @media (min-width: 576px) {
     .form-field.half {
-        width: calc(50% - 0.5rem);
+        width: calc(50% - 0.625rem);
     }
 }
 
@@ -400,39 +400,56 @@ body {
     display: flex;
     align-items: center;
     position: relative;
-    border: 1px solid var(--color-border);
-    border-radius: var(--border-radius);
+    border: 2px solid var(--color-border);
+    border-radius: 12px;
     padding-left: 1rem;
-    transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.form-field label:hover {
+    border-color: #C9A635;
+    box-shadow: 0 4px 12px rgba(201, 166, 53, 0.1);
 }
 
 .form-field label i {
     color: var(--color-text-secondary);
     margin-right: 0.75rem;
-    transition: color var(--transition-speed);
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
 }
 
 .form-field input {
     width: 100%;
     border: none;
     outline: none;
-    padding: 0.9rem 0.5rem;
-    font-size: 0.95rem;
+    padding: 1rem 0.75rem;
+    font-size: 1rem;
     font-family: var(--font-body);
     background: transparent;
+    color: var(--color-text-primary);
+}
+
+.form-field input::placeholder {
+    color: #aaa;
+    font-size: 0.95rem;
 }
 
 .form-field label:focus-within {
-    border-color: var(--color-border-focus);
-    box-shadow: 0 0 0 3px rgba(201, 166, 53, 0.2);
+    border-color: var(--color-gold);
+    box-shadow: 0 0 0 4px rgba(201, 166, 53, 0.15);
+    transform: translateY(-2px);
 }
 
 .form-field label:focus-within i {
-    color: var(--color-border-focus);
+    color: var(--color-gold);
+    transform: scale(1.1);
 }
 
 .form-field label.invalid {
     border-color: var(--color-error);
+    box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
 }
 
 .form-field label.invalid i {
@@ -441,6 +458,7 @@ body {
 
 .form-field label.valid {
     border-color: var(--color-success);
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
 }
 
 .form-field label.valid i {
