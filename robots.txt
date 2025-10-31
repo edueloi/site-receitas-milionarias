@@ -1,0 +1,36 @@
+# Robots.txt para Receitas Milionárias
+
+User-agent: *
+Allow: /
+Allow: /static/
+Allow: /receitas.html
+Allow: /receita.html
+Allow: /cadastro.html
+Allow: /login.html
+
+# Não indexar páginas de confirmação de pagamento
+Disallow: /pagamento-sucesso.html
+Disallow: /pagamento-cancelado.html
+
+# Não indexar arquivos temporários ou de sistema
+Disallow: /*.json$
+Disallow: /exemplo-externo.html
+
+# Sitemap
+Sitemap: https://receitasmilionarias.com.br/sitemap.xml
+
+# Crawl-delay (opcional, ajustar conforme necessidade)
+Crawl-delay: 1
+
+# Bots específicos do Google
+User-agent: Googlebot
+Allow: /
+Allow: /static/images/
+
+User-agent: Googlebot-Image
+Allow: /static/images/
+
+# Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 2

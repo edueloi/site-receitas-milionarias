@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    
+    <!-- Página Principal -->
+    <url>
+        <loc>https://receitasmilionarias.com.br/</loc>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+        <image:image>
+            <image:loc>https://receitasmilionarias.com.br/static/images/receitas-milionarias.png</image:loc>
+            <image:title>Receitas Milionárias</image:title>
+        </image:image>
+    </url>
+    
+    <!-- Página de Receitas -->
+    <url>
+        <loc>https://receitasmilionarias.com.br/receitas.html</loc>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- Página de Receita Individual -->
+    <url>
+        <loc>https://receitasmilionarias.com.br/receita.html</loc>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- Página de Cadastro -->
+    <url>
+        <loc>https://receitasmilionarias.com.br/cadastro.html</loc>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- Página de Login -->
+    <url>
+        <loc>https://receitasmilionarias.com.br/login.html</loc>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    
+    <!-- Página de Sucesso no Pagamento -->
+    <url>
+        <loc>https://receitasmilionarias.com.br/pagamento-sucesso.html</loc>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    
+    <!-- Página de Cancelamento -->
+    <url>
+        <loc>https://receitasmilionarias.com.br/pagamento-cancelado.html</loc>
+        <lastmod>2024-01-15</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.4</priority>
+    </url>
+    
+</urlset>

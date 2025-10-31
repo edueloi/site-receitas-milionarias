@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preview SEO - Receitas Milionárias</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #f8f9fa;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #1C3B32;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 16px;
+        }
+
+        .preview-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .preview-section h2 {
+            color: #1C3B32;
+            margin-bottom: 20px;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .preview-section h3 {
+            color: #D4AF37;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        /* Google Search Result */
+        .google-result {
+            border: 1px solid #e8eaed;
+            border-radius: 8px;
+            padding: 20px;
+            background: #fff;
+            max-width: 600px;
+        }
+
+        .google-result .url {
+            color: #5f6368;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .google-result .title {
+            color: #1a0dab;
+            font-size: 20px;
+            text-decoration: none;
+            margin-bottom: 5px;
+            display: block;
+            cursor: pointer;
+        }
+
+        .google-result .title:hover {
+            text-decoration: underline;
+        }
+
+        .google-result .description {
+            color: #545454;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Facebook Card */
+        .facebook-card {
+            border: 1px solid #dddfe2;
+            border-radius: 8px;
+            overflow: hidden;
+            max-width: 500px;
+            background: white;
+        }
+
+        .facebook-card .image {
+            width: 100%;
+            height: 261px;
+            background: #1C3B32;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        .facebook-card .content {
+            padding: 12px;
+            background: #f0f2f5;
+        }
+
+        .facebook-card .domain {
+            color: #65676b;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .facebook-card .fb-title {
+            color: #1c1e21;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .facebook-card .fb-description {
+            color: #65676b;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* WhatsApp Card */
+        .whatsapp-card {
+            border: 1px solid #e9edef;
+            border-radius: 8px;
+            overflow: hidden;
+            max-width: 400px;
+            background: white;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .whatsapp-card .image {
+            width: 100%;
+            height: 210px;
+            background: #1C3B32;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+        }
+
+        .whatsapp-card .content {
+            padding: 12px;
+            background: white;
+        }
+
+        .whatsapp-card .wa-title {
+            color: #111b21;
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .whatsapp-card .wa-description {
+            color: #667781;
+            font-size: 14px;
+            line-height: 1.4;
+            margin-bottom: 4px;
+        }
+
+        .whatsapp-card .wa-link {
+            color: #027eb5;
+            font-size: 13px;
+        }
+
+        /* Twitter Card */
+        .twitter-card {
+            border: 1px solid #cfd9de;
+            border-radius: 16px;
+            overflow: hidden;
+            max-width: 506px;
+            background: white;
+        }
+
+        .twitter-card .image {
+            width: 100%;
+            height: 265px;
+            background: #1C3B32;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        .twitter-card .content {
+            padding: 12px;
+            border-top: 1px solid #cfd9de;
+        }
+
+        .twitter-card .tw-title {
+            color: #0f1419;
+            font-size: 15px;
+            font-weight: 400;
+            margin-bottom: 2px;
+            line-height: 1.3;
+        }
+
+        .twitter-card .tw-description {
+            color: #536471;
+            font-size: 15px;
+            line-height: 1.3;
+            margin-bottom: 2px;
+        }
+
+        .twitter-card .tw-link {
+            color: #536471;
+            font-size: 15px;
+        }
+
+        /* Schema.org Preview */
+        .schema-preview {
+            background: #f5f5f5;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #333;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .schema-preview .key {
+            color: #881391;
+        }
+
+        .schema-preview .string {
+            color: #1a1aa6;
+        }
+
+        .checkmark {
+            color: #4CAF50;
+            font-size: 24px;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+            color: #856404;
+        }
+
+        .success {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+            color: #155724;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 Preview SEO - Receitas Milionárias</h1>
+        <p class="subtitle">Veja como seu site aparecerá nos buscadores e redes sociais</p>
+
+        <div class="success">
+            <strong>✅ SEO Implementado com Sucesso!</strong><br>
+            Todos os meta tags, Schema.org, Open Graph e Twitter Cards foram configurados corretamente.
+        </div>
+
+        <!-- Google Search Preview -->
+        <div class="preview-section">
+            <h2><span class="checkmark">✓</span> Google Search (Busca Orgânica)</h2>
+            <div class="google-result">
+                <div class="url">https://receitasmilionarias.com.br › ...</div>
+                <a href="#" class="title">Receitas Milionárias - Transforme sua Paixão por Culinária em Renda</a>
+                <div class="description">
+                    Acesse receitas exclusivas e ganhe dinheiro com o programa de afiliados da Receitas Milionárias. Una gastronomia e empreendedorismo para criar uma nova fonte de renda.
+                </div>
+            </div>
+        </div>
+
+        <!-- Facebook Preview -->
+        <div class="preview-section">
+            <h2><span class="checkmark">✓</span> Facebook / LinkedIn</h2>
+            <div class="facebook-card">
+                <div class="image">
+                    [RECEITAS-MILIONARIAS.PNG]<br>
+                    <small>1200x630px</small>
+                </div>
+                <div class="content">
+                    <div class="domain">RECEITASMILIONARIAS.COM.BR</div>
+                    <div class="fb-title">Receitas Milionárias - Transforme sua Paixão por Culinária em Renda</div>
+                    <div class="fb-description">Acesse receitas exclusivas e ganhe dinheiro com nosso programa de afiliados. Una gastronomia e empreendedorismo para criar uma nova fonte de renda.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- WhatsApp Preview -->
+        <div class="preview-section">
+            <h2><span class="checkmark">✓</span> WhatsApp</h2>
+            <div class="whatsapp-card">
+                <div class="image">
+                    [RECEITAS-MILIONARIAS.PNG]<br>
+                    <small>1200x630px</small>
+                </div>
+                <div class="content">
+                    <div class="wa-title">Receitas Milionárias - Transforme sua Paixão por Culinária em Renda</div>
+                    <div class="wa-description">Acesse receitas exclusivas e ganhe dinheiro com nosso programa de afiliados. Una gastronomia e empreendedorismo.</div>
+                    <div class="wa-link">receitasmilionarias.com.br</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Twitter Preview -->
+        <div class="preview-section">
+            <h2><span class="checkmark">✓</span> Twitter / X</h2>
+            <div class="twitter-card">
+                <div class="image">
+                    [RECEITAS-MILIONARIAS.PNG]<br>
+                    <small>1200x630px</small>
+                </div>
+                <div class="content">
+                    <div class="tw-title">Receitas Milionárias - Transforme sua Paixão por Culinária em Renda</div>
+                    <div class="tw-description">Acesse receitas exclusivas e ganhe dinheiro com nosso programa de afiliados. Una gastronomia e empreendedorismo.</div>
+                    <div class="tw-link">receitasmilionarias.com.br</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Schema.org Preview -->
+        <div class="preview-section">
+            <h2><span class="checkmark">✓</span> Schema.org (Dados Estruturados)</h2>
+            <h3>WebSite Schema</h3>
+            <div class="schema-preview">
+{
+  <span class="key">"@context"</span>: <span class="string">"https://schema.org"</span>,
+  <span class="key">"@type"</span>: <span class="string">"WebSite"</span>,
+  <span class="key">"name"</span>: <span class="string">"Receitas Milionárias"</span>,
+  <span class="key">"url"</span>: <span class="string">"https://receitasmilionarias.com.br"</span>,
+  <span class="key">"description"</span>: <span class="string">"Plataforma que une gastronomia e empreendedorismo"</span>,
+  <span class="key">"potentialAction"</span>: {
+    <span class="key">"@type"</span>: <span class="string">"SearchAction"</span>
+  }
+}
+            </div>
+
+            <h3 style="margin-top: 20px;">Organization Schema</h3>
+            <div class="schema-preview">
+{
+  <span class="key">"@context"</span>: <span class="string">"https://schema.org"</span>,
+  <span class="key">"@type"</span>: <span class="string">"Organization"</span>,
+  <span class="key">"name"</span>: <span class="string">"Receitas Milionárias"</span>,
+  <span class="key">"logo"</span>: <span class="string">"https://receitasmilionarias.com.br/static/images/logo.png"</span>,
+  <span class="key">"contactPoint"</span>: {
+    <span class="key">"@type"</span>: <span class="string">"ContactPoint"</span>,
+    <span class="key">"telephone"</span>: <span class="string">"+55-15-99757-5655"</span>
+  },
+  <span class="key">"sameAs"</span>: [
+    <span class="string">"https://www.instagram.com/receitasmilionarias"</span>,
+    <span class="string">"https://www.facebook.com/receitasmilionarias"</span>
+  ]
+}
+            </div>
+        </div>
+
+        <!-- Páginas com SEO -->
+        <div class="preview-section">
+            <h2><span class="checkmark">✓</span> Páginas Otimizadas</h2>
+            <div class="grid">
+                <div>
+                    <h3>index.html (Home)</h3>
+                    <ul style="color: #666; line-height: 1.8;">
+                        <li>✅ Open Graph completo</li>
+                        <li>✅ Twitter Cards</li>
+                        <li>✅ Schema.org (3 tipos)</li>
+                        <li>✅ Meta description otimizada</li>
+                        <li>✅ Keywords estratégicas</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>receitas.html</h3>
+                    <ul style="color: #666; line-height: 1.8;">
+                        <li>✅ SEO específico para catálogo</li>
+                        <li>✅ Open Graph adaptado</li>
+                        <li>✅ Keywords focadas</li>
+                        <li>✅ Meta description atrativa</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>cadastro.html</h3>
+                    <ul style="color: #666; line-height: 1.8;">
+                        <li>✅ Meta tags de conversão</li>
+                        <li>✅ noindex (privacidade)</li>
+                        <li>✅ Open Graph persuasivo</li>
+                        <li>✅ Keywords de afiliado</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>login.html</h3>
+                    <ul style="color: #666; line-height: 1.8;">
+                        <li>✅ Meta tags básicas</li>
+                        <li>✅ noindex, nofollow</li>
+                        <li>✅ Favicon e theme color</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Arquivos Adicionais -->
+        <div class="preview-section">
+            <h2><span class="checkmark">✓</span> Arquivos SEO Criados</h2>
+            <div class="grid">
+                <div>
+                    <h3>sitemap.xml</h3>
+                    <p style="color: #666; margin-top: 10px;">
+                        Mapa completo do site com prioridades e frequências de atualização para otimizar a indexação pelos buscadores.
+                    </p>
+                </div>
+                <div>
+                    <h3>robots.txt</h3>
+                    <p style="color: #666; margin-top: 10px;">
+                        Regras de crawling para Googlebot, Bingbot e outros. Define o que pode e não pode ser indexado.
+                    </p>
+                </div>
+                <div>
+                    <h3>manifest.json</h3>
+                    <p style="color: #666; margin-top: 10px;">
+                        Configuração PWA com ícones, cores e metadata para instalação como app no dispositivo móvel.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Próximos Passos -->
+        <div class="preview-section">
+            <h2>🚀 Próximos Passos</h2>
+            <ol style="color: #666; line-height: 2; margin-left: 20px;">
+                <li><strong>Fazer deploy do site</strong> com todas as alterações</li>
+                <li><strong>Testar no Facebook Debugger:</strong> <a href="https://developers.facebook.com/tools/debug/" target="_blank">https://developers.facebook.com/tools/debug/</a></li>
+                <li><strong>Testar no Twitter Card Validator:</strong> <a href="https://cards-dev.twitter.com/validator" target="_blank">https://cards-dev.twitter.com/validator</a></li>
+                <li><strong>Testar no Google Rich Results:</strong> <a href="https://search.google.com/test/rich-results" target="_blank">https://search.google.com/test/rich-results</a></li>
+                <li><strong>Adicionar no Google Search Console</strong> e enviar o sitemap.xml</li>
+                <li><strong>Verificar no PageSpeed Insights:</strong> <a href="https://pagespeed.web.dev/" target="_blank">https://pagespeed.web.dev/</a></li>
+                <li><strong>Testar compartilhamento no WhatsApp</strong></li>
+            </ol>
+        </div>
+
+        <div class="warning">
+            <strong>⚠️ Importante:</strong><br>
+            • Certifique-se de que a imagem <code>receitas-milionarias.png</code> tem exatamente 1200x630 pixels<br>
+            • Use URLs absolutas (com https://) em todos os meta tags<br>
+            • Após o deploy, limpe o cache no Facebook Debugger clicando em "Fazer nova extração"<br>
+            • A indexação pelo Google pode levar de 2 a 7 dias
+        </div>
+
+        <div class="success" style="margin-top: 40px; text-align: center;">
+            <h2 style="color: #155724; margin-bottom: 10px;">🎉 Parabéns!</h2>
+            <p style="font-size: 18px;">
+                Seu site agora está com SEO profissional completo!<br>
+                Quando alguém compartilhar no WhatsApp, Facebook ou Twitter,<br>
+                vai aparecer bonito com imagem, título e descrição! 🚀
+            </p>
+        </div>
+    </div>
+</body>
+</html>

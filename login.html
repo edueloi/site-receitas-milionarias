@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Meta Tags Básicas -->
+    <title>Login - Acesse sua Conta | Receitas Milionárias</title>
+    <meta name="description" content="Faça login na sua conta Receitas Milionárias para acessar receitas exclusivas, gerenciar afiliados e acompanhar suas comissões.">
+    <meta name="keywords" content="login receitas milionárias, acesso conta, área do membro, dashboard afiliado">
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://receitasmilionarias.com.br/login.html">
+    
+    <!-- Favicon e App Icons -->
+    <link rel="icon" type="image/png" href="static/images/favicon.png">
+    <link rel="apple-touch-icon" href="static/images/logo.png">
+    <meta name="theme-color" content="#1C3B32">
+    
+    <link rel="stylesheet" href="./static/css/cadastro.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://js.stripe.com/v3/"></script>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Toast Notification -->
+      <div id="toast" class="toast"></div>
+
+      <!-- Login Form -->
+      <div class="signup-card">
+        <div class="logo-container">
+          <img
+            src="./static/images/logo.png"
+            alt="Logo Receitas Milionárias"
+            class="logo"
+          />
+        </div>
+
+        <h2 class="title">Bem-vindo de volta!</h2>
+        <p class="subtitle">Faça login para acessar sua conta</p>
+
+        <form id="login-form" class="form">
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="Seu melhor e-mail"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Senha</label>
+            <div class="password-input">
+              <input
+                type="password"
+                id="password"
+                placeholder="••••••••"
+                required
+              />
+              <button
+                type="button"
+                class="toggle-password"
+                aria-label="Mostrar senha"
+              >
+                👁️
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full" id="login-btn">
+            Entrar
+          </button>
+        </form>
+
+        <div class="form-footer">
+          <p>
+            Não tem uma conta?
+            <a href="./cadastro.html">Cadastre-se aqui</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script src="./static/js/login.js"></script>
+  </body>
+</html>

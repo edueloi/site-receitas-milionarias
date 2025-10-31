@@ -132,32 +132,96 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ======================================================
-  // Menu Fullscreen
+  // Menu Fullscreen - Melhorado
   // ======================================================
   const openMenuBtn = document.getElementById("open-menu");
   const closeMenuBtn = document.getElementById("close-menu");
   const menuOverlay = document.getElementById("menu-overlay");
   const body = document.body;
 
+  // Função para ajustar altura do viewport dinamicamente (mobile)
+  const setViewportHeight = () => {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  };
+
+  // Definir altura inicial e atualizar quando redimensionar
+  setViewportHeight();
+  window.addEventListener('resize', setViewportHeight);
+  window.addEventListener('orientationchange', setViewportHeight);
+
   if (openMenuBtn && closeMenuBtn && menuOverlay) {
-    openMenuBtn.addEventListener("click", () => {
+    // Abrir menu
+    openMenuBtn.addEventListener("click", (e) => {
+      e.preventDefault();
       menuOverlay.classList.add("active");
       body.classList.add("menu-active");
+      
+      // Atualizar altura do viewport ao abrir menu
+      setViewportHeight();
+      
+      // Foco no botão de fechar para acessibilidade
+      setTimeout(() => {
+        closeMenuBtn.focus();
+      }, 400);
     });
 
+    // Fechar menu
     const closeMenu = () => {
       menuOverlay.classList.remove("active");
       body.classList.remove("menu-active");
+      
+      // Retornar foco ao botão de abrir
+      setTimeout(() => {
+        openMenuBtn.focus();
+      }, 400);
     };
 
-    closeMenuBtn.addEventListener("click", closeMenu);
+    closeMenuBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      closeMenu();
+    });
 
+    // Fechar ao clicar no overlay (fora do painel)
+    menuOverlay.addEventListener("click", (e) => {
+      if (e.target === menuOverlay) {
+        closeMenu();
+      }
+    });
+
+    // Fechar com tecla ESC
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && menuOverlay.classList.contains("active")) {
+        closeMenu();
+      }
+    });
+
+    // Fechar menu ao clicar em links internos
     const menuLinks = menuOverlay.querySelectorAll("a");
     menuLinks.forEach((link) => {
-      link.addEventListener("click", () => {
+      link.addEventListener("click", (e) => {
         const href = link.getAttribute("href") || "";
-        if (href.startsWith("#") || href.includes("index.html#")) closeMenu();
+        // Só fecha se for link interno (#) ou link para index.html com âncora
+        if (href.startsWith("#") || href.includes("index.html#")) {
+          closeMenu();
+        }
       });
+    });
+
+    // Prevenir scroll na página quando menu está aberto
+    let scrollPosition = 0;
+    menuOverlay.addEventListener('transitionstart', (e) => {
+      if (menuOverlay.classList.contains('active')) {
+        scrollPosition = window.pageYOffset;
+        body.style.top = `-${scrollPosition}px`;
+      }
+    });
+
+    menuOverlay.addEventListener('transitionend', (e) => {
+      if (!menuOverlay.classList.contains('active')) {
+        body.style.top = '';
+        window.scrollTo(0, scrollPosition);
+      }
     });
   }
 

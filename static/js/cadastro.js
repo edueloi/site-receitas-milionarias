@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const signupForm = document.getElementById("signup-form");
   const passwordToggles = document.querySelectorAll(".toggle-password");
   const stripe = Stripe(
-    "pk_test_51SEbIb3Qt7AZrHCLzx9wY8UwhYNBY5UFor6YsdE4tNNozr8Fvbs1xcJk7gmIP7J0L8lVsweijPo75y1WrL2DkSCz00SWCxtInW"
+    "pk_live_51SMf3SIDMhvKPy02zS4MR3PQR3l2uIESt1X0qTvabJjlYPn7tuoperw30O8qq8UGaSynVfrtSpQVYNKuFLaYRlZ400m2bDaWBv"
   );
 
   let currentStep = 0;
