@@ -1,0 +1,692 @@
+/* =========================================================
+   PÁGINA DE CONTATO - RECEITAS MILIONÁRIAS
+   ========================================================= */
+
+/* Reset e Base */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Contato Hero Section */
+.contato-hero {
+    padding: 140px 0 80px;
+    background: linear-gradient(135deg, var(--verde-escuro) 0%, #2d5a4a 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.contato-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.1), transparent);
+    border-radius: 50%;
+}
+
+.contato-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.08), transparent);
+    border-radius: 50%;
+}
+
+.contato-hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.contato-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 24px;
+    background: rgba(212, 175, 55, 0.2);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 30px;
+    color: var(--dourado);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+
+.contato-hero h1 {
+    font-family: var(--font-title);
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 20px 0;
+    line-height: 1.2;
+}
+
+.contato-hero p {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.7;
+    margin: 0 0 40px 0;
+}
+
+.contato-hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.hero-stat-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 25px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.hero-stat-item i {
+    font-size: 1.5rem;
+    color: var(--dourado);
+}
+
+.hero-stat-item strong {
+    font-size: 0.95rem;
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Contato Main Section */
+.contato-main {
+    padding: 80px 0;
+    background: #f8f9fa;
+}
+
+.contato-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 40px;
+}
+
+/* Formulário */
+.contato-form-wrapper {
+    background: #fff;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+}
+
+.form-header {
+    margin-bottom: 35px;
+}
+
+.form-header h2 {
+    font-family: var(--font-title);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--verde-escuro);
+    margin: 0 0 10px 0;
+}
+
+.form-header p {
+    font-size: 1rem;
+    color: #666;
+    margin: 0;
+}
+
+.contato-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--verde-escuro);
+}
+
+.form-group label i {
+    color: var(--dourado);
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 14px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-family: var(--font-body);
+    transition: all 0.3s ease;
+    background: #fff;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--dourado);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 140px;
+}
+
+.form-group select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+}
+
+.char-counter {
+    font-size: 0.85rem;
+    color: #999;
+    text-align: right;
+}
+
+.btn-submit {
+    padding: 16px 35px;
+    background: linear-gradient(135deg, var(--dourado), var(--dourado-hover));
+    color: var(--verde-escuro);
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-family: var(--font-body);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 6px 25px rgba(212, 175, 55, 0.4);
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn-submit:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 35px rgba(212, 175, 55, 0.5);
+}
+
+.btn-submit:active {
+    transform: translateY(-1px);
+}
+
+/* Sidebar */
+.contato-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.contato-info-card,
+.horario-card,
+.social-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.06);
+}
+
+.contato-info-card h3,
+.horario-card h3,
+.social-card h3 {
+    font-family: var(--font-title);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--verde-escuro);
+    margin: 0 0 20px 0;
+}
+
+/* Info Items */
+.info-item {
+    display: flex;
+    gap: 15px;
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.info-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.info-icon {
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, var(--dourado), var(--dourado-hover));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.info-icon i {
+    font-size: 1.2rem;
+    color: var(--verde-escuro);
+}
+
+.info-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.info-content strong {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--verde-escuro);
+}
+
+.info-content a {
+    font-size: 0.95rem;
+    color: #666;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.info-content a:hover {
+    color: var(--dourado);
+}
+
+/* Horário Card */
+.horario-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--verde-escuro), #2d5a4a);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.horario-icon i {
+    font-size: 1.8rem;
+    color: var(--dourado);
+}
+
+.horario-card h3 {
+    text-align: center;
+}
+
+.horario-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.horario-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.horario-item .dia {
+    font-weight: 600;
+    color: var(--verde-escuro);
+    font-size: 0.95rem;
+}
+
+.horario-item .hora {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.horario-nota {
+    display: flex;
+    gap: 10px;
+    padding: 15px;
+    background: rgba(212, 175, 55, 0.1);
+    border-left: 3px solid var(--dourado);
+    border-radius: 8px;
+}
+
+.horario-nota i {
+    color: var(--dourado);
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.horario-nota p {
+    font-size: 0.85rem;
+    color: #666;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Social Card */
+.social-card p {
+    color: #666;
+    font-size: 0.95rem;
+    margin: 0 0 20px 0;
+}
+
+.social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 2px solid #e0e0e0;
+}
+
+.social-link i {
+    font-size: 1.5rem;
+    width: 30px;
+    text-align: center;
+}
+
+.social-link span {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.social-link.instagram {
+    color: #E1306C;
+}
+
+.social-link.instagram:hover {
+    background: linear-gradient(135deg, #E1306C, #C13584);
+    color: #fff;
+    border-color: #E1306C;
+    transform: translateX(5px);
+}
+
+.social-link.facebook {
+    color: #1877F2;
+}
+
+.social-link.facebook:hover {
+    background: #1877F2;
+    color: #fff;
+    border-color: #1877F2;
+    transform: translateX(5px);
+}
+
+.social-link.youtube {
+    color: #FF0000;
+}
+
+.social-link.youtube:hover {
+    background: #FF0000;
+    color: #fff;
+    border-color: #FF0000;
+    transform: translateX(5px);
+}
+
+/* FAQ Rápido */
+.contato-faq {
+    padding: 80px 0;
+    background: #fff;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-header h2 {
+    font-family: var(--font-title);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--verde-escuro);
+    margin: 0 0 15px 0;
+}
+
+.section-header p {
+    font-size: 1.1rem;
+    color: #666;
+    margin: 0;
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.faq-quick-item {
+    padding: 30px;
+    background: #f8f9fa;
+    border-radius: 15px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.faq-quick-item:hover {
+    background: #fff;
+    border-color: var(--dourado);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transform: translateY(-5px);
+}
+
+.faq-quick-icon {
+    width: 55px;
+    height: 55px;
+    background: linear-gradient(135deg, var(--dourado), var(--dourado-hover));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.faq-quick-icon i {
+    font-size: 1.5rem;
+    color: var(--verde-escuro);
+}
+
+.faq-quick-item h4 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--verde-escuro);
+    margin: 0 0 12px 0;
+}
+
+.faq-quick-item p {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.faq-cta {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.faq-cta p {
+    font-size: 1.1rem;
+    color: #666;
+    margin: 0 0 20px 0;
+}
+
+/* Responsivo */
+@media (max-width: 992px) {
+    .contato-hero {
+        padding: 120px 0 60px;
+    }
+
+    .contato-hero h1 {
+        font-size: 2.8rem;
+    }
+
+    .contato-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .faq-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .contato-hero {
+        padding: 100px 0 50px;
+    }
+
+    .contato-hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .contato-hero p {
+        font-size: 1rem;
+    }
+
+    .contato-hero-stats {
+        gap: 15px;
+    }
+
+    .hero-stat-item {
+        flex-direction: column;
+        text-align: center;
+        padding: 12px 20px;
+    }
+
+    .contato-main {
+        padding: 50px 0;
+    }
+
+    .contato-form-wrapper {
+        padding: 30px 20px;
+    }
+
+    .form-header h2 {
+        font-size: 1.6rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .contato-info-card,
+    .horario-card,
+    .social-card {
+        padding: 25px 20px;
+    }
+
+    .contato-faq {
+        padding: 50px 0;
+    }
+
+    .section-header h2 {
+        font-size: 2rem;
+    }
+
+    .faq-quick-item {
+        padding: 25px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contato-hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .contato-hero p {
+        font-size: 0.95rem;
+    }
+
+    .contato-badge {
+        font-size: 0.85rem;
+        padding: 8px 18px;
+    }
+
+    .hero-stat-item {
+        padding: 10px 15px;
+    }
+
+    .hero-stat-item i {
+        font-size: 1.2rem;
+    }
+
+    .hero-stat-item strong {
+        font-size: 0.85rem;
+    }
+
+    .contato-form-wrapper {
+        padding: 25px 15px;
+    }
+
+    .form-header h2 {
+        font-size: 1.4rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 12px 14px;
+        font-size: 0.95rem;
+    }
+
+    .btn-submit {
+        padding: 14px 28px;
+        font-size: 1rem;
+    }
+
+    .section-header h2 {
+        font-size: 1.6rem;
+    }
+
+    .faq-quick-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .faq-quick-item h4 {
+        font-size: 1.1rem;
+    }
+
+    .faq-quick-item p {
+        font-size: 0.9rem;
+    }
+}

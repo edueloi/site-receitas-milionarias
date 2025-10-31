@@ -132,11 +132,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ======================================================
-  // Menu Fullscreen - Melhorado
+  // Menu Fullscreen - Melhorado (suporta múltiplas estruturas)
   // ======================================================
-  const openMenuBtn = document.getElementById("open-menu");
-  const closeMenuBtn = document.getElementById("close-menu");
-  const menuOverlay = document.getElementById("menu-overlay");
+  const openMenuBtn = document.getElementById("open-menu") || document.querySelector(".hamburger");
+  const closeMenuBtn = document.getElementById("close-menu") || document.querySelector(".close-menu");
+  const menuOverlay = document.getElementById("menu-overlay") || document.querySelector(".menu-overlay");
+  const mobileMenu = document.querySelector(".mobile-menu");
   const body = document.body;
 
   // Função para ajustar altura do viewport dinamicamente (mobile)
@@ -150,11 +151,12 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener('resize', setViewportHeight);
   window.addEventListener('orientationchange', setViewportHeight);
 
-  if (openMenuBtn && closeMenuBtn && menuOverlay) {
+  if (openMenuBtn && closeMenuBtn && (menuOverlay || mobileMenu)) {
     // Abrir menu
     openMenuBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      menuOverlay.classList.add("active");
+      if (menuOverlay) menuOverlay.classList.add("active");
+      if (mobileMenu) mobileMenu.classList.add("active");
       body.classList.add("menu-active");
       
       // Atualizar altura do viewport ao abrir menu
@@ -168,7 +170,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Fechar menu
     const closeMenu = () => {
-      menuOverlay.classList.remove("active");
+      if (menuOverlay) menuOverlay.classList.remove("active");
+      if (mobileMenu) mobileMenu.classList.remove("active");
       body.classList.remove("menu-active");
       
       // Retornar foco ao botão de abrir
@@ -183,46 +186,54 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Fechar ao clicar no overlay (fora do painel)
-    menuOverlay.addEventListener("click", (e) => {
-      if (e.target === menuOverlay) {
-        closeMenu();
-      }
-    });
+    if (menuOverlay) {
+      menuOverlay.addEventListener("click", (e) => {
+        if (e.target === menuOverlay) {
+          closeMenu();
+        }
+      });
+    }
 
     // Fechar com tecla ESC
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && menuOverlay.classList.contains("active")) {
+      if (e.key === "Escape" && (menuOverlay?.classList.contains("active") || mobileMenu?.classList.contains("active"))) {
         closeMenu();
       }
     });
 
     // Fechar menu ao clicar em links internos
-    const menuLinks = menuOverlay.querySelectorAll("a");
-    menuLinks.forEach((link) => {
-      link.addEventListener("click", (e) => {
-        const href = link.getAttribute("href") || "";
-        // Só fecha se for link interno (#) ou link para index.html com âncora
-        if (href.startsWith("#") || href.includes("index.html#")) {
-          closeMenu();
-        }
+    const menuContainer = menuOverlay || mobileMenu;
+    if (menuContainer) {
+      const menuLinks = menuContainer.querySelectorAll("a");
+      menuLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+          const href = link.getAttribute("href") || "";
+          // Só fecha se for link interno (#) ou link para index.html com âncora
+          if (href.startsWith("#") || href.includes("index.html#")) {
+            closeMenu();
+          }
+        });
       });
-    });
+    }
 
     // Prevenir scroll na página quando menu está aberto
     let scrollPosition = 0;
-    menuOverlay.addEventListener('transitionstart', (e) => {
-      if (menuOverlay.classList.contains('active')) {
-        scrollPosition = window.pageYOffset;
-        body.style.top = `-${scrollPosition}px`;
-      }
-    });
+    const menuElement = menuOverlay || mobileMenu;
+    if (menuElement) {
+      menuElement.addEventListener('transitionstart', (e) => {
+        if (menuElement.classList.contains('active')) {
+          scrollPosition = window.pageYOffset;
+          body.style.top = `-${scrollPosition}px`;
+        }
+      });
 
-    menuOverlay.addEventListener('transitionend', (e) => {
-      if (!menuOverlay.classList.contains('active')) {
-        body.style.top = '';
-        window.scrollTo(0, scrollPosition);
-      }
-    });
+      menuElement.addEventListener('transitionend', (e) => {
+        if (!menuElement.classList.contains('active')) {
+          body.style.top = '';
+          window.scrollTo(0, scrollPosition);
+        }
+      });
+    }
   }
 
   // ======================================================
@@ -774,8 +785,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const seen = new Set([thisId]);
       list = list.filter((r) => {
         const id = String(r.id);
-        // Só mantém receitas ativas e não duplicadas
-        if (r.status !== "ativo") return false;
         if (seen.has(id) || id === thisId) return false;
         seen.add(id);
         return true;

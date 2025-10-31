@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato - Receitas Milionárias | Entre em Contato</title>
+    <meta name="description" content="Entre em contato com a equipe Receitas Milionárias. Estamos prontos para ajudar com suas dúvidas sobre receitas, planos e programa de afiliados.">
+    <meta name="keywords" content="contato receitas milionárias, suporte, atendimento, fale conosco">
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/contato.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="static/images/logo.png">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav container">
+            <a href="index.html" class="logo">
+                <img src="static/images/logo.png" alt="Receitas Milionárias Logo">
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html#receitas">Receitas</a></li>
+                <li><a href="index.html#afiliados">Seja Afiliado</a></li>
+                <li><a href="index.html#testimonials">Depoimentos</a></li>
+                <li><a href="index.html#faq">FAQ</a></li>
+                <li><a href="contato.html" class="active">Contato</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-in" class="btn btn-secondary"
+                    target="_blank" rel="noopener noreferrer">Login</a>
+                <a href="cadastro.html" class="btn btn-primary">Cadastre-se</a>
+            </div>
+            <button class="hamburger" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Menu Overlay -->
+    <div class="menu-overlay"></div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <img src="static/images/logo.png" alt="Receitas Milionárias" class="mobile-logo">
+            <button class="close-menu" aria-label="Fechar Menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-menu-content">
+            <nav class="mobile-nav">
+                <a href="index.html#receitas">
+                    <i class="fas fa-utensils"></i>
+                    <span>Receitas</span>
+                </a>
+                <a href="index.html#afiliados">
+                    <i class="fas fa-handshake"></i>
+                    <span>Seja Afiliado</span>
+                </a>
+                <a href="index.html#testimonials">
+                    <i class="fas fa-star"></i>
+                    <span>Depoimentos</span>
+                </a>
+                <a href="index.html#faq">
+                    <i class="fas fa-question-circle"></i>
+                    <span>FAQ</span>
+                </a>
+                <a href="contato.html" class="active">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contato</span>
+                </a>
+            </nav>
+            <div class="menu-footer">
+                <a href="cadastro.html" class="btn btn-primary">
+                    <i class="fas fa-user-plus"></i> Cadastre-se
+                </a>
+                <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-in" 
+                   class="btn btn-secondary" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </a>
+                <div class="menu-social">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Youtube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contato Hero Section -->
+    <section class="contato-hero">
+        <div class="container">
+            <div class="contato-hero-content">
+                <span class="contato-badge">
+                    <i class="fas fa-headset"></i>
+                    Estamos Aqui para Você
+                </span>
+                <h1>Entre em Contato</h1>
+                <p>Nossa equipe está pronta para responder suas dúvidas e ajudar você a começar sua jornada culinária e empreendedora</p>
+                <div class="contato-hero-stats">
+                    <div class="hero-stat-item">
+                        <i class="fas fa-clock"></i>
+                        <strong>Resposta em até 2h</strong>
+                    </div>
+                    <div class="hero-stat-item">
+                        <i class="fas fa-comments"></i>
+                        <strong>Suporte 7 dias por semana</strong>
+                    </div>
+                    <div class="hero-stat-item">
+                        <i class="fas fa-star"></i>
+                        <strong>98% de satisfação</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato Main Section -->
+    <section class="contato-main">
+        <div class="container">
+            <div class="contato-grid">
+                <!-- Formulário de Contato -->
+                <div class="contato-form-wrapper">
+                    <div class="form-header">
+                        <h2>Envie sua Mensagem</h2>
+                        <p>Preencha o formulário abaixo e entraremos em contato o mais breve possível</p>
+                    </div>
+
+                    <form class="contato-form" id="contatoForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nome">
+                                    <i class="fas fa-user"></i>
+                                    Nome Completo *
+                                </label>
+                                <input type="text" id="nome" name="nome" required placeholder="Digite seu nome completo">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">
+                                    <i class="fas fa-envelope"></i>
+                                    E-mail *
+                                </label>
+                                <input type="email" id="email" name="email" required placeholder="seu@email.com">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="telefone">
+                                    <i class="fas fa-phone"></i>
+                                    Telefone
+                                </label>
+                                <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000">
+                            </div>
+                            <div class="form-group">
+                                <label for="assunto">
+                                    <i class="fas fa-tag"></i>
+                                    Assunto *
+                                </label>
+                                <select id="assunto" name="assunto" required>
+                                    <option value="">Selecione um assunto</option>
+                                    <option value="duvida-geral">Dúvida Geral</option>
+                                    <option value="suporte-tecnico">Suporte Técnico</option>
+                                    <option value="programa-afiliados">Programa de Afiliados</option>
+                                    <option value="planos-precos">Planos e Preços</option>
+                                    <option value="receitas">Receitas</option>
+                                    <option value="parceria">Parceria</option>
+                                    <option value="outro">Outro</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mensagem">
+                                <i class="fas fa-comment-dots"></i>
+                                Mensagem *
+                            </label>
+                            <textarea id="mensagem" name="mensagem" rows="6" required placeholder="Descreva sua dúvida ou mensagem..."></textarea>
+                            <span class="char-counter">0 / 500</span>
+                        </div>
+
+                        <button type="submit" class="btn btn-submit">
+                            <i class="fas fa-paper-plane"></i>
+                            Enviar Mensagem
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Sidebar de Informações -->
+                <div class="contato-sidebar">
+                    <!-- Informações de Contato Direto -->
+                    <div class="contato-info-card">
+                        <h3>Outras Formas de Contato</h3>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="info-content">
+                                <strong>E-mail</strong>
+                                <a href="mailto:suporte@receitasmilionarias.com.br">suporte@receitasmilionarias.com.br</a>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div class="info-content">
+                                <strong>WhatsApp</strong>
+                                <a href="https://wa.me/5515997575655" target="_blank" rel="noopener noreferrer">(15) 99757-5655</a>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="info-content">
+                                <strong>Telefone</strong>
+                                <a href="tel:+5515997575655">(15) 99757-5655</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Horário de Atendimento -->
+                    <div class="horario-card">
+                        <div class="horario-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>Horário de Atendimento</h3>
+                        <div class="horario-list">
+                            <div class="horario-item">
+                                <span class="dia">Segunda a Sexta</span>
+                                <span class="hora">8h - 18h</span>
+                            </div>
+                            <div class="horario-item">
+                                <span class="dia">Sábado</span>
+                                <span class="hora">9h - 14h</span>
+                            </div>
+                            <div class="horario-item">
+                                <span class="dia">Domingo</span>
+                                <span class="hora">Fechado</span>
+                            </div>
+                        </div>
+                        <div class="horario-nota">
+                            <i class="fas fa-info-circle"></i>
+                            <p>Respostas por e-mail e formulário podem levar até 2 horas úteis</p>
+                        </div>
+                    </div>
+
+                    <!-- Redes Sociais -->
+                    <div class="social-card">
+                        <h3>Siga-nos nas Redes</h3>
+                        <p>Acompanhe nosso conteúdo e novidades</p>
+                        <div class="social-links">
+                            <a href="https://www.instagram.com/receitasmilionarias" target="_blank" rel="noopener noreferrer" class="social-link instagram">
+                                <i class="fab fa-instagram"></i>
+                                <span>Instagram</span>
+                            </a>
+                            <a href="https://www.facebook.com/receitasmilionarias" target="_blank" rel="noopener noreferrer" class="social-link facebook">
+                                <i class="fab fa-facebook-f"></i>
+                                <span>Facebook</span>
+                            </a>
+                            <a href="https://www.youtube.com/@receitasmilionarias" target="_blank" rel="noopener noreferrer" class="social-link youtube">
+                                <i class="fab fa-youtube"></i>
+                                <span>YouTube</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Rápido -->
+    <section class="contato-faq">
+        <div class="container">
+            <div class="section-header">
+                <h2>Perguntas Frequentes</h2>
+                <p>Talvez sua dúvida já tenha sido respondida</p>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-quick-item">
+                    <div class="faq-quick-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h4>Como funciona o pagamento?</h4>
+                    <p>Aceitamos cartão de crédito, PIX e Stripe. O pagamento é processado de forma segura.</p>
+                </div>
+                <div class="faq-quick-item">
+                    <div class="faq-quick-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h4>Como funciona o programa de afiliados?</h4>
+                    <p>Você ganha R$ 9,90 por mês para cada indicado ativo que assinar nosso plano.</p>
+                </div>
+                <div class="faq-quick-item">
+                    <div class="faq-quick-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h4>Quantas receitas estão disponíveis?</h4>
+                    <p>Temos mais de 100 receitas exclusivas e adicionamos novas toda semana.</p>
+                </div>
+                <div class="faq-quick-item">
+                    <div class="faq-quick-icon">
+                        <i class="fas fa-undo"></i>
+                    </div>
+                    <h4>Posso cancelar a qualquer momento?</h4>
+                    <p>Sim! Você pode cancelar sua assinatura a qualquer momento, sem multas.</p>
+                </div>
+            </div>
+            <div class="faq-cta">
+                <p>Não encontrou a resposta?</p>
+                <a href="index.html#faq" class="btn btn-outline">
+                    Ver Todas as Perguntas
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <img src="static/images/logo.png" alt="Receitas Milionárias Logo" class="footer-logo">
+                    <p class="footer-tagline">Democratizando a culinária, criando oportunidades.</p>
+                    <div class="footer-stats">
+                        <div class="footer-stat">
+                            <i class="fas fa-users"></i>
+                            <div>
+                                <strong>5.000+</strong>
+                                <span>Membros</span>
+                            </div>
+                        </div>
+                        <div class="footer-stat">
+                            <i class="fas fa-book"></i>
+                            <div>
+                                <strong>100+</strong>
+                                <span>Receitas</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-links-group">
+                    <div class="footer-column">
+                        <h4>Navegação</h4>
+                        <ul>
+                            <li><a href="index.html#receitas">Receitas</a></li>
+                            <li><a href="index.html#afiliados">Seja Afiliado</a></li>
+                            <li><a href="index.html#testimonials">Depoimentos</a></li>
+                            <li><a href="index.html#faq">FAQ</a></li>
+                            <li><a href="index.html#sobre">Quem Sou Eu</a></li>
+                            <li><a href="index.html#calculator">Calculadora</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Acesso Rápido</h4>
+                        <ul>
+                            <li><a href="index.html#pricing">Planos</a></li>
+                            <li><a href="index.html#calculator">Calculadora</a></li>
+                            <li><a href="index.html#affiliate">Seja Afiliado</a></li>
+                            <li><a href="index.html#recipes">Todas as Receitas</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Suporte</h4>
+                        <ul>
+                            <li><a href="index.html#faq">Perguntas Frequentes</a></li>
+                            <li><a href="contato.html">Contato</a></li>
+                            <li><a href="#terms">Termos de Uso</a></li>
+                            <li><a href="#privacy">Política de Privacidade</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Conecte-se</h4>
+                        <div class="footer-social">
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Youtube"><i class="fab fa-youtube"></i></a>
+                        </div>
+                        <div class="footer-newsletter">
+                            <input type="email" placeholder="Seu melhor e-mail" class="newsletter-input">
+                            <button class="newsletter-btn">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-mission">
+            <div class="container">
+                <div class="mission-item">
+                    <div class="mission-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h4>Missão</h4>
+                    <p>Democratizar o acesso a receitas e conhecimento culinário, unindo gastronomia e empreendedorismo digital através de um sistema de afiliados.</p>
+                </div>
+                <div class="mission-item">
+                    <div class="mission-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h4>Visão</h4>
+                    <p>Ser a maior plataforma de receitas e empreendedorismo digital do Brasil nos próximos 5 anos, transformando milhares de vidas através da culinária.</p>
+                </div>
+                <div class="mission-item">
+                    <div class="mission-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h4>Valores</h4>
+                    <ul class="values-list">
+                        <li><i class="fas fa-check-circle"></i> Inovação</li>
+                        <li><i class="fas fa-check-circle"></i> Acessibilidade</li>
+                        <li><i class="fas fa-check-circle"></i> Comunidade</li>
+                        <li><i class="fas fa-check-circle"></i> Transparência</li>
+                        <li><i class="fas fa-check-circle"></i> Qualidade</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2025 Receitas Milionárias. Todos os direitos reservados.</p>
+                    <div class="payment-methods">
+                        <i class="fab fa-cc-visa"></i>
+                        <i class="fab fa-cc-mastercard"></i>
+                        <i class="fab fa-cc-amex"></i>
+                        <i class="fab fa-pix"></i>
+                        <i class="fab fa-cc-stripe"></i>
+                    </div>
+                    <p class="developer-credit">Desenvolvido com <i class="fas fa-heart"></i> por Receitas Milionárias</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="static/js/script.js"></script>
+    <script src="static/js/contato.js"></script>
+</body>
+
+</html>
