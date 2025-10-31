@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Termos de Uso - Receitas Milionárias</title>
+    <meta name="description" content="Termos de Uso da plataforma Receitas Milionárias. Leia as condições de uso do nosso site e serviços.">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Termos de Uso - Receitas Milionárias">
+    <meta property="og:description" content="Condições de uso da plataforma Receitas Milionárias.">
+    <meta property="og:image" content="static/images/logo.png">
+    
+    <!-- Favicon e App Icons -->
+    <link rel="icon" type="image/png" href="static/images/logo.png">
+    <link rel="apple-touch-icon" href="static/images/logo.png">
+    <meta name="theme-color" content="#1C3B32">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="static/css/style.css">
+    
+    <style>
+        .legal-page {
+            background: #f8f9fa;
+            min-height: 100vh;
+            padding-top: 0;
+        }
+        
+        .legal-hero {
+            background: linear-gradient(135deg, #1C3B32 0%, #2d5a4a 100%);
+            color: #fff;
+            padding: 100px 20px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .legal-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".1" fill="%23D4AF37"/></svg>') no-repeat bottom;
+            background-size: cover;
+            opacity: 0.3;
+        }
+        
+        .legal-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: #D4AF37;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .legal-hero p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            font-weight: 300;
+        }
+        
+        .legal-content {
+            max-width: 1000px;
+            margin: -40px auto 0;
+            padding: 0 20px 80px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .legal-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 50px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+        
+        .legal-content h2 {
+            font-family: 'Playfair Display', serif;
+            color: #1C3B32;
+            font-size: 2.2rem;
+            margin: 3rem 0 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid #D4AF37;
+            position: relative;
+            font-weight: 700;
+        }
+        
+        .legal-content h2:first-of-type {
+            margin-top: 2rem;
+        }
+        
+        .legal-content h2::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: #1C3B32;
+        }
+        
+        .legal-content h3 {
+            color: #1C3B32;
+            font-size: 1.5rem;
+            margin: 2.5rem 0 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .legal-content h3::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: #D4AF37;
+            display: inline-block;
+        }
+        
+        .legal-content p {
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+            color: #444;
+            font-size: 1.05rem;
+        }
+        
+        .legal-content ul, .legal-content ol {
+            margin: 1.5rem 0 2rem;
+            padding-left: 0;
+            list-style: none;
+        }
+        
+        .legal-content li {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            color: #444;
+            padding-left: 30px;
+            position: relative;
+            font-size: 1.05rem;
+        }
+        
+        .legal-content ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #D4AF37;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .legal-content ol {
+            counter-reset: item;
+        }
+        
+        .legal-content ol li {
+            counter-increment: item;
+        }
+        
+        .legal-content ol li::before {
+            content: counter(item) ".";
+            position: absolute;
+            left: 0;
+            color: #1C3B32;
+            font-weight: 700;
+        }
+        
+        .legal-content strong {
+            color: #1C3B32;
+            font-weight: 600;
+        }
+        
+        .legal-content a {
+            color: #D4AF37;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid transparent;
+        }
+        
+        .legal-content a:hover {
+            color: #1C3B32;
+            border-bottom-color: #D4AF37;
+        }
+        
+        .last-update {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #666;
+            border-left: 4px solid #D4AF37;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        
+        .last-update strong {
+            color: #1C3B32;
+            font-size: 1.1rem;
+        }
+        
+        .contact-box {
+            background: linear-gradient(135deg, #1C3B32 0%, #2d5a4a 100%);
+            color: #fff;
+            padding: 40px;
+            border-radius: 16px;
+            margin: 4rem 0 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(28, 59, 50, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%);
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        .contact-box h3 {
+            color: #D4AF37;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .contact-box h3::before {
+            display: none;
+        }
+        
+        .contact-box p {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .contact-box a {
+            color: #D4AF37;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .contact-box a:hover {
+            color: #fff;
+            transform: translateY(-2px);
+        }
+        
+        .contact-box i {
+            font-size: 1.2rem;
+        }
+        
+        /* Breadcrumb Navigation */
+        .legal-breadcrumb {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 100px 20px 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+        
+        .legal-breadcrumb a {
+            color: #fff;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        
+        .legal-breadcrumb a:hover {
+            opacity: 1;
+        }
+        
+        .legal-breadcrumb span {
+            color: #D4AF37;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 992px) {
+            .legal-hero {
+                padding: 90px 20px 70px;
+            }
+            
+            .legal-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .legal-card {
+                padding: 40px 30px;
+            }
+            
+            .legal-content h2 {
+                font-size: 1.9rem;
+            }
+            
+            .legal-content h3 {
+                font-size: 1.3rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .legal-hero {
+                padding: 80px 15px 60px;
+            }
+            
+            .legal-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .legal-hero p {
+                font-size: 1rem;
+            }
+            
+            .legal-content {
+                margin-top: -30px;
+                padding: 0 15px 60px;
+            }
+            
+            .legal-card {
+                padding: 30px 20px;
+                border-radius: 12px;
+            }
+            
+            .legal-content h2 {
+                font-size: 1.6rem;
+                margin: 2.5rem 0 1.2rem;
+            }
+            
+            .legal-content h3 {
+                font-size: 1.2rem;
+                margin: 2rem 0 0.8rem;
+            }
+            
+            .legal-content p,
+            .legal-content li {
+                font-size: 1rem;
+            }
+            
+            .legal-content ul,
+            .legal-content ol {
+                margin: 1rem 0 1.5rem;
+            }
+            
+            .legal-content li {
+                padding-left: 25px;
+                margin-bottom: 0.8rem;
+            }
+            
+            .contact-box {
+                padding: 30px 20px;
+                margin: 3rem 0 1.5rem;
+            }
+            
+            .contact-box h3 {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+            
+            .contact-box p,
+            .contact-box a {
+                font-size: 1rem;
+            }
+            
+            .last-update {
+                padding: 20px 15px;
+                font-size: 0.95rem;
+            }
+            
+            .legal-breadcrumb {
+                padding: 90px 15px 15px;
+                font-size: 0.85rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .legal-hero h1 {
+                font-size: 1.75rem;
+            }
+            
+            .legal-card {
+                padding: 25px 15px;
+            }
+            
+            .legal-content h2 {
+                font-size: 1.4rem;
+            }
+            
+            .contact-box a {
+                word-break: break-all;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu Mobile -->
+    <div class="menu-overlay" id="menu-overlay">
+        <div class="menu-panel">
+            <button id="close-menu" class="close-menu" aria-label="Fechar menu">
+                <i class="fas fa-times"></i>
+            </button>
+            <nav class="overlay-nav">
+                <a href="index.html">Início</a>
+                <a href="receitas.html">Receitas</a>
+                <a href="index.html#afiliados">Seja Afiliado</a>
+                <a href="index.html#testimonials">Depoimentos</a>
+                <a href="index.html#faq">FAQ</a>
+                <a href="contato.html">Contato</a>
+            </nav>
+            <div class="menu-footer">
+                <a href="cadastro.html" class="btn btn-primary btn-block">
+                    <i class="fas fa-user-plus"></i> Cadastre-se
+                </a>
+                <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-in" 
+                   class="btn btn-secondary btn-block" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </a>
+                <div class="menu-social">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Youtube"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="https://wa.me/5515997575655" class="whatsapp-float" target="_blank" rel="noopener noreferrer"
+        aria-label="Fale conosco no WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Header -->
+    <header class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="static/images/logo.png" alt="Receitas Milionárias Logo">
+            </a>
+            <nav class="nav-links">
+                <a href="receitas.html">Receitas</a>
+                <a href="index.html#afiliados">Seja Afiliado</a>
+                <a href="index.html#testimonials">Depoimentos</a>
+                <a href="index.html#faq">FAQ</a>
+                <a href="contato.html">Contato</a>
+            </nav>
+            <div class="nav-buttons">
+                <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-in" class="btn btn-secondary"
+                    target="_blank" rel="noopener noreferrer">Login</a>
+                <a href="cadastro.html" class="btn btn-primary">Cadastre-se</a>
+            </div>
+            <button id="open-menu" class="hamburger" aria-label="Abrir menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Legal Page Content -->
+    <main class="legal-page">
+        <section class="legal-hero">
+            <div class="legal-breadcrumb">
+                <a href="index.html"><i class="fas fa-home"></i> Início</a>
+                <i class="fas fa-chevron-right" style="opacity: 0.6; font-size: 0.7rem;"></i>
+                <span>Termos de Uso</span>
+            </div>
+            <h1><i class="fas fa-file-contract"></i> Termos de Uso</h1>
+            <p>Condições gerais de uso da plataforma Receitas Milionárias</p>
+        </section>
+
+        <div class="legal-content">
+            <div class="legal-card">
+            <div class="last-update">
+                <strong><i class="fas fa-calendar-alt"></i> Última atualização:</strong> 31 de outubro de 2025
+            </div>
+
+            <h2>1. Aceitação dos Termos</h2>
+            <p>Ao acessar e usar o site Receitas Milionárias ("Plataforma"), você concorda em cumprir e estar vinculado aos seguintes Termos de Uso. Se você não concorda com qualquer parte destes termos, não deve usar nossa plataforma.</p>
+
+            <h2>2. Descrição do Serviço</h2>
+            <p>A Receitas Milionárias é uma plataforma digital que oferece:</p>
+            <ul>
+                <li>Acesso a receitas culinárias exclusivas e conteúdo gastronômico</li>
+                <li>Programa de afiliados para monetização de conteúdo</li>
+                <li>Recursos de compartilhamento e comunidade gastronômica</li>
+                <li>E-books e materiais digitais relacionados à culinária</li>
+            </ul>
+
+            <h2>3. Cadastro e Conta de Usuário</h2>
+            <h3>3.1 Requisitos de Cadastro</h3>
+            <p>Para acessar certos recursos da plataforma, você deve:</p>
+            <ul>
+                <li>Ter pelo menos 18 anos de idade</li>
+                <li>Fornecer informações verdadeiras, precisas e completas</li>
+                <li>Manter suas informações de cadastro atualizadas</li>
+                <li>Manter a confidencialidade de sua senha</li>
+            </ul>
+
+            <h3>3.2 Responsabilidade pela Conta</h3>
+            <p>Você é responsável por todas as atividades que ocorrem em sua conta. Notifique-nos imediatamente sobre qualquer uso não autorizado de sua conta.</p>
+
+            <h2>4. Programa de Afiliados</h2>
+            <h3>4.1 Participação</h3>
+            <p>Ao se inscrever em nosso programa de afiliados, você concorda em:</p>
+            <ul>
+                <li>Promover a plataforma de forma ética e honesta</li>
+                <li>Não usar spam ou práticas enganosas de marketing</li>
+                <li>Seguir nossas diretrizes de marca e comunicação</li>
+                <li>Declarar sua condição de afiliado quando aplicável</li>
+            </ul>
+
+            <h3>4.2 Comissões</h3>
+            <p>As comissões de afiliados são calculadas conforme descrito em nossa documentação do programa. Reservamos o direito de modificar as taxas de comissão com aviso prévio de 30 dias.</p>
+
+            <h2>5. Propriedade Intelectual</h2>
+            <h3>5.1 Conteúdo da Plataforma</h3>
+            <p>Todo o conteúdo da Receitas Milionárias, incluindo textos, receitas, imagens, vídeos, logotipos e design, é protegido por direitos autorais e outras leis de propriedade intelectual.</p>
+
+            <h3>5.2 Uso Permitido</h3>
+            <p>Você pode:</p>
+            <ul>
+                <li>Visualizar e usar as receitas para fins pessoais e não comerciais</li>
+                <li>Compartilhar links para receitas específicas</li>
+                <li>Usar materiais de divulgação fornecidos se for afiliado</li>
+            </ul>
+
+            <h3>5.3 Uso Proibido</h3>
+            <p>Você NÃO pode:</p>
+            <ul>
+                <li>Copiar, reproduzir ou distribuir conteúdo sem autorização</li>
+                <li>Modificar ou criar obras derivadas do nosso conteúdo</li>
+                <li>Usar nosso conteúdo para fins comerciais sem licença</li>
+                <li>Remover avisos de direitos autorais ou marcas registradas</li>
+            </ul>
+
+            <h2>6. Conduta do Usuário</h2>
+            <p>Você concorda em NÃO:</p>
+            <ul>
+                <li>Violar qualquer lei local, estadual, nacional ou internacional</li>
+                <li>Transmitir conteúdo ofensivo, difamatório ou ilegal</li>
+                <li>Interferir ou interromper o funcionamento da plataforma</li>
+                <li>Tentar obter acesso não autorizado a sistemas ou contas</li>
+                <li>Usar bots, scripts ou automação sem autorização</li>
+                <li>Coletar dados de outros usuários sem permissão</li>
+            </ul>
+
+            <h2>7. Pagamentos e Reembolsos</h2>
+            <h3>7.1 Produtos Digitais</h3>
+            <p>Nossos produtos digitais (e-books, cursos, etc.) são entregues imediatamente após a confirmação do pagamento.</p>
+
+            <h3>7.2 Política de Reembolso</h3>
+            <p>Oferecemos garantia de 7 dias para produtos digitais. Para solicitar reembolso:</p>
+            <ul>
+                <li>Entre em contato dentro de 7 dias após a compra</li>
+                <li>Forneça o motivo do reembolso</li>
+                <li>O produto não deve ter sido compartilhado ou distribuído</li>
+            </ul>
+
+            <h2>8. Privacidade e Proteção de Dados</h2>
+            <p>Sua privacidade é importante para nós. O uso de suas informações pessoais é regido por nossa <a href="politica-de-privacidade.html">Política de Privacidade</a>, que é incorporada a estes Termos de Uso por referência.</p>
+
+            <h2>9. Limitação de Responsabilidade</h2>
+            <p>A Receitas Milionárias não será responsável por:</p>
+            <ul>
+                <li>Danos indiretos, incidentais ou consequenciais</li>
+                <li>Perda de lucros, dados ou oportunidades de negócio</li>
+                <li>Resultados culinários ou alergias alimentares</li>
+                <li>Problemas técnicos fora de nosso controle</li>
+            </ul>
+
+            <h2>10. Isenção de Garantias</h2>
+            <p>A plataforma é fornecida "como está" e "conforme disponível". Não garantimos que:</p>
+            <ul>
+                <li>O serviço será ininterrupto ou livre de erros</li>
+                <li>As receitas atenderão suas expectativas específicas</li>
+                <li>Resultados específicos serão alcançados com as receitas</li>
+            </ul>
+
+            <h2>11. Modificações dos Termos</h2>
+            <p>Reservamos o direito de modificar estes Termos de Uso a qualquer momento. Mudanças significativas serão notificadas por e-mail ou através de aviso na plataforma. O uso continuado após as modificações constitui aceitação dos novos termos.</p>
+
+            <h2>12. Rescisão</h2>
+            <h3>12.1 Por Sua Parte</h3>
+            <p>Você pode encerrar sua conta a qualquer momento através das configurações da conta ou entrando em contato conosco.</p>
+
+            <h3>12.2 Por Nossa Parte</h3>
+            <p>Podemos suspender ou encerrar sua conta se você:</p>
+            <ul>
+                <li>Violar estes Termos de Uso</li>
+                <li>Usar a plataforma de forma fraudulenta ou abusiva</li>
+                <li>Fornecer informações falsas</li>
+                <li>Não pagar por serviços adquiridos</li>
+            </ul>
+
+            <h2>13. Lei Aplicável e Jurisdição</h2>
+            <p>Estes Termos de Uso são regidos pelas leis da República Federativa do Brasil. Qualquer disputa será resolvida nos tribunais competentes do Brasil.</p>
+
+            <h2>14. Disposições Gerais</h2>
+            <h3>14.1 Acordo Integral</h3>
+            <p>Estes Termos constituem o acordo integral entre você e a Receitas Milionárias.</p>
+
+            <h3>14.2 Independência das Cláusulas</h3>
+            <p>Se qualquer disposição destes Termos for considerada inválida, as demais disposições permanecerão em vigor.</p>
+
+            <h3>14.3 Renúncia</h3>
+            <p>A falha em exercer qualquer direito não constitui renúncia a esse direito.</p>
+
+            <div class="contact-box">
+                <h3><i class="fas fa-question-circle"></i> Dúvidas sobre os Termos de Uso?</h3>
+                <p>Entre em contato conosco:</p>
+                <p>
+                    <i class="fas fa-envelope"></i> 
+                    <a href="mailto:contato@receitasmilionarias.com.br">contato@receitasmilionarias.com.br</a>
+                </p>
+            </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <img src="static/images/logo.png" alt="Receitas Milionárias Logo" class="footer-logo">
+                    <p class="footer-tagline">Democratizando a culinária, criando oportunidades.</p>
+                    <div class="footer-stats">
+                        <div class="footer-stat">
+                            <i class="fas fa-users"></i>
+                            <div>
+                                <strong>5.000+</strong>
+                                <span>Membros</span>
+                            </div>
+                        </div>
+                        <div class="footer-stat">
+                            <i class="fas fa-book"></i>
+                            <div>
+                                <strong>100+</strong>
+                                <span>Receitas</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-links-group">
+                    <div class="footer-column">
+                        <h4>Navegação</h4>
+                        <ul>
+                            <li><a href="index.html">Início</a></li>
+                            <li><a href="receitas.html">Receitas</a></li>
+                            <li><a href="index.html#afiliados">Seja Afiliado</a></li>
+                            <li><a href="index.html#testimonials">Depoimentos</a></li>
+                            <li><a href="index.html#faq">FAQ</a></li>
+                            <li><a href="contato.html">Contato</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Acesso Rápido</h4>
+                        <ul>
+                            <li><a href="index.html#cta-kit">Planos</a></li>
+                            <li><a href="index.html#calculator">Calculadora</a></li>
+                            <li><a href="index.html#afiliados">Seja Afiliado</a></li>
+                            <li><a href="receitas.html">Todas as Receitas</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <ul>
+                            <li><a href="termos-de-uso.html">Termos de Uso</a></li>
+                            <li><a href="politica-de-privacidade.html">Política de Privacidade</a></li>
+                            <li><a href="index.html#faq">Perguntas Frequentes</a></li>
+                            <li><a href="contato.html">Contato</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Conecte-se</h4>
+                        <div class="footer-social">
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Youtube"><i class="fab fa-youtube"></i></a>
+                        </div>
+                        <div class="footer-newsletter">
+                            <input type="email" placeholder="Seu melhor e-mail" class="newsletter-input">
+                            <button class="newsletter-btn">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-mission">
+            <div class="container">
+                <div class="mission-item">
+                    <div class="mission-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h4>Missão</h4>
+                    <p>Democratizar o acesso a receitas e conhecimento culinário, unindo gastronomia e empreendedorismo digital através de um sistema de afiliados.</p>
+                </div>
+                <div class="mission-item">
+                    <div class="mission-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h4>Visão</h4>
+                    <p>Ser a maior plataforma de receitas e empreendedorismo digital do Brasil nos próximos 5 anos, transformando milhares de vidas através da culinária.</p>
+                </div>
+                <div class="mission-item">
+                    <div class="mission-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h4>Valores</h4>
+                    <ul class="values-list">
+                        <li><i class="fas fa-check-circle"></i> Inovação</li>
+                        <li><i class="fas fa-check-circle"></i> Acessibilidade</li>
+                        <li><i class="fas fa-check-circle"></i> Comunidade</li>
+                        <li><i class="fas fa-check-circle"></i> Transparência</li>
+                        <li><i class="fas fa-check-circle"></i> Qualidade</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2025 Receitas Milionárias. Todos os direitos reservados.</p>
+                    <div class="payment-methods">
+                        <i class="fab fa-cc-visa"></i>
+                        <i class="fab fa-cc-mastercard"></i>
+                        <i class="fab fa-cc-amex"></i>
+                        <i class="fab fa-pix"></i>
+                        <i class="fab fa-cc-stripe"></i>
+                    </div>
+                    <p class="developer-credit">Desenvolvido com <i class="fas fa-heart"></i> por Receitas Milionárias</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="static/js/script.js"></script>
+</body>
+</html>
