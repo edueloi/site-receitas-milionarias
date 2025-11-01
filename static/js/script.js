@@ -473,27 +473,27 @@ document.addEventListener("DOMContentLoaded", () => {
                     recipe.dificuldade || "?"
                   }</span>
                 </div>
-                <div class="recipe-rating-comments">
-                  <span class="rating">
+                ${
+                  recipe.resultados_avaliacao &&
+                  recipe.resultados_avaliacao.quantidade_avaliacoes > 0
+                    ? `<div class="recipe-rating-comments">
+                  ${
+                    recipe.resultados_avaliacao.media_avaliacoes > 0
+                      ? `<span class="rating">
                     <i class="fas fa-star" aria-hidden="true"></i>
-                    ${
-                      recipe.resultados_avaliacao &&
+                    ${parseFloat(
                       recipe.resultados_avaliacao.media_avaliacoes
-                        ? parseFloat(
-                            recipe.resultados_avaliacao.media_avaliacoes
-                          ).toFixed(1)
-                        : "0.0"
-                    }
-                  </span>
+                    ).toFixed(1)}
+                  </span>`
+                      : ""
+                  }
                   <span class="comments">
                     <i class="fas fa-comment" aria-hidden="true"></i>
-                    ${
-                      recipe.resultados_avaliacao
-                        ? recipe.resultados_avaliacao.quantidade_avaliacoes
-                        : 0
-                    }
+                    ${recipe.resultados_avaliacao.quantidade_avaliacoes}
                   </span>
-                </div>
+                </div>`
+                    : ""
+                }
                 <span class="read-more-link">Ver Receita <i class="fas fa-arrow-right"></i></span>
               </div>
             </article>
