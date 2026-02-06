@@ -25,6 +25,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const emailInput = document.getElementById("email");
   const passwordInput = document.getElementById("password");
   const passwordToggle = document.querySelector(".toggle-password");
+  const signupLink = document.querySelector(".form-footer a[href*=\"cadastro.html\"]");
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const refCode = urlParams.get("ref");
+  if (signupLink && refCode) {
+    try {
+      const signupUrl = new URL(signupLink.getAttribute("href"), window.location.href);
+      signupUrl.searchParams.set("ref", refCode);
+      signupLink.setAttribute("href", signupUrl.toString());
+    } catch (err) {
+      console.error("Erro ao atualizar link de cadastro:", err);
+    }
+  }
 
   // Toggle password visibility
   passwordToggle.addEventListener("click", () => {

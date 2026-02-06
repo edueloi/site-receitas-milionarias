@@ -310,14 +310,19 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  if (
-    window.RM_AFF &&
-    typeof window.RM_AFF.get === "function" &&
-    inputs.affiliateCode
-  ) {
-    const affiliateCode = window.RM_AFF.get();
-    if (affiliateCode) {
-      inputs.affiliateCode.value = affiliateCode;
+  const normalizeAffiliateCode = (code) => {
+    if (!code) return "";
+    if (code.startsWith("afiliado_")) {
+      return code.replace("afiliado_", "");
+    }
+    return code;
+  };
+
+  if (inputs.affiliateCode) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const refCode = normalizeAffiliateCode(urlParams.get("ref") || "");
+    if (refCode) {
+      inputs.affiliateCode.value = refCode;
       inputs.affiliateCode.readOnly = true;
       if (affiliateFieldContainer) {
         affiliateFieldContainer.classList.add("hidden");
