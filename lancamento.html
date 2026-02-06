@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aguarde o lançamento do maior sistema de receitas milionárias! Cadastre-se e receba acesso antecipado + bônus exclusivos.">
+    <meta name="keywords" content="receitas, culinária, gastronomia, ganhar dinheiro, afiliados">
+    <meta property="og:title" content="Lançamento em Breve - Receitas Milionárias">
+    <meta property="og:description" content="O maior sistema de receitas está chegando! Cadastre-se agora.">
+    <meta property="og:type" content="website">
+    <title>🚀 Lançamento em Breve - Receitas Milionárias</title>
+    <link rel="icon" type="image/png" href="static/images/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --dourado: #C9A635;
+            --verde-escuro: #1C3B32;
+            --fundo: #0a0e27;
+            --branco: #FFFFFF;
+            --cinza: #444444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--fundo);
+            color: var(--branco);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Particles background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: linear-gradient(135deg, var(--verde-escuro) 0%, var(--fundo) 50%, var(--verde-escuro) 100%);
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--dourado);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 20s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-100px) translateX(50px); }
+            50% { transform: translateY(-50px) translateX(-50px); }
+            75% { transform: translateY(-80px) translateX(30px); }
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .logo {
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+            margin: 0 auto 2rem;
+            display: block;
+            filter: drop-shadow(0 10px 30px rgba(201, 166, 53, 0.4));
+            animation: fadeInDown 1s ease-in;
+        }
+
+        @keyframes fadeInDown {
+            from { 
+                opacity: 0; 
+                transform: translateY(-30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--branco), var(--dourado), var(--branco));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: pulse 2s ease-in-out infinite;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+            line-height: 1.8;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Countdown */
+        .countdown-section {
+            margin-bottom: 60px;
+            animation: slideUp 1s ease-in 0.2s both;
+        }
+
+        .countdown-title {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: var(--dourado);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(201, 166, 53, 0.4);
+            border-radius: 20px;
+            padding: 2rem 2.5rem;
+            min-width: 140px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .countdown-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(201, 166, 53, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: 0.5s;
+        }
+
+        .countdown-item:hover::before {
+            left: 100%;
+        }
+
+        .countdown-item:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(201, 166, 53, 0.4);
+            border-color: var(--dourado);
+        }
+
+        .countdown-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--dourado);
+            display: block;
+            text-shadow: 0 0 20px rgba(201, 166, 53, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        .countdown-label {
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-top: 0.8rem;
+            opacity: 0.9;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Benefits */
+        .benefits {
+            text-align: center;
+            margin: 60px 0;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 30px;
+            border: 1px solid rgba(201, 166, 53, 0.2);
+            animation: fadeIn 1s ease-in 0.4s both;
+        }
+
+        .benefits-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #C9A635;
+            font-weight: 800;
+        }
+
+        .benefits-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .benefit-card {
+            background: linear-gradient(135deg, rgba(28, 59, 50, 0.4), rgba(10, 14, 39, 0.4));
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 2px solid rgba(201, 166, 53, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefit-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(201, 166, 53, 0.1), transparent);
+            transition: 0.5s;
+        }
+
+        .benefit-card:hover::before {
+            left: 100%;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            border-color: #C9A635;
+            box-shadow: 0 15px 40px rgba(201, 166, 53, 0.3);
+        }
+
+        .benefit-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .benefit-card h3 {
+            color: #C9A635;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .benefit-card p {
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+
+        /* Stats Counter */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 60px 0;
+            animation: fadeIn 1s ease-in 0.6s both;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 30px;
+            background: rgba(201, 166, 53, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(201, 166, 53, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: scale(1.05);
+            background: rgba(201, 166, 53, 0.15);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--dourado);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .stat-sublabel {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            display: block;
+            margin-top: 4px;
+        }
+
+        /* Formulário */
+        .form-section {
+            background: linear-gradient(135deg, rgba(28, 59, 50, 0.3), rgba(10, 14, 39, 0.3));
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(201, 166, 53, 0.4);
+            border-radius: 30px;
+            padding: 50px;
+            margin-top: 60px;
+            animation: slideUp 1s ease-in 0.8s both;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #C9A635;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        .form-section > p {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            font-size: 1.1rem;
+        }
+
+        .early-bird {
+            background: linear-gradient(135deg, #C9A635, #ffd700);
+            color: #1C3B32;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 20px rgba(201, 166, 53, 0.4);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .form-group {
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #C9A635;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        label .required {
+            color: #ff4444;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 18px 20px;
+            border: 2px solid rgba(201, 166, 53, 0.3);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #1C3B32;
+            font-size: 1.05rem;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #C9A635;
+            box-shadow: 0 0 20px rgba(201, 166, 53, 0.4);
+            transform: translateY(-2px);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #C9A635, #ffd700, #C9A635);
+            background-size: 200% 200%;
+            color: #1C3B32;
+            border: none;
+            padding: 20px 50px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 10px 30px rgba(201, 166, 53, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.5s;
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(201, 166, 53, 0.6);
+            background-position: 100% 0;
+        }
+
+        button:active {
+            transform: translateY(-2px);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .success-message {
+            display: none;
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(76, 175, 80, 0.1));
+            border: 2px solid #4CAF50;
+            color: #fff;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 25px;
+            text-align: center;
+            font-size: 1.1rem;
+            animation: slideIn 0.5s ease;
+        }
+
+        .error-message {
+            display: none;
+            background: linear-gradient(135deg, rgba(244, 67, 54, 0.2), rgba(244, 67, 54, 0.1));
+            border: 2px solid #f44336;
+            color: #fff;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 25px;
+            text-align: center;
+            font-size: 1.1rem;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Trust badges */
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(201, 166, 53, 0.2);
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0.8;
+        }
+
+        .badge-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Features */
+        .features {
+            margin-top: 4rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(201, 166, 53, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .feature:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature h3 {
+            color: #C9A635;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .logo {
+                max-width: 280px;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .brand-name {
+                font-size: 1.8rem;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .countdown {
+                gap: 1rem;
+            }
+
+            .countdown-item {
+                padding: 1.5rem 1.8rem;
+                min-width: 100px;
+            }
+
+            .countdown-number {
+                font-size: 2.5rem;
+            }
+
+            .form-section {
+                padding: 30px 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            button {
+                padding: 18px 40px;
+                font-size: 1.05rem;
+            }
+
+            .benefits-title {
+                font-size: 2rem;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Loading spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(28, 59, 50, 0.3);
+            border-radius: 50%;
+            border-top-color: #1C3B32;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            opacity: 0.7;
+            z-index: 10;
+        }
+
+        .scroll-indicator::after {
+            content: '↓';
+            font-size: 2rem;
+            color: #C9A635;
+        }
+    </style>
+</head>
+<body>
+    <!-- Particles Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <img src="static/images/logo-deitado.png" alt="Receitas Milionárias" class="logo">
+            <div class="brand-name">Receitas Milionárias</div>
+            <h1>Lançamento em Breve!</h1>
+            <p class="subtitle">
+                🔥 O maior e mais completo sistema de receitas culinárias está chegando!<br>
+                Descubra, compartilhe e <strong>ganhe dinheiro</strong> com suas receitas favoritas.
+            </p>
+        </div>
+
+        <!-- Countdown -->
+        <div class="countdown-section">
+            <h2 class="countdown-title">⏰ Contagem Regressiva para o Lançamento</h2>
+            <div class="countdown">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="days">00</span>
+                    <span class="countdown-label">Dias</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="hours">00</span>
+                    <span class="countdown-label">Horas</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="minutes">00</span>
+                    <span class="countdown-label">Minutos</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="seconds">00</span>
+                    <span class="countdown-label">Segundos</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number" id="leadCount">521</div>
+                <div class="stat-label">Pessoas Aguardando</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">110+</div>
+                <div class="stat-label">Receitas Disponíveis</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Gratuito para Criar</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">�</div>
+                <div class="stat-label">Ganhe Comissões</div>
+            </div>
+        </div>
+
+        <!-- Benefits -->
+        <div class="benefits">
+            <h2 class="benefits-title">🎁 O Que Você Vai Receber</h2>
+            <p class="benefits-subtitle">Benefícios exclusivos para quem se cadastrar agora</p>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <span class="benefit-icon">🚀</span>
+                    <h3>Acesso Antecipado</h3>
+                    <p>Seja um dos primeiros a explorar o sistema e aproveitar todas as funcionalidades premium</p>
+                </div>
+                <div class="benefit-card">
+                    <span class="benefit-icon">📚</span>
+                    <h3>Biblioteca Completa</h3>
+                    <p>Acesse milhares de receitas categorizadas, testadas e aprovadas por chefs profissionais</p>
+                </div>
+                <div class="benefit-card">
+                    <span class="benefit-icon">👨‍🍳</span>
+                    <h3>Crie & Compartilhe</h3>
+                    <p>Publique suas próprias receitas e construa sua audiência de amantes da culinária</p>
+                </div>
+                <div class="benefit-card">
+                    <span class="benefit-icon">💎</span>
+                    <h3>Bônus Exclusivos</h3>
+                    <p>E-books, vídeos tutoriais e acesso a webinars com chefs renomados</p>
+                </div>
+                <div class="benefit-card">
+                    <span class="benefit-icon">💰</span>
+                    <h3>Sistema de Afiliados</h3>
+                    <p>Ganhe comissões compartilhando receitas e indicando novos usuários</p>
+                </div>
+                <div class="benefit-card">
+                    <span class="benefit-icon">🎯</span>
+                    <h3>Suporte Prioritário</h3>
+                    <p>Atendimento VIP e suporte dedicado para early adopters</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Formulário de Interesse -->
+        <div class="form-section">
+            <div style="text-align: center;">
+                <span class="early-bird">🎉 EARLY BIRD - Vagas Limitadas!</span>
+            </div>
+            <h2>🔔 Seja Notificado no Lançamento!</h2>
+            <p>Cadastre-se agora e garanta acesso antecipado + bônus exclusivos no valor de R$ 397,00</p>
+            
+            <form id="leadForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nome">Nome Completo <span class="required">*</span></label>
+                        <input type="text" id="nome" name="nome" required placeholder="Digite seu nome completo">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">E-mail <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" required placeholder="seu@email.com">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="whatsapp">WhatsApp <span class="required">*</span></label>
+                        <input type="tel" id="whatsapp" name="whatsapp" required placeholder="(00) 00000-0000">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="interesse">O que mais te interessa? (opcional)</label>
+                    <textarea id="interesse" name="interesse" placeholder="Ex: Receitas vegetarianas, doces, massas, culinária internacional..."></textarea>
+                </div>
+
+                <button type="submit" id="submitBtn">
+                    <span id="btnText">🚀 Garantir Minha Vaga Agora!</span>
+                    <span id="btnSpinner" class="spinner" style="display: none;"></span>
+                </button>
+
+                <div class="success-message" id="successMessage">
+                    🎉 <strong>Parabéns!</strong> Seu cadastro foi realizado com sucesso!<br>
+                    Você receberá uma notificação exclusiva assim que lançarmos.
+                </div>
+
+                <div class="error-message" id="errorMessage">
+                    ❌ <strong>Ops!</strong> Algo deu errado. Por favor, tente novamente.
+                </div>
+
+                <!-- Trust Badges -->
+                <div class="trust-badges">
+                    <div class="badge">
+                        <span class="badge-icon">🔒</span>
+                        <span>100% Seguro</span>
+                    </div>
+                    <div class="badge">
+                        <span class="badge-icon">✅</span>
+                        <span>Sem Spam</span>
+                    </div>
+                    <div class="badge">
+                        <span class="badge-icon">⚡</span>
+                        <span>Acesso Imediato</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Criar partículas no background
+        function createParticles() {
+            const particles = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = Math.random() * 5 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                particles.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // Countdown Timer
+        const launchDate = new Date();
+        launchDate.setDate(launchDate.getDate() + 30); // 30 dias
+        launchDate.setHours(0, 0, 0, 0);
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = launchDate - now;
+
+            if (distance < 0) {
+                document.querySelector('.countdown-section').innerHTML = 
+                    '<h2 class="countdown-title" style="font-size: 3rem;">🎉 Estamos no Ar! 🎉</h2>';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // Contador de leads em tempo real (animado)
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    clearInterval(timer);
+                    current = target;
+                }
+                element.textContent = Math.floor(current);
+            }, 30);
+        }
+
+        // Buscar contagem de leads do backend
+        async function updateLeadCount() {
+            try {
+                const response = await fetch('http://localhost:8484/api/lancamento/leads');
+                if (response.ok) {
+                    const data = await response.json();
+                    const leadCountElement = document.getElementById('leadCount');
+                    animateCounter(leadCountElement, data.total || 0);
+                }
+            } catch (error) {
+                // Fallback para número aleatório se API falhar
+                const leadCountElement = document.getElementById('leadCount');
+                animateCounter(leadCountElement, Math.floor(Math.random() * 200) + 100);
+            }
+        }
+        updateLeadCount();
+        setInterval(updateLeadCount, 30000); // Atualiza a cada 30 segundos
+
+        // Máscara para WhatsApp
+        document.getElementById('whatsapp').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 11) value = value.slice(0, 11);
+            
+            if (value.length > 6) {
+                value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7)}`;
+            } else if (value.length > 2) {
+                value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
+            } else if (value.length > 0) {
+                value = `(${value}`;
+            }
+            
+            e.target.value = value;
+        });
+
+        // Remover scroll indicator ao rolar
+        window.addEventListener('scroll', () => {
+            const scrollIndicator = document.querySelector('.scroll-indicator');
+            if (window.scrollY > 100) {
+                scrollIndicator.style.opacity = '0';
+            } else {
+                scrollIndicator.style.opacity = '0.7';
+            }
+        });
+
+        // Envio do formulário
+        document.getElementById('leadForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const btnSpinner = document.getElementById('btnSpinner');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Esconde mensagens anteriores
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+
+            // Mostra loading
+            submitBtn.disabled = true;
+            btnText.style.display = 'none';
+            btnSpinner.style.display = 'inline-block';
+
+            const formData = {
+                nome: document.getElementById('nome').value,
+                email: document.getElementById('email').value,
+                whatsapp: document.getElementById('whatsapp').value,
+                interesse: document.getElementById('interesse').value
+            };
+
+            try {
+                const response = await fetch('http://localhost:8484/api/lancamento/lead', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    successMessage.style.display = 'block';
+                    document.getElementById('leadForm').reset();
+                    
+                    // Scroll suave até a mensagem
+                    successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    
+                    // Atualizar contador
+                    setTimeout(updateLeadCount, 500);
+                    
+                    // Confetti effect
+                    createConfetti();
+                } else {
+                    throw new Error('Erro no servidor');
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                errorMessage.style.display = 'block';
+                errorMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            } finally {
+                submitBtn.disabled = false;
+                btnText.style.display = 'inline';
+                btnSpinner.style.display = 'none';
+            }
+        });
+
+        // Efeito confetti ao cadastrar
+        function createConfetti() {
+            const colors = ['#C9A635', '#ffd700', '#fff'];
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.width = '10px';
+                confetti.style.height = '10px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = '-10px';
+                confetti.style.opacity = '1';
+                confetti.style.zIndex = '9999';
+                document.body.appendChild(confetti);
+                
+                const animation = confetti.animate([
+                    { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                    { transform: `translateY(${window.innerHeight}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                ], {
+                    duration: Math.random() * 3000 + 2000,
+                    easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                });
+                
+                animation.onfinish = () => confetti.remove();
+            }
+        }
+    </script>
+</body>
+</html>

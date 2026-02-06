@@ -1,7 +1,23 @@
 // Inicializa o Stripe
-const stripe = Stripe(
-  "pk_live_51SMf3SIDMhvKPy02zS4MR3PQR3l2uIESt1X0qTvabJjlYPn7tuoperw30O8qq8UGaSynVfrtSpQVYNKuFLaYRlZ400m2bDaWBv"
-);
+const localConfig = (() => {
+  if (window.RM_CONFIG) return window.RM_CONFIG;
+  const isLocalHost = ["localhost", "127.0.0.1"].includes(
+    window.location.hostname
+  );
+  return {
+    API_BASE_URL: isLocalHost ? "http://localhost:8484" : "https://api.receitasmilionarias.com.br",
+    STRIPE_PUBLISHABLE_KEY: isLocalHost
+      ? "pk_test_51SvPraPK4fqE2OifCOIoXB4S4VVlvYJSkrD4O3hKmRexjN0TG4eKSz6eOHdolAj1I2BL8QmZ7fhvWKgCiN7QOo2B00wvMY8j9Z"
+      : "pk_live_51SvPrGADbQovebzdAIulkMrdyUzIbQYBhDiNP3IyDjj79BFtm8pd5snVrN8tRFiyrJhX0D8Y6zfz40Kk7RlwVAhs00Y8BVzsKX",
+  };
+})();
+
+const stripe = Stripe(localConfig.STRIPE_PUBLISHABLE_KEY);
+const PAYMENT_LINK_URL = ["localhost", "127.0.0.1"].includes(
+  window.location.hostname
+)
+  ? "https://buy.stripe.com/test_8x214p5IE4VaaBafKu2kw00"
+  : "https://buy.stripe.com/aFa5kC1D246a9uEfvWbV600";
 
 document.addEventListener("DOMContentLoaded", () => {
   const loginForm = document.getElementById("login-form");
@@ -45,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       const response = await fetch(
-        "https://api.receitasmilionarias.com.br/users/login",
+        `${localConfig.API_BASE_URL}/users/login`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -94,34 +110,12 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       loginBtn.innerHTML = "Redirecionando...";
 
-      const paymentResponse = await fetch(
-        "https://api.receitasmilionarias.com.br/create-checkout-session",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: userData.email,
-            firstName: userData.firstName,
-            lastName: userData.lastName,
-            affiliateId: userData.affiliateId || "",
-            success_url: `${window.location.origin}/site-html/pagamento-sucesso.html`,
-            cancel_url: `${window.location.origin}/site-html/pagamento-cancelado.html`,
-          }),
-        }
-      );
-
-      if (!paymentResponse.ok) {
-        throw new Error("Erro ao iniciar pagamento.");
+      const linkUrl = new URL(PAYMENT_LINK_URL);
+      if (userData.email) {
+        linkUrl.searchParams.set("prefilled_email", userData.email);
       }
-
-      const session = await paymentResponse.json();
-      const { error } = await stripe.redirectToCheckout({
-        sessionId: session.id,
-      });
-
-      if (error) {
-        throw new Error(error.message);
-      }
+      window.location.href = linkUrl.toString();
+      return;
     } catch (error) {
       console.error("Erro ao iniciar checkout:", error);
       showToast(
@@ -133,3 +127,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 });
+

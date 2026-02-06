@@ -12,8 +12,18 @@ document.addEventListener("DOMContentLoaded", () => {
   // Em dev, aponte para seu backend local; em produção, SEMPRE use o subdomínio da API:
   const API_BASE_URL =
     isLocalHost && runningLiveServer
-      ? "http://localhost:8080"
+      ? "http://localhost:8484"
       : "https://api.receitasmilionarias.com.br";
+
+  // Stripe publishable key (troque a chave de teste quando necessário)
+  const STRIPE_PUBLISHABLE_KEY = isLocalHost
+    ? "pk_test_51SvPraPK4fqE2OifCOIoXB4S4VVlvYJSkrD4O3hKmRexjN0TG4eKSz6eOHdolAj1I2BL8QmZ7fhvWKgCiN7QOo2B00wvMY8j9Z"
+    : "pk_live_51SvPrGADbQovebzdAIulkMrdyUzIbQYBhDiNP3IyDjj79BFtm8pd5snVrN8tRFiyrJhX0D8Y6zfz40Kk7RlwVAhs00Y8BVzsKX";
+
+  window.RM_CONFIG = {
+    API_BASE_URL,
+    STRIPE_PUBLISHABLE_KEY,
+  };
 
   const buildImageUrl = (imagem_url) => {
     if (!imagem_url) return "static/images/receitas_capa.png";
@@ -1110,3 +1120,4 @@ document.addEventListener("DOMContentLoaded", () => {
     loadFeatured();
   })();
 });
+
