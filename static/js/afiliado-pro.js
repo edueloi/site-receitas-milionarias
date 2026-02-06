@@ -17,7 +17,14 @@ const validateEmailFormat = (email) =>
   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email).toLowerCase());
 
 document.addEventListener("DOMContentLoaded", () => {
-  const config = window.RM_CONFIG || { API_BASE_URL: "http://localhost:8484" };
+  const isLocalHost = ["localhost", "127.0.0.1"].includes(
+    window.location.hostname
+  );
+  const config = window.RM_CONFIG || {
+    API_BASE_URL: isLocalHost
+      ? "http://localhost:8484"
+      : "https://api.receitasmilionarias.com.br",
+  };
   const apiBase = config.API_BASE_URL;
 
   const stepper = document.getElementById("stepper");
