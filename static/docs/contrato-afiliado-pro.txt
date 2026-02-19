@@ -11,7 +11,7 @@ divulgacao.
 2.3 Receber comissao por indicacoes validas, conforme regras vigentes.
 
 3. COMISSOES E PAGAMENTOS
-3.1 A comissao padrao e de R$ 20,00 por indicacao ativa.
+3.1 A comissao padrao e de R$ 19,90 por indicacao ativa.
 3.2 Pagamentos sao processados de acordo com o ciclo definido pela plataforma.
 3.3 A plataforma pode reter ou revisar pagamentos em caso de fraude, chargeback
 ou violacao de regras.
