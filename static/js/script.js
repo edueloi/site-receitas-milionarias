@@ -142,6 +142,22 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ======================================================
+  // Navbar scroll effect
+  // ======================================================
+  const navbar = document.querySelector('.navbar');
+  if (navbar) {
+    const handleNavScroll = () => {
+      if (window.scrollY > 40) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    };
+    window.addEventListener('scroll', handleNavScroll, { passive: true });
+    handleNavScroll();
+  }
+
+  // ======================================================
   // Menu Fullscreen - Melhorado (suporta múltiplas estruturas)
   // ======================================================
   const openMenuBtn = document.getElementById("open-menu") || document.querySelector(".hamburger");
@@ -377,16 +393,36 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!isListPage) return;
 
     const receitasContainer =
+      document.getElementById("receitas-grid") ||
       document.getElementById("recipes-grid") ||
       document.querySelector(".recipe-grid");
     if (!receitasContainer) return;
 
     let state = { page: 1, limit: 15, search: "", categorias: [], tags: [] };
 
+    const emptyState = document.getElementById("receitas-empty");
+    const clearFiltersEmpty = document.getElementById("clear-filters-empty");
+    const activeChipsContainer = document.getElementById("active-filters-chips");
+    const searchClearBtn = document.getElementById("search-clear-btn");
+
+    const renderSkeletons = (count = 6) => {
+      receitasContainer.innerHTML = Array.from({ length: count }).map(() => `
+        <div class="recipe-card skeleton">
+          <div class="skeleton-block skeleton-img"></div>
+          <div class="skeleton-body">
+            <div class="skeleton-block skeleton-title"></div>
+            <div class="skeleton-block skeleton-title2"></div>
+            <div class="skeleton-block skeleton-line"></div>
+            <div class="skeleton-block skeleton-line short"></div>
+          </div>
+        </div>`).join("");
+    };
+
     const fetchRecipes = async () => {
-      receitasContainer.innerHTML = '<div class="grid-loader"></div>';
-      if (resultsCountContainer) resultsCountContainer.innerText = "";
+      renderSkeletons(state.limit > 15 ? 9 : 6);
+      if (resultsCountContainer) resultsCountContainer.innerHTML = "";
       if (paginationControls) paginationControls.innerHTML = "";
+      if (emptyState) emptyState.style.display = "none";
 
       const params = new URLSearchParams({
         page: state.page,
@@ -435,80 +471,105 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     };
 
+    // Atualiza visibilidade do botão X no search
+    const updateSearchClear = () => {
+      if (searchClearBtn) {
+        searchClearBtn.classList.toggle("visible", !!(searchInput && searchInput.value.trim()));
+      }
+    };
+    if (searchClearBtn && searchInput) {
+      searchClearBtn.addEventListener("click", () => {
+        searchInput.value = "";
+        state.search = "";
+        state.page = 1;
+        updateSearchClear();
+        fetchRecipes();
+      });
+      searchInput.addEventListener("input", updateSearchClear);
+    }
+
+    // Botão limpar filtros no estado vazio
+    if (clearFiltersEmpty) {
+      clearFiltersEmpty.addEventListener("click", () => {
+        if (clearFiltersBtn) clearFiltersBtn.click();
+      });
+    }
+
+    const renderActiveChips = () => {
+      if (!activeChipsContainer) return;
+      activeChipsContainer.innerHTML = "";
+      if (state.search) {
+        const chip = document.createElement("span");
+        chip.className = "filter-chip";
+        chip.innerHTML = `<i class="fas fa-search"></i> "${state.search}" <i class="fas fa-times chip-remove"></i>`;
+        chip.addEventListener("click", () => {
+          if (searchInput) searchInput.value = "";
+          state.search = "";
+          state.page = 1;
+          updateSearchClear();
+          renderActiveChips();
+          fetchRecipes();
+        });
+        activeChipsContainer.appendChild(chip);
+      }
+    };
+
     const renderRecipes = (recipes) => {
       receitasContainer.innerHTML = "";
-      // Filtra receitas inativas (se houver campo status)
       const visibleRecipes = (recipes || []).filter(
         (r) => r.status === "ativo"
       );
+      renderActiveChips();
+
       if (!visibleRecipes || visibleRecipes.length === 0) {
-        let message = "Nenhuma receita encontrada";
-        if (
-          state.search ||
-          state.categorias.length > 0 ||
-          state.tags.length > 0
-        ) {
-          message += " com os filtros selecionados.";
-        } else {
-          message += ". Tente uma busca diferente ou aguarde novas receitas!";
-        }
-        receitasContainer.innerHTML = `<p class="error-message">${message}</p>`;
+        if (emptyState) emptyState.style.display = "block";
         return;
       }
+      if (emptyState) emptyState.style.display = "none";
 
       visibleRecipes.forEach((recipe) => {
-        const categoryName = recipe.categoria
-          ? recipe.categoria.nome
-          : "Destaque";
+        const categoryName = recipe.categoria ? recipe.categoria.nome : "Destaque";
         const imageUrl = buildImageUrl(recipe.imagem_url);
-        const recipeItem = document.createElement("div");
-        recipeItem.className = "recipe-item";
-        recipeItem.innerHTML = `
-          <a href="receita.html?id=${recipe.id}" class="recipe-link">
-            <article class="recipe-card">
-              <div class="recipe-card-img-container">
-                <img src="${imageUrl}" alt="${recipe.titulo}" loading="lazy">
-                <span class="recipe-category-tag">${categoryName}</span>
-              </div>
-              <div class="recipe-card-content">
-                <h3>${recipe.titulo}</h3>
-                <p>${recipe.resumo || ""}</p>
-              </div>
-              <div class="recipe-card-footer">
-                <div class="recipe-meta">
-                  <span><i class="fas fa-clock"></i> ${
-                    recipe.tempo_preparo_min || "?"
-                  } min</span>
-                  <span><i class="fas fa-utensils"></i> ${
-                    recipe.dificuldade || "?"
-                  }</span>
-                </div>
-                ${
-                  recipe.resultados_avaliacao &&
-                  recipe.resultados_avaliacao.quantidade_avaliacoes > 0
-                    ? `<div class="recipe-rating-comments">
-                  ${
-                    recipe.resultados_avaliacao.media_avaliacoes > 0
-                      ? `<span class="rating">
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    ${parseFloat(
-                      recipe.resultados_avaliacao.media_avaliacoes
-                    ).toFixed(1)}
-                  </span>`
-                      : ""
-                  }
-                  <span class="comments">
-                    <i class="fas fa-comment" aria-hidden="true"></i>
-                    ${recipe.resultados_avaliacao.quantidade_avaliacoes}
-                  </span>
-                </div>`
-                    : ""
-                }
-                <span class="read-more-link">Ver Receita <i class="fas fa-arrow-right"></i></span>
-              </div>
-            </article>
-          </a>`;
-        receitasContainer.appendChild(recipeItem);
+        const prep = recipe.tempo_preparo_min || "?";
+        const dif = recipe.dificuldade || "?";
+        const rating = recipe.resultados_avaliacao;
+        const avgRating = rating && rating.media_avaliacoes > 0
+          ? parseFloat(rating.media_avaliacoes).toFixed(1)
+          : null;
+
+        const stars = avgRating
+          ? `<div class="card-rating">
+              <i class="fas fa-star star-filled"></i>
+              <strong>${avgRating}</strong>
+              <span>(${rating.quantidade_avaliacoes})</span>
+            </div>`
+          : `<div class="card-rating">
+              <i class="fas fa-star star-filled"></i>
+              <strong>Novo</strong>
+            </div>`;
+
+        const card = document.createElement("a");
+        card.href = `receita.html?id=${recipe.id}`;
+        card.className = "recipe-card";
+        card.setAttribute("aria-label", `Ver receita: ${recipe.titulo}`);
+        card.innerHTML = `
+          <div class="card-img-wrap">
+            <img src="${imageUrl}" alt="${recipe.titulo}" loading="lazy">
+            <span class="card-category-badge">${categoryName}</span>
+            <div class="card-img-infos">
+              <span class="card-info-pill"><i class="fas fa-clock"></i> ${prep} min</span>
+              <span class="card-info-pill"><i class="fas fa-signal"></i> ${dif}</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">${recipe.titulo}</h3>
+            <p class="card-desc">${recipe.resumo || ""}</p>
+            <div class="card-footer">
+              ${stars}
+              <span class="card-cta-link">Ver Receita <i class="fas fa-arrow-right"></i></span>
+            </div>
+          </div>`;
+        receitasContainer.appendChild(card);
       });
     };
 
@@ -518,14 +579,24 @@ document.addEventListener("DOMContentLoaded", () => {
       paginationControls.innerHTML = "";
       if (totalPages <= 1) return;
 
-      const prevButton = document.createElement("button");
-      prevButton.innerHTML = "&laquo;";
-      prevButton.disabled = currentPage === 1;
-      prevButton.addEventListener("click", () => {
-        state.page--;
-        fetchRecipes();
-      });
-      paginationControls.appendChild(prevButton);
+      const makeBtn = (label, page, disabled, active) => {
+        const btn = document.createElement("button");
+        btn.innerHTML = label;
+        btn.className = "page-btn" + (active ? " active" : "");
+        btn.disabled = disabled;
+        if (!disabled && !active) {
+          btn.addEventListener("click", () => {
+            state.page = page;
+            fetchRecipes();
+            window.scrollTo({ top: receitasContainer.offsetTop - 120, behavior: "smooth" });
+          });
+        }
+        return btn;
+      };
+
+      paginationControls.appendChild(
+        makeBtn('<i class="fas fa-chevron-left"></i>', currentPage - 1, currentPage === 1, false)
+      );
 
       for (let i = 1; i <= totalPages; i++) {
         if (
@@ -534,37 +605,30 @@ document.addEventListener("DOMContentLoaded", () => {
           i === totalPages ||
           (i >= currentPage - 2 && i <= currentPage + 2)
         ) {
-          const pageButton = document.createElement("button");
-          pageButton.innerText = i;
-          if (i === currentPage) pageButton.classList.add("active");
-          pageButton.addEventListener("click", () => {
-            state.page = i;
-            fetchRecipes();
-          });
-          paginationControls.appendChild(pageButton);
-        } else if (paginationControls.lastChild?.innerText !== "...") {
-          const ellipsis = document.createElement("button");
-          ellipsis.innerText = "...";
-          ellipsis.disabled = true;
-          paginationControls.appendChild(ellipsis);
+          paginationControls.appendChild(makeBtn(i, i, false, i === currentPage));
+        } else if (paginationControls.lastElementChild?.textContent !== "…") {
+          const sep = document.createElement("span");
+          sep.className = "page-ellipsis";
+          sep.textContent = "…";
+          paginationControls.appendChild(sep);
         }
       }
 
-      const nextButton = document.createElement("button");
-      nextButton.innerHTML = "&raquo;";
-      nextButton.disabled = currentPage === totalPages;
-      nextButton.addEventListener("click", () => {
-        state.page++;
-        fetchRecipes();
-      });
-      paginationControls.appendChild(nextButton);
+      paginationControls.appendChild(
+        makeBtn('<i class="fas fa-chevron-right"></i>', currentPage + 1, currentPage === totalPages, false)
+      );
     };
 
     const updateResultsCount = (pagination) => {
       if (!resultsCountContainer) return;
-      const { totalItems } = pagination;
-      resultsCountContainer.innerText =
-        totalItems > 0 ? `Exibindo ${totalItems} receita(s).` : "";
+      const { totalItems, currentPage, totalPages } = pagination;
+      if (totalItems > 0) {
+        const start = (currentPage - 1) * state.limit + 1;
+        const end = Math.min(currentPage * state.limit, totalItems);
+        resultsCountContainer.innerHTML = `<strong>${start}–${end}</strong> de <strong>${totalItems}</strong> receitas`;
+      } else {
+        resultsCountContainer.innerHTML = "";
+      }
     };
 
     const populateFilterDropdown = async (
@@ -585,62 +649,60 @@ document.addEventListener("DOMContentLoaded", () => {
         buttonSpan.setAttribute("data-original-text", originalButtonText);
 
         content.innerHTML = "";
-        if (items.length === 0) {
-          content.innerHTML =
-            '<span class="no-items">Nenhuma opção disponível</span>';
+        if (!items || items.length === 0) {
+          content.innerHTML = '<span style="padding:12px 16px;display:block;color:#aaa;font-size:.85rem;">Nenhuma opção</span>';
           return;
         }
 
-        const selectAllLabel = document.createElement("label");
-        selectAllLabel.className = "select-all-label";
-        selectAllLabel.innerHTML = `<input type="checkbox" class="select-all"> <strong>Selecionar Todos</strong>`;
-        content.appendChild(selectAllLabel);
-        content.appendChild(document.createElement("hr"));
+        // Opção "Todos"
+        const allBtn = document.createElement("button");
+        allBtn.textContent = "Todos";
+        allBtn.dataset.value = "";
+        allBtn.classList.add("selected");
+        content.appendChild(allBtn);
 
         items.forEach((item) => {
-          const label = document.createElement("label");
-          label.innerHTML = `<input type="checkbox" value="${item.id}" class="filter-item"> ${item.nome}`;
-          content.appendChild(label);
+          const btn = document.createElement("button");
+          btn.textContent = item.nome;
+          btn.dataset.value = item.id;
+          content.appendChild(btn);
         });
 
-        const allCheckboxes = content.querySelectorAll(".filter-item");
-        const selectAllCheckbox = content.querySelector(".select-all");
+        const allBtns = content.querySelectorAll("button[data-value]");
 
-        const applyFilters = () => {
-          const selectedIds = Array.from(allCheckboxes)
-            .filter((cb) => cb.checked)
-            .map((input) => input.value);
-          state[stateKey] = selectedIds;
+        content.addEventListener("click", (e) => {
+          const btn = e.target.closest("button[data-value]");
+          if (!btn) return;
+
+          const val = btn.dataset.value;
+          if (val === "") {
+            // "Todos" — desmarca tudo
+            allBtns.forEach((b) => b.classList.remove("selected"));
+            btn.classList.add("selected");
+            state[stateKey] = [];
+          } else {
+            // remove "Todos"
+            const allBtn = content.querySelector('button[data-value=""]');
+            if (allBtn) allBtn.classList.remove("selected");
+            btn.classList.toggle("selected");
+            const selected = Array.from(allBtns)
+              .filter((b) => b.classList.contains("selected") && b.dataset.value !== "")
+              .map((b) => b.dataset.value);
+            state[stateKey] = selected;
+            // se nada selecionado, marca "Todos"
+            if (selected.length === 0 && allBtn) allBtn.classList.add("selected");
+          }
+
           state.page = 1;
+          const count = state[stateKey].length;
+          buttonSpan.innerText = count > 0 ? `${originalButtonText} (${count})` : originalButtonText;
           fetchRecipes();
-
-          if (selectAllCheckbox) {
-            selectAllCheckbox.checked =
-              selectedIds.length === allCheckboxes.length;
-          }
-          buttonSpan.innerText =
-            selectedIds.length > 0
-              ? `${originalButtonText} (${selectedIds.length})`
-              : originalButtonText;
-        };
-
-        content.addEventListener("change", (e) => {
-          if (e.target.classList.contains("select-all")) {
-            allCheckboxes.forEach(
-              (checkbox) => (checkbox.checked = e.target.checked)
-            );
-          } else if (selectAllCheckbox) {
-            selectAllCheckbox.checked = Array.from(allCheckboxes).every(
-              (cb) => cb.checked
-            );
-          }
-          applyFilters();
         });
       } catch (error) {
         console.error(`Falha ao carregar ${endpoint}:`, error);
         const content = filterElement.querySelector(".dropdown-content");
         if (content)
-          content.innerHTML = '<span class="no-items">Erro ao carregar.</span>';
+          content.innerHTML = '<span style="padding:12px 16px;display:block;color:#aaa;font-size:.85rem;">Erro ao carregar.</span>';
       }
     };
 
@@ -651,17 +713,23 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!btn) return;
         btn.addEventListener("click", (e) => {
           e.stopPropagation();
+          const isOpen = filter.classList.contains("open");
           document
-            .querySelectorAll(".dropdown-filter.active")
-            .forEach((f) => f !== filter && f.classList.remove("active"));
-          filter.classList.toggle("active");
+            .querySelectorAll(".dropdown-filter.open")
+            .forEach((f) => f.classList.remove("open"));
+          if (!isOpen) filter.classList.add("open");
+          btn.classList.toggle("active", filter.classList.contains("open"));
         });
       });
 
       window.addEventListener("click", () =>
         document
-          .querySelectorAll(".dropdown-filter.active")
-          .forEach((f) => f.classList.remove("active"))
+          .querySelectorAll(".dropdown-filter.open")
+          .forEach((f) => {
+            f.classList.remove("open");
+            const btn = f.querySelector(".filter-btn");
+            if (btn) btn.classList.remove("active");
+          })
       );
 
       document
@@ -700,16 +768,22 @@ document.addEventListener("DOMContentLoaded", () => {
             tags: [],
           };
           if (searchInput) searchInput.value = "";
-          document
-            .querySelectorAll('.dropdown-content input[type="checkbox"]')
-            .forEach((cb) => (cb.checked = false));
+          updateSearchClear();
           document.querySelectorAll(".dropdown-filter").forEach((el) => {
+            el.classList.remove("open");
+            const btn = el.querySelector(".filter-btn");
+            if (btn) btn.classList.remove("active");
             const buttonSpan = el.querySelector(".filter-btn span");
             if (buttonSpan)
               buttonSpan.innerText =
                 buttonSpan.getAttribute("data-original-text") ||
                 buttonSpan.innerText;
+            // reseta seleção dos botões do dropdown
+            el.querySelectorAll(".dropdown-content button[data-value]").forEach((b) => b.classList.remove("selected"));
+            const allBtn = el.querySelector('.dropdown-content button[data-value=""]');
+            if (allBtn) allBtn.classList.add("selected");
           });
+          if (activeChipsContainer) activeChipsContainer.innerHTML = "";
           fetchRecipes();
         });
       }
