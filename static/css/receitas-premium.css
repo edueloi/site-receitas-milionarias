@@ -933,7 +933,23 @@
     gap: 12px;
   }
   .toolbar-search { min-width: 100%; }
-  .toolbar-filters { justify-content: flex-start; }
+  /* Filtros: cada um ocupa largura confortável de toque e quebram em linhas */
+  .toolbar-filters {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .toolbar-filters .dropdown-filter { flex: 1 1 calc(50% - 5px); min-width: 140px; }
+  .toolbar-filters .dropdown-filter .filter-btn { width: 100%; justify-content: space-between; }
+  .toolbar-filters .btn-clear-filters { flex: 1 1 100%; justify-content: center; }
+  /* dropdown abre full-width no mobile pra facilitar o toque */
+  .dropdown-filter.open .dropdown-content {
+    width: 100%;
+    left: 0;
+    right: 0;
+    max-height: 50vh;
+    overflow-y: auto;
+  }
 
   .receitas-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
 

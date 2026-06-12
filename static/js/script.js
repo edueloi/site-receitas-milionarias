@@ -379,6 +379,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchInput = document.getElementById("search-input");
     const categoryFilter = document.getElementById("category-filter");
     const tagFilter = document.getElementById("tag-filter");
+    const producerFilter = document.getElementById("producer-filter");
     const paginationControls = document.getElementById("pagination-controls");
     const resultsCountContainer = document.getElementById("results-count");
     const limitSelect = document.getElementById("limit-select");
@@ -398,7 +399,7 @@ document.addEventListener("DOMContentLoaded", () => {
       document.querySelector(".recipe-grid");
     if (!receitasContainer) return;
 
-    let state = { page: 1, limit: 15, search: "", categorias: [], tags: [] };
+    let state = { page: 1, limit: 15, search: "", categorias: [], tags: [], produtor: "" };
 
     const emptyState = document.getElementById("receitas-empty");
     const clearFiltersEmpty = document.getElementById("clear-filters-empty");
@@ -434,6 +435,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (state.categorias.length > 0)
         params.append("categorias", state.categorias.join(","));
       if (state.tags.length > 0) params.append("tags", state.tags.join(","));
+      if (state.produtor) params.append("produtor", state.produtor);
 
       try {
         const response = await fetch(
@@ -706,8 +708,69 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     };
 
+    // Dropdown de PRODUTOR — seleção ÚNICA (diferente de categoria/tags que são múltiplas)
+    const populateProducerDropdown = async (filterElement) => {
+      if (!filterElement) return;
+      try {
+        const response = await fetch(`${API_BASE_URL}/producers`);
+        if (!response.ok) throw new Error("Network response was not ok");
+        const items = await response.json();
+        const content = filterElement.querySelector(".dropdown-content");
+        const buttonSpan = filterElement.querySelector(".filter-btn span");
+        if (!content || !buttonSpan) return;
+
+        const originalButtonText = buttonSpan.innerText;
+        buttonSpan.setAttribute("data-original-text", originalButtonText);
+
+        content.innerHTML = "";
+        if (!items || items.length === 0) {
+          content.innerHTML = '<span style="padding:12px 16px;display:block;color:#aaa;font-size:.85rem;">Nenhum produtor</span>';
+          return;
+        }
+
+        const allBtn = document.createElement("button");
+        allBtn.textContent = "Todos os produtores";
+        allBtn.dataset.value = "";
+        allBtn.classList.add("selected");
+        content.appendChild(allBtn);
+
+        items.forEach((item) => {
+          const btn = document.createElement("button");
+          const nomeCompleto = `${item.nome || ""} ${item.sobrenome || ""}`.trim();
+          btn.textContent = nomeCompleto || "Produtor";
+          btn.dataset.value = item.id;
+          content.appendChild(btn);
+        });
+
+        const allBtns = content.querySelectorAll("button[data-value]");
+
+        content.addEventListener("click", (e) => {
+          const btn = e.target.closest("button[data-value]");
+          if (!btn) return;
+          // seleção única: limpa todos e marca só o clicado
+          allBtns.forEach((b) => b.classList.remove("selected"));
+          btn.classList.add("selected");
+          state.produtor = btn.dataset.value;
+          state.page = 1;
+          buttonSpan.innerText = btn.dataset.value
+            ? btn.textContent
+            : originalButtonText;
+          // fecha o dropdown após escolher
+          filterElement.classList.remove("open");
+          const fbtn = filterElement.querySelector(".filter-btn");
+          if (fbtn) fbtn.classList.remove("active");
+          fetchRecipes();
+        });
+      } catch (error) {
+        console.error("Falha ao carregar produtores:", error);
+        const content = filterElement.querySelector(".dropdown-content");
+        if (content)
+          content.innerHTML = '<span style="padding:12px 16px;display:block;color:#aaa;font-size:.85rem;">Erro ao carregar.</span>';
+      }
+    };
+
     const setupEventListeners = () => {
-      [categoryFilter, tagFilter].forEach((filter) => {
+      [categoryFilter, tagFilter, producerFilter].forEach((filter) => {
         if (!filter) return;
         const btn = filter.querySelector(".filter-btn");
         if (!btn) return;
@@ -766,6 +829,7 @@ document.addEventListener("DOMContentLoaded", () => {
             search: "",
             categorias: [],
             tags: [],
+            produtor: "",
           };
           if (searchInput) searchInput.value = "";
           updateSearchClear();
@@ -794,6 +858,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (categoryFilter)
         populateFilterDropdown(categoryFilter, "categories", "categorias");
       if (tagFilter) populateFilterDropdown(tagFilter, "tags", "tags");
+      if (producerFilter) populateProducerDropdown(producerFilter);
       fetchRecipes();
     };
 
