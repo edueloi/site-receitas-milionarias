@@ -413,10 +413,14 @@ document.addEventListener("DOMContentLoaded", () => {
         calEl.innerHTML = `<i class="fas fa-fire-alt"></i><span><strong>Calorias:</strong> ${
           recipe.calorias_kcal ?? "--"
         } kcal</span>`;
-      if (creatorEl)
-        creatorEl.innerHTML = `<i class="fas fa-user"></i><span><strong>Criador:</strong> ${
-          recipe.criador?.nome ?? "Equipe"
-        }</span>`;
+      if (creatorEl) {
+        const criadorNome = recipe.criador?.nome ?? "Equipe";
+        const criadorId = recipe.criador?.id;
+        const criadorHtml = criadorId
+          ? `<a href="produtor.html?id=${criadorId}" class="recipe-creator-link">${criadorNome}</a>`
+          : criadorNome;
+        creatorEl.innerHTML = `<i class="fas fa-user"></i><span><strong>Criador:</strong> ${criadorHtml}</span>`;
+      }
 
       const ingredientsContainer = document.getElementById(
         "recipe-ingredients-list"

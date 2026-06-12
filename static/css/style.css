@@ -8866,3 +8866,15 @@ h2::after {
 
 /* ── Scroll behavior suave ── */
 html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+/* ── Link do criador da receita (leva à página pública do produtor) ── */
+.recipe-creator-link {
+    color: var(--dourado);
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease;
+}
+.recipe-creator-link:hover {
+    border-bottom-color: var(--dourado);
+}
