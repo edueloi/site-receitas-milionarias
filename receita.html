@@ -179,11 +179,12 @@
                 <!-- Formulário de comentário -->
                 <div class="comment-form-card" id="comment-form-card">
                     <h3><i class="fas fa-pen"></i> Deixe sua avaliação</h3>
-                    <div id="comment-form-login-msg" class="comment-login-msg" style="display:none;">
-                        <i class="fas fa-lock"></i>
-                        <span>Faça <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-in" target="_blank">login</a> ou <a href="cadastro.html">cadastre-se</a> para comentar.</span>
-                    </div>
+                    <div id="comment-form-login-msg" class="comment-login-msg" style="display:none;"></div>
                     <form id="comment-form" style="display:none;">
+                        <div class="comment-guest-fields" id="guest-fields">
+                            <input type="text" id="guest-name" placeholder="Seu nome *" autocomplete="name" maxlength="80">
+                            <input type="email" id="guest-email" placeholder="Seu e-mail (opcional)" autocomplete="email" maxlength="120">
+                        </div>
                         <div class="star-picker" id="star-picker">
                             <span>Sua nota:</span>
                             <div class="stars-input">
