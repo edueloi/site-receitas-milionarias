@@ -468,6 +468,9 @@ document.addEventListener("DOMContentLoaded", () => {
       mountCarousel(carouselImages);
 
       loadRecommendedByCategory(recipe);
+
+      // Dispara evento para carregar comentários
+      document.dispatchEvent(new CustomEvent("recipeLoaded", { detail: { id: recipe.id } }));
     } catch (error) {
       console.error("Falha ao buscar a receita:", error);
       recipeTitleEl.textContent = "Erro ao carregar a receita";
@@ -475,6 +478,286 @@ document.addEventListener("DOMContentLoaded", () => {
         "Não foi possível encontrar a receita solicitada. Por favor, tente novamente.";
     }
   }
+
+  // ======================================================
+  // COMENTÁRIOS E AVALIAÇÕES
+  // ======================================================
+
+  const STAR_LABELS = ["", "Péssima", "Ruim", "Regular", "Boa", "Excelente"];
+
+  // Lê o token JWT guardado pelo dashboard
+  function getAuthToken() {
+    return (
+      localStorage.getItem("token") ||
+      localStorage.getItem("rm_token") ||
+      localStorage.getItem("authToken") ||
+      null
+    );
+  }
+
+  function getUserFromToken(token) {
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      return payload;
+    } catch {
+      return null;
+    }
+  }
+
+  // Renderiza estrelas fixas (leitura)
+  function renderStars(rating, container) {
+    container.innerHTML = "";
+    for (let i = 1; i <= 5; i++) {
+      const star = document.createElement("i");
+      star.className = "fas fa-star" + (i <= Math.round(rating) ? " lit" : "");
+      container.appendChild(star);
+    }
+  }
+
+  // Formata data
+  function formatDate(str) {
+    if (!str) return "";
+    const d = new Date(str);
+    if (isNaN(d)) return "";
+    return d.toLocaleDateString("pt-BR", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    });
+  }
+
+  // Renderiza resumo de avaliações
+  function renderRatingSummary(comments) {
+    const avgEl = document.getElementById("rating-avg");
+    const starsEl = document.getElementById("rating-stars-display");
+    const countEl = document.getElementById("rating-count");
+    const barsEl = document.getElementById("rating-bars");
+    if (!avgEl || !starsEl || !countEl || !barsEl) return;
+
+    const rated = comments.filter((c) => c.avaliacao > 0);
+    const total = rated.length;
+
+    if (total === 0) {
+      avgEl.textContent = "--";
+      starsEl.innerHTML = "";
+      countEl.textContent = "Nenhuma avaliação ainda";
+      barsEl.innerHTML = "";
+      return;
+    }
+
+    const avg =
+      rated.reduce((sum, c) => sum + Number(c.avaliacao), 0) / total;
+    avgEl.textContent = avg.toFixed(1);
+    countEl.textContent = `${total} avaliação${total !== 1 ? "s" : ""}`;
+    renderStars(avg, starsEl);
+
+    // Barras por estrela
+    barsEl.innerHTML = "";
+    for (let star = 5; star >= 1; star--) {
+      const qty = rated.filter((c) => Number(c.avaliacao) === star).length;
+      const pct = total > 0 ? Math.round((qty / total) * 100) : 0;
+      const row = document.createElement("div");
+      row.className = "rating-bar-row";
+      row.innerHTML = `
+        <div class="bar-label"><span>${star}</span><i class="fas fa-star"></i></div>
+        <div class="rating-bar-track">
+          <div class="rating-bar-fill" style="width:${pct}%"></div>
+        </div>
+        <span class="bar-count">${qty}</span>
+      `;
+      barsEl.appendChild(row);
+    }
+  }
+
+  // Renderiza lista de comentários
+  function renderComments(comments) {
+    const list = document.getElementById("comments-list");
+    if (!list) return;
+    list.innerHTML = "";
+
+    const roots = comments.filter((c) => !c.id_comentario_pai);
+
+    if (roots.length === 0) {
+      list.innerHTML = `
+        <div class="comments-empty">
+          <i class="fas fa-comment-slash"></i>
+          <p>Seja o primeiro a comentar nesta receita!</p>
+        </div>`;
+      return;
+    }
+
+    roots.forEach((c) => {
+      const card = buildCommentCard(c);
+      list.appendChild(card);
+    });
+  }
+
+  function buildCommentCard(c, isReply = false) {
+    const wrapper = document.createElement("div");
+    wrapper.className = isReply ? "comment-reply" : "comment-card";
+
+    const name = `${c.nome || ""} ${c.sobrenome || ""}`.trim() || "Usuário";
+    const initial = name.charAt(0).toUpperCase();
+    const avatarHtml = c.foto_perfil_url
+      ? `<img class="comment-avatar" src="${buildImageUrl(c.foto_perfil_url)}" alt="${name}">`
+      : `<div class="comment-avatar-placeholder">${initial}</div>`;
+
+    let starsHtml = "";
+    if (c.avaliacao && Number(c.avaliacao) > 0) {
+      starsHtml = `<div class="comment-stars">`;
+      for (let i = 1; i <= 5; i++) {
+        starsHtml += `<i class="fas fa-star${i <= c.avaliacao ? " lit" : ""}"></i>`;
+      }
+      starsHtml += `</div>`;
+    }
+
+    wrapper.innerHTML = `
+      <div class="comment-header">
+        ${avatarHtml}
+        <div class="comment-meta">
+          <p class="comment-author">${name}</p>
+          <span class="comment-date">${formatDate(c.data_criacao)}</span>
+        </div>
+        ${starsHtml}
+      </div>
+      ${c.comentario ? `<p class="comment-body">${c.comentario}</p>` : ""}
+    `;
+
+    if (c.respostas && c.respostas.length > 0) {
+      const repliesDiv = document.createElement("div");
+      repliesDiv.className = "comment-replies";
+      c.respostas.forEach((r) => {
+        repliesDiv.appendChild(buildCommentCard(r, true));
+      });
+      wrapper.appendChild(repliesDiv);
+    }
+
+    return wrapper;
+  }
+
+  // Carrega comentários da API
+  async function loadComments(recipeId) {
+    const loader = document.getElementById("comments-loader");
+    const list = document.getElementById("comments-list");
+    if (loader) loader.style.display = "flex";
+
+    try {
+      const res = await fetch(
+        `${API_BASE_URL}/recipes/${recipeId}/comments`
+      );
+      if (!res.ok) throw new Error("Erro ao buscar comentários");
+      const comments = await res.json();
+
+      renderRatingSummary(comments);
+      renderComments(comments);
+    } catch (e) {
+      console.error("Erro ao carregar comentários:", e);
+      if (list)
+        list.innerHTML =
+          '<p class="error-message">Não foi possível carregar os comentários.</p>';
+    } finally {
+      if (loader) loader.style.display = "none";
+    }
+  }
+
+  // Inicializa o formulário de comentário
+  function initCommentForm(recipeId) {
+    const token = getAuthToken();
+    const loginMsg = document.getElementById("comment-form-login-msg");
+    const form = document.getElementById("comment-form");
+    if (!loginMsg || !form) return;
+
+    if (!token) {
+      loginMsg.style.display = "flex";
+      form.style.display = "none";
+      return;
+    }
+
+    loginMsg.style.display = "none";
+    form.style.display = "block";
+
+    // Seletor de estrelas
+    let selectedStars = 0;
+    const starBtns = document.querySelectorAll(".star-btn");
+    const starLabel = document.getElementById("star-label");
+
+    const highlightStars = (upTo) => {
+      starBtns.forEach((btn, idx) => {
+        btn.classList.toggle("hovered", idx < upTo);
+        btn.classList.toggle("active", idx < selectedStars);
+      });
+    };
+
+    const setStars = (upTo) => {
+      selectedStars = upTo;
+      starBtns.forEach((btn, idx) => {
+        btn.classList.toggle("active", idx < selectedStars);
+        btn.classList.remove("hovered");
+      });
+      if (starLabel) {
+        starLabel.textContent = STAR_LABELS[selectedStars] || "Selecione";
+      }
+    };
+
+    starBtns.forEach((btn) => {
+      const val = Number(btn.dataset.value);
+      btn.addEventListener("mouseenter", () => highlightStars(val));
+      btn.addEventListener("mouseleave", () => highlightStars(selectedStars));
+      btn.addEventListener("click", () => setStars(val));
+    });
+
+    // Envio do formulário
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const submitBtn = document.getElementById("btn-comment-submit");
+      const commentText = document.getElementById("comment-text").value.trim();
+
+      if (!selectedStars && !commentText) {
+        showToast("Selecione uma nota ou escreva um comentário.", "error");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+
+      try {
+        const body = new FormData();
+        if (selectedStars) body.append("avaliacao", selectedStars);
+        if (commentText) body.append("comentario", commentText);
+
+        const res = await fetch(`${API_BASE_URL}/recipes/${recipeId}/comments`, {
+          method: "POST",
+          headers: { Authorization: `Bearer ${token}` },
+          body,
+        });
+
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.message || "Erro ao enviar comentário");
+        }
+
+        showToast("Comentário enviado com sucesso!");
+        document.getElementById("comment-text").value = "";
+        setStars(0);
+        await loadComments(recipeId);
+      } catch (err) {
+        showToast(err.message || "Erro ao enviar. Tente novamente.", "error");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Enviar Avaliação';
+      }
+    });
+  }
+
+  // Hook: chama loadComments e initCommentForm após fetchSingleRecipe carregar a receita
+  const _origFetch = fetchSingleRecipe;
+  // Integração via evento personalizado disparado em fetchSingleRecipe
+  document.addEventListener("recipeLoaded", (e) => {
+    const recipeId = e.detail?.id;
+    if (!recipeId) return;
+    loadComments(recipeId);
+    initCommentForm(recipeId);
+  });
 
   fetchSingleRecipe();
 });

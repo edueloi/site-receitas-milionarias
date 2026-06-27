@@ -158,6 +158,59 @@
             </div>
         </section>
 
+        <!-- ===== SEÇÃO DE AVALIAÇÕES E COMENTÁRIOS ===== -->
+        <section class="comments-section fade-in-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2><i class="fas fa-comments"></i> Avaliações e Comentários</h2>
+                    <p class="section-subtitle">O que acharam desta receita? Compartilhe sua experiência!</p>
+                </div>
+
+                <!-- Resumo de avaliação -->
+                <div class="rating-summary-card" id="rating-summary">
+                    <div class="rating-big-score">
+                        <span id="rating-avg">--</span>
+                        <div class="rating-stars-display" id="rating-stars-display"></div>
+                        <p id="rating-count">0 avaliações</p>
+                    </div>
+                    <div class="rating-bars" id="rating-bars"></div>
+                </div>
+
+                <!-- Formulário de comentário -->
+                <div class="comment-form-card" id="comment-form-card">
+                    <h3><i class="fas fa-pen"></i> Deixe sua avaliação</h3>
+                    <div id="comment-form-login-msg" class="comment-login-msg" style="display:none;">
+                        <i class="fas fa-lock"></i>
+                        <span>Faça <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-in" target="_blank">login</a> ou <a href="cadastro.html">cadastre-se</a> para comentar.</span>
+                    </div>
+                    <form id="comment-form" style="display:none;">
+                        <div class="star-picker" id="star-picker">
+                            <span>Sua nota:</span>
+                            <div class="stars-input">
+                                <button type="button" class="star-btn" data-value="1"><i class="fas fa-star"></i></button>
+                                <button type="button" class="star-btn" data-value="2"><i class="fas fa-star"></i></button>
+                                <button type="button" class="star-btn" data-value="3"><i class="fas fa-star"></i></button>
+                                <button type="button" class="star-btn" data-value="4"><i class="fas fa-star"></i></button>
+                                <button type="button" class="star-btn" data-value="5"><i class="fas fa-star"></i></button>
+                            </div>
+                            <span class="star-label" id="star-label">Selecione</span>
+                        </div>
+                        <textarea id="comment-text" placeholder="Escreva seu comentário... Como ficou? Fez alguma modificação? (opcional)" rows="4"></textarea>
+                        <button type="submit" class="btn-comment-submit" id="btn-comment-submit">
+                            <i class="fas fa-paper-plane"></i> Enviar Avaliação
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Lista de comentários -->
+                <div class="comments-list" id="comments-list">
+                    <div class="comments-loader" id="comments-loader">
+                        <div class="grid-loader"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="recommended-recipes fade-in-section">
             <div class="container">
                 <div class="section-header">
