@@ -1,42 +1,47 @@
-/* receitas-page.js — lógica exclusiva da página receitas.html */
+/* receitas-page.js */
 (function () {
   const API = "https://api.receitasmilionarias.com.br";
 
   // ── Estado ────────────────────────────────────────────────────
-  let state = { page: 1, limit: 15, search: "", categorias: [], tags: [], produtor: "" };
+  let state = { page: 1, limit: 15, search: "", categoria: "", tag: "", produtor: "" };
 
   // ── Elementos ─────────────────────────────────────────────────
-  const grid         = document.getElementById("receitas-grid");
-  const emptyEl      = document.getElementById("receitas-empty");
-  const paginationEl = document.getElementById("pagination-controls");
-  const countEl      = document.getElementById("results-count");
-  const searchInput  = document.getElementById("search-input");
-  const searchClear  = document.getElementById("search-clear-btn");
-  const limitSelect  = document.getElementById("limit-select");
-  const chipsEl      = document.getElementById("active-filters-chips");
-  const filterBadge  = document.getElementById("filter-badge");
-  const sidebarClear = document.getElementById("clear-filters-btn");
-  const drawerEl     = document.getElementById("filter-drawer");
-  const drawerOverlay= document.getElementById("drawer-overlay");
-  const openBtn      = document.getElementById("open-filters");
-  const closeBtn     = document.getElementById("close-filters");
-  const drawerClear  = document.getElementById("drawer-clear-btn");
-  const drawerApply  = document.getElementById("drawer-apply-btn");
+  const grid          = document.getElementById("receitas-grid");
+  const emptyEl       = document.getElementById("receitas-empty");
+  const paginationEl  = document.getElementById("pagination-controls");
+  const countEl       = document.getElementById("results-count");
+  const searchInput   = document.getElementById("search-input");
+  const searchClear   = document.getElementById("search-clear-btn");
+  const limitSelect   = document.getElementById("limit-select");
+  const chipsEl       = document.getElementById("active-filters-chips");
+  const filterBadge   = document.getElementById("filter-badge");
+
+  // Selects toolbar (desktop)
+  const catSel   = document.getElementById("category-filter");
+  const tagSel   = document.getElementById("tag-filter");
+  const prodSel  = document.getElementById("producer-filter");
+  const clearBtn = document.getElementById("clear-filters-btn");
+
+  // Drawer (mobile)
+  const drawer        = document.getElementById("filter-drawer");
+  const drawerOverlay = document.getElementById("drawer-overlay");
+  const openBtn       = document.getElementById("open-filters");
+  const closeBtn      = document.getElementById("close-filters");
+  const dCatSel       = document.getElementById("drawer-category-filter");
+  const dTagSel       = document.getElementById("drawer-tag-filter");
+  const dProdSel      = document.getElementById("drawer-producer-filter");
+  const drawerClear   = document.getElementById("drawer-clear-btn");
+  const drawerApply   = document.getElementById("drawer-apply-btn");
 
   if (!grid) return;
-
-  // ── Cache de dados da API ─────────────────────────────────────
-  const cache = { categorias: null, tags: null, produtores: null };
 
   // ── Imagem ────────────────────────────────────────────────────
   function buildImg(url) {
     if (!url) return "static/images/receitas_capa.png";
     if (/^https?:\/\//i.test(url)) return url;
-    // remove leading slash, garante path correto
     const clean = url.replace(/^\//, "");
     const idx = clean.indexOf("uploads");
-    const path = idx !== -1 ? clean.substring(idx) : clean;
-    return `${API}/${path}`;
+    return `${API}/${idx !== -1 ? clean.substring(idx) : clean}`;
   }
 
   // ── Skeletons ─────────────────────────────────────────────────
@@ -53,15 +58,12 @@
       </div>`).join("");
   }
 
-  // ── Render cards ──────────────────────────────────────────────
+  // ── Cards ─────────────────────────────────────────────────────
   function renderCards(recipes) {
     grid.innerHTML = "";
-    if (!recipes.length) {
-      if (emptyEl) emptyEl.style.display = "";
-      return;
-    }
+    if (!recipes.length) { if (emptyEl) emptyEl.style.display = ""; return; }
     if (emptyEl) emptyEl.style.display = "none";
-    recipes.forEach((r) => {
+    recipes.forEach(r => {
       const cat  = r.categoria?.nome || "Receita";
       const img  = buildImg(r.imagem_url);
       const prep = r.tempo_preparo_min ?? "?";
@@ -96,171 +98,83 @@
     const mk = (label, page, disabled, active) => {
       const b = document.createElement("button");
       b.className = "page-btn" + (active ? " active" : "") + (disabled ? " disabled" : "");
-      b.innerHTML = label;
-      b.disabled = disabled;
+      b.innerHTML = label; b.disabled = disabled;
       if (!disabled && !active) b.addEventListener("click", () => {
-        state.page = page;
-        fetchRecipes();
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        state.page = page; fetchRecipes(); window.scrollTo({ top: 0, behavior: "smooth" });
       });
       return b;
     };
     paginationEl.appendChild(mk('<i class="fas fa-chevron-left"></i>', current - 1, current === 1, false));
     for (let i = 1; i <= total; i++) {
-      if (i === 1 || i === total || (i >= current - 2 && i <= current + 2)) {
+      if (i === 1 || i === total || (i >= current - 2 && i <= current + 2))
         paginationEl.appendChild(mk(i, i, false, i === current));
-      } else if (paginationEl.lastElementChild?.textContent !== "…") {
-        const s = document.createElement("span");
-        s.className = "page-ellipsis";
-        s.textContent = "…";
+      else if (paginationEl.lastElementChild?.textContent !== "…") {
+        const s = document.createElement("span"); s.className = "page-ellipsis"; s.textContent = "…";
         paginationEl.appendChild(s);
       }
     }
     paginationEl.appendChild(mk('<i class="fas fa-chevron-right"></i>', current + 1, current === total, false));
   }
 
-  // ── Chips filtros ativos ──────────────────────────────────────
-  function renderActiveChips() {
+  // ── Chips ativos ──────────────────────────────────────────────
+  function renderChips() {
     if (!chipsEl) return;
     chipsEl.innerHTML = "";
-    const add = (label, removeFn) => {
-      const chip = document.createElement("span");
-      chip.className = "rp-chip";
-      chip.innerHTML = `${label}<button title="Remover"><i class="fas fa-times"></i></button>`;
-      chip.querySelector("button").addEventListener("click", removeFn);
-      chipsEl.appendChild(chip);
+    const add = (label, clearFn) => {
+      const c = document.createElement("span");
+      c.className = "rp-chip";
+      c.innerHTML = `${label}<button title="Remover"><i class="fas fa-times"></i></button>`;
+      c.querySelector("button").addEventListener("click", clearFn);
+      chipsEl.appendChild(c);
     };
-    state.categorias.forEach(id => {
-      const item = (cache.categorias || []).find(c => String(c.id) === String(id));
-      if (item) add(item.nome, () => {
-        state.categorias = state.categorias.filter(x => x !== id);
-        state.page = 1; refresh();
-      });
-    });
-    state.tags.forEach(id => {
-      const item = (cache.tags || []).find(t => String(t.id) === String(id));
-      if (item) add(item.nome, () => {
-        state.tags = state.tags.filter(x => x !== id);
-        state.page = 1; refresh();
-      });
-    });
+    if (state.categoria) {
+      const opt = catSel?.querySelector(`option[value="${state.categoria}"]`);
+      add(opt?.textContent || state.categoria, () => { state.categoria = ""; syncSelects(); refresh(); });
+    }
+    if (state.tag) {
+      const opt = tagSel?.querySelector(`option[value="${state.tag}"]`);
+      add(opt?.textContent || state.tag, () => { state.tag = ""; syncSelects(); refresh(); });
+    }
     if (state.produtor) {
-      const item = (cache.produtores || []).find(p => String(p.id) === String(state.produtor));
-      const nome = item ? `${item.nome || ""} ${item.sobrenome || ""}`.trim() : "Produtor";
-      add(nome, () => { state.produtor = ""; state.page = 1; refresh(); });
+      const opt = prodSel?.querySelector(`option[value="${state.produtor}"]`);
+      add(opt?.textContent || state.produtor, () => { state.produtor = ""; syncSelects(); refresh(); });
     }
   }
 
-  function updateFilterBadge() {
+  function updateBadge() {
     if (!filterBadge) return;
-    const n = state.categorias.length + state.tags.length + (state.produtor ? 1 : 0);
+    const n = (state.categoria ? 1 : 0) + (state.tag ? 1 : 0) + (state.produtor ? 1 : 0);
     filterBadge.textContent = n;
     filterBadge.style.display = n > 0 ? "inline-flex" : "none";
   }
 
+  // Marca visualmente o select quando tem valor
+  function syncSelects() {
+    [catSel, dCatSel].forEach(s => { if (s) { s.value = state.categoria; s.classList.toggle("has-value", !!state.categoria); } });
+    [tagSel, dTagSel].forEach(s => { if (s) { s.value = state.tag; s.classList.toggle("has-value", !!state.tag); } });
+    [prodSel, dProdSel].forEach(s => { if (s) { s.value = state.produtor; s.classList.toggle("has-value", !!state.produtor); } });
+  }
+
   function refresh() {
-    updateFilterBadge();
-    renderActiveChips();
-    syncAllSelects();
+    updateBadge();
+    renderChips();
+    syncSelects();
     fetchRecipes();
   }
 
-  // ── COMBOBOX / SELECT customizado ────────────────────────────
-  // Cria um <select> nativo estilizado para multi-select (categorias/tags)
-  // e single-select (produtor). Simples, funcional, sem bugs de dropdown.
-
-  function buildMultiSelect(container, items, filterKey, placeholder) {
-    if (!container) return;
-    container.innerHTML = "";
-
-    const wrap = document.createElement("div");
-    wrap.className = "rp-combo-wrap";
-
-    const select = document.createElement("select");
-    select.className = "rp-combo-select";
-    select.multiple = true;
-    select.setAttribute("aria-label", placeholder);
-    select.setAttribute("data-filter-key", filterKey);
-    select.setAttribute("data-placeholder", placeholder);
-
+  // ── Popula selects ────────────────────────────────────────────
+  function fillSelect(sel, items, emptyLabel, labelFn) {
+    if (!sel) return;
+    // preserva só o primeiro option (vazio)
+    sel.innerHTML = `<option value="">${emptyLabel}</option>`;
     items.forEach(item => {
       const opt = document.createElement("option");
       opt.value = String(item.id);
-      opt.textContent = item.nome;
-      select.appendChild(opt);
-    });
-
-    select.addEventListener("change", () => {
-      state[filterKey] = Array.from(select.selectedOptions).map(o => o.value);
-      state.page = 1;
-      refresh();
-    });
-
-    const hint = document.createElement("span");
-    hint.className = "rp-combo-hint";
-    hint.textContent = "Ctrl+clique para selecionar múltiplos";
-    wrap.appendChild(select);
-    wrap.appendChild(hint);
-    container.appendChild(wrap);
-
-    // helper para sincronizar visual com state
-    select._syncState = () => {
-      Array.from(select.options).forEach(opt => {
-        opt.selected = state[filterKey].includes(opt.value);
-      });
-    };
-  }
-
-  function buildSingleSelect(container, items, placeholder) {
-    if (!container) return;
-    container.innerHTML = "";
-
-    const wrap = document.createElement("div");
-    wrap.className = "rp-combo-wrap";
-
-    const select = document.createElement("select");
-    select.className = "rp-combo-select";
-    select.setAttribute("aria-label", placeholder);
-    select.setAttribute("data-filter-key", "produtor");
-
-    const emptyOpt = document.createElement("option");
-    emptyOpt.value = "";
-    emptyOpt.textContent = `Todos os produtores`;
-    select.appendChild(emptyOpt);
-
-    items.forEach(item => {
-      const opt = document.createElement("option");
-      opt.value = String(item.id);
-      opt.textContent = `${item.nome || ""} ${item.sobrenome || ""}`.trim() || "Produtor";
-      select.appendChild(opt);
-    });
-
-    select.addEventListener("change", () => {
-      state.produtor = select.value;
-      state.page = 1;
-      refresh();
-    });
-
-    wrap.appendChild(select);
-    container.appendChild(wrap);
-
-    select._syncState = () => { select.value = state.produtor; };
-  }
-
-  function syncAllSelects() {
-    document.querySelectorAll(".rp-combo-select[data-filter-key]").forEach(sel => {
-      if (sel._syncState) sel._syncState();
+      opt.textContent = labelFn(item);
+      sel.appendChild(opt);
     });
   }
 
-  // ── Accordion ─────────────────────────────────────────────────
-  document.querySelectorAll(".rp-filter-group-toggle").forEach(toggle => {
-    toggle.addEventListener("click", () => {
-      toggle.closest(".rp-filter-group").classList.toggle("collapsed");
-    });
-  });
-
-  // ── Carregar filtros da API ───────────────────────────────────
   async function loadFilters() {
     try {
       const [cats, tags, prods] = await Promise.all([
@@ -268,26 +182,19 @@
         fetch(`${API}/tags`).then(r => r.json()),
         fetch(`${API}/producers`).then(r => r.json()),
       ]);
-      cache.categorias = cats || [];
-      cache.tags       = tags || [];
-      cache.produtores = prods || [];
 
-      // Sidebar selects
-      buildMultiSelect(document.getElementById("category-filter"), cache.categorias, "categorias", "Categorias");
-      buildMultiSelect(document.getElementById("tag-filter"),      cache.tags,       "tags",       "Tags");
-      buildSingleSelect(document.getElementById("producer-filter"), cache.produtores, "Produtor");
+      fillSelect(catSel,  cats  || [], "Categorias", i => i.nome);
+      fillSelect(tagSel,  tags  || [], "Tags",        i => i.nome);
+      fillSelect(prodSel, prods || [], "Produtor",    i => `${i.nome||""} ${i.sobrenome||""}`.trim() || "Produtor");
 
-      // Drawer selects (duplicados para mobile)
-      buildMultiSelect(document.getElementById("drawer-category-filter"), cache.categorias, "categorias", "Categorias");
-      buildMultiSelect(document.getElementById("drawer-tag-filter"),      cache.tags,       "tags",       "Tags");
-      buildSingleSelect(document.getElementById("drawer-producer-filter"), cache.produtores, "Produtor");
+      fillSelect(dCatSel,  cats  || [], "Todas as categorias", i => i.nome);
+      fillSelect(dTagSel,  tags  || [], "Todas as tags",       i => i.nome);
+      fillSelect(dProdSel, prods || [], "Todos os produtores", i => `${i.nome||""} ${i.sobrenome||""}`.trim() || "Produtor");
 
-    } catch (e) {
-      console.error("Erro ao carregar filtros:", e);
-    }
+    } catch (e) { console.error("Erro ao carregar filtros:", e); }
   }
 
-  // ── Buscar receitas ───────────────────────────────────────────
+  // ── Fetch receitas ────────────────────────────────────────────
   async function fetchRecipes() {
     showSkeletons(state.limit > 15 ? 9 : 6);
     if (countEl)      countEl.innerHTML = "";
@@ -295,24 +202,19 @@
     if (emptyEl)      emptyEl.style.display = "none";
 
     const p = new URLSearchParams({ page: state.page, limit: state.limit, status: "ativo" });
-    if (state.search)            p.append("search", state.search);
-    if (state.categorias.length) p.append("categorias", state.categorias.join(","));
-    if (state.tags.length)       p.append("tags", state.tags.join(","));
-    if (state.produtor)          p.append("produtor", state.produtor);
+    if (state.search)    p.append("search",    state.search);
+    if (state.categoria) p.append("categorias", state.categoria);
+    if (state.tag)       p.append("tags",       state.tag);
+    if (state.produtor)  p.append("produtor",   state.produtor);
 
     try {
       const res = await fetch(`${API}/recipes?${p}`);
       if (!res.ok) throw new Error(res.status);
       const result = await res.json();
-
-      let recipes, pagination;
-      if (Array.isArray(result)) {
-        recipes = result;
-        pagination = { currentPage: 1, totalPages: 1, totalItems: result.length };
-      } else {
-        recipes    = result.data || [];
-        pagination = result.pagination || { currentPage: 1, totalPages: 1, totalItems: recipes.length };
-      }
+      const recipes    = Array.isArray(result) ? result : (result.data || []);
+      const pagination = Array.isArray(result)
+        ? { currentPage: 1, totalPages: 1, totalItems: result.length }
+        : (result.pagination || { currentPage: 1, totalPages: 1, totalItems: recipes.length });
 
       renderCards(recipes);
       renderPagination(pagination.totalPages, pagination.currentPage);
@@ -322,66 +224,58 @@
         countEl.innerHTML = `<strong>${s}–${e}</strong> de <strong>${pagination.totalItems}</strong> receitas`;
       }
     } catch (e) {
-      console.error("Erro ao buscar receitas:", e);
+      console.error(e);
       grid.innerHTML = '<p style="text-align:center;color:#aaa;padding:60px">Erro ao carregar. Tente novamente.</p>';
     }
   }
 
-  // ── Limpar tudo ───────────────────────────────────────────────
-  function clearAllFilters() {
-    state.categorias = [];
-    state.tags = [];
-    state.produtor = "";
-    state.page = 1;
+  // ── Limpar ────────────────────────────────────────────────────
+  function clearAll() {
+    state.categoria = "";
+    state.tag       = "";
+    state.produtor  = "";
+    state.page      = 1;
     refresh();
   }
 
   // ── Drawer ────────────────────────────────────────────────────
-  function openDrawer()  {
-    drawerEl?.classList.add("open");
-    drawerOverlay?.classList.add("open");
-    document.body.style.overflow = "hidden";
-  }
-  function closeDrawer() {
-    drawerEl?.classList.remove("open");
-    drawerOverlay?.classList.remove("open");
-    document.body.style.overflow = "";
-  }
+  const openDrawer  = () => { drawer?.classList.add("open"); drawerOverlay?.classList.add("open"); document.body.style.overflow = "hidden"; syncSelects(); };
+  const closeDrawer = () => { drawer?.classList.remove("open"); drawerOverlay?.classList.remove("open"); document.body.style.overflow = ""; };
 
   openBtn?.addEventListener("click", openDrawer);
   closeBtn?.addEventListener("click", closeDrawer);
   drawerOverlay?.addEventListener("click", closeDrawer);
-  drawerClear?.addEventListener("click", () => { clearAllFilters(); closeDrawer(); });
-  drawerApply?.addEventListener("click", () => { state.page = 1; fetchRecipes(); closeDrawer(); });
+  drawerClear?.addEventListener("click", () => { clearAll(); closeDrawer(); });
+  drawerApply?.addEventListener("click", () => {
+    state.categoria = dCatSel?.value  || "";
+    state.tag       = dTagSel?.value  || "";
+    state.produtor  = dProdSel?.value || "";
+    state.page = 1;
+    refresh();
+    closeDrawer();
+  });
 
-  sidebarClear?.addEventListener("click", clearAllFilters);
-  document.getElementById("clear-filters-empty")?.addEventListener("click", clearAllFilters);
+  // ── Event listeners ───────────────────────────────────────────
+  catSel?.addEventListener("change",  () => { state.categoria = catSel.value;  state.page = 1; refresh(); });
+  tagSel?.addEventListener("change",  () => { state.tag       = tagSel.value;  state.page = 1; refresh(); });
+  prodSel?.addEventListener("change", () => { state.produtor  = prodSel.value; state.page = 1; refresh(); });
+
+  clearBtn?.addEventListener("click", clearAll);
+  document.getElementById("clear-filters-empty")?.addEventListener("click", clearAll);
 
   searchInput?.addEventListener("input", () => {
     if (searchClear) searchClear.style.display = searchInput.value ? "" : "none";
     clearTimeout(searchInput._t);
-    searchInput._t = setTimeout(() => {
-      state.search = searchInput.value.trim();
-      state.page = 1;
-      fetchRecipes();
-    }, 400);
+    searchInput._t = setTimeout(() => { state.search = searchInput.value.trim(); state.page = 1; fetchRecipes(); }, 400);
   });
   searchClear?.addEventListener("click", () => {
     if (searchInput) searchInput.value = "";
     if (searchClear) searchClear.style.display = "none";
-    state.search = "";
-    state.page = 1;
-    fetchRecipes();
+    state.search = ""; state.page = 1; fetchRecipes();
   });
-
-  limitSelect?.addEventListener("change", () => {
-    state.limit = parseInt(limitSelect.value, 10);
-    state.page = 1;
-    fetchRecipes();
-  });
+  limitSelect?.addEventListener("change", () => { state.limit = parseInt(limitSelect.value, 10); state.page = 1; fetchRecipes(); });
 
   // ── Init ──────────────────────────────────────────────────────
   loadFilters();
   fetchRecipes();
-
 })();

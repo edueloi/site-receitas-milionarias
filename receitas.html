@@ -103,16 +103,51 @@
     <section class="rp-main">
         <div class="container">
 
-            <!-- BARRA DE BUSCA + BOTÃO FILTROS -->
-            <div class="rp-searchbar">
+            <!-- TOOLBAR: busca + filtros em 1 linha -->
+            <div class="rp-toolbar">
+                <!-- Busca -->
                 <div class="rp-search-wrap">
                     <i class="fas fa-search"></i>
                     <input type="text" id="search-input" placeholder="Buscar receita ou ingrediente...">
                     <button id="search-clear-btn" class="rp-search-clear" style="display:none;"><i class="fas fa-times"></i></button>
                 </div>
-                <button class="rp-filter-btn" id="open-filters">
-                    <i class="fas fa-sliders-h"></i>
-                    <span>Filtros</span>
+
+                <div class="rp-toolbar-divider"></div>
+
+                <!-- Categoria -->
+                <div class="rp-select-wrap">
+                    <i class="fas fa-layer-group"></i>
+                    <select class="rp-filter-select" id="category-filter" aria-label="Categorias">
+                        <option value="">Categorias</option>
+                    </select>
+                </div>
+
+                <!-- Tags -->
+                <div class="rp-select-wrap">
+                    <i class="fas fa-tags"></i>
+                    <select class="rp-filter-select" id="tag-filter" aria-label="Tags">
+                        <option value="">Tags</option>
+                    </select>
+                </div>
+
+                <!-- Produtor -->
+                <div class="rp-select-wrap">
+                    <i class="fas fa-user-tie"></i>
+                    <select class="rp-filter-select" id="producer-filter" aria-label="Produtor">
+                        <option value="">Produtor</option>
+                    </select>
+                </div>
+
+                <div class="rp-toolbar-divider"></div>
+
+                <!-- Limpar -->
+                <button class="rp-clear-btn" id="clear-filters-btn">
+                    <i class="fas fa-times"></i> Limpar
+                </button>
+
+                <!-- Mobile: abre drawer -->
+                <button class="rp-filter-btn-mobile" id="open-filters">
+                    <i class="fas fa-sliders-h"></i> Filtros
                     <span class="rp-filter-badge" id="filter-badge" style="display:none;">0</span>
                 </button>
             </div>
@@ -120,58 +155,8 @@
             <!-- CHIPS DE FILTROS ATIVOS -->
             <div class="rp-active-chips" id="active-filters-chips"></div>
 
-            <!-- LAYOUT: SIDEBAR + GRID -->
-            <div class="rp-layout">
-
-                <!-- SIDEBAR DE FILTROS (desktop) -->
-                <aside class="rp-sidebar" id="rp-sidebar">
-                    <div class="rp-sidebar-header">
-                        <h3><i class="fas fa-sliders-h"></i> Filtros</h3>
-                        <button class="rp-sidebar-clear" id="clear-filters-btn">Limpar tudo</button>
-                    </div>
-
-                    <!-- Categorias -->
-                    <div class="rp-filter-group" id="sg-categorias">
-                        <button class="rp-filter-group-toggle" type="button">
-                            <span><i class="fas fa-layer-group"></i> Categorias</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="rp-filter-group-body">
-                            <div class="rp-filter-chips" id="category-filter">
-                                <span class="rp-loading">Carregando...</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tags -->
-                    <div class="rp-filter-group" id="sg-tags">
-                        <button class="rp-filter-group-toggle" type="button">
-                            <span><i class="fas fa-tags"></i> Tags</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="rp-filter-group-body">
-                            <div class="rp-filter-chips" id="tag-filter">
-                                <span class="rp-loading">Carregando...</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Produtor -->
-                    <div class="rp-filter-group" id="sg-produtor">
-                        <button class="rp-filter-group-toggle" type="button">
-                            <span><i class="fas fa-user-tie"></i> Produtor</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="rp-filter-group-body">
-                            <div class="rp-filter-chips" id="producer-filter">
-                                <span class="rp-loading">Carregando...</span>
-                            </div>
-                        </div>
-                    </div>
-                </aside>
-
-                <!-- GRID -->
-                <div class="rp-grid-area">
+            <!-- GRID -->
+            <div class="rp-grid-area">
                     <!-- Per page + count -->
                     <div class="rp-grid-toolbar">
                         <div class="results-count" id="results-count"></div>
@@ -196,8 +181,6 @@
 
                     <div class="pagination-wrap" id="pagination-controls"></div>
                 </div>
-
-            </div>
         </div>
     </section>
 
@@ -226,7 +209,7 @@
 
 </main>
 
-<!-- DRAWER DE FILTROS (mobile / overlay desktop) -->
+<!-- DRAWER DE FILTROS (mobile) -->
 <div class="rp-drawer-overlay" id="drawer-overlay"></div>
 <div class="rp-drawer" id="filter-drawer">
     <div class="rp-drawer-header">
@@ -235,45 +218,30 @@
     </div>
     <div class="rp-drawer-body">
 
-        <div class="rp-filter-group">
-            <button class="rp-filter-group-toggle" type="button">
-                <span><i class="fas fa-layer-group"></i> Categorias</span>
-                <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="rp-filter-group-body">
-                <div class="rp-filter-chips" id="drawer-category-filter">
-                    <span class="rp-loading">Carregando...</span>
-                </div>
-            </div>
+        <div class="rp-drawer-group">
+            <label><i class="fas fa-layer-group"></i> Categoria</label>
+            <select class="rp-filter-select" id="drawer-category-filter" aria-label="Categorias">
+                <option value="">Todas as categorias</option>
+            </select>
         </div>
 
-        <div class="rp-filter-group">
-            <button class="rp-filter-group-toggle" type="button">
-                <span><i class="fas fa-tags"></i> Tags</span>
-                <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="rp-filter-group-body">
-                <div class="rp-filter-chips" id="drawer-tag-filter">
-                    <span class="rp-loading">Carregando...</span>
-                </div>
-            </div>
+        <div class="rp-drawer-group">
+            <label><i class="fas fa-tags"></i> Tag</label>
+            <select class="rp-filter-select" id="drawer-tag-filter" aria-label="Tags">
+                <option value="">Todas as tags</option>
+            </select>
         </div>
 
-        <div class="rp-filter-group">
-            <button class="rp-filter-group-toggle" type="button">
-                <span><i class="fas fa-user-tie"></i> Produtor</span>
-                <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="rp-filter-group-body">
-                <div class="rp-filter-chips" id="drawer-producer-filter">
-                    <span class="rp-loading">Carregando...</span>
-                </div>
-            </div>
+        <div class="rp-drawer-group">
+            <label><i class="fas fa-user-tie"></i> Produtor</label>
+            <select class="rp-filter-select" id="drawer-producer-filter" aria-label="Produtor">
+                <option value="">Todos os produtores</option>
+            </select>
         </div>
 
     </div>
     <div class="rp-drawer-footer">
-        <button class="rp-drawer-clear" id="drawer-clear-btn"><i class="fas fa-times"></i> Limpar tudo</button>
+        <button class="rp-drawer-clear" id="drawer-clear-btn"><i class="fas fa-times"></i> Limpar</button>
         <button class="rp-drawer-apply" id="drawer-apply-btn"><i class="fas fa-check"></i> Ver resultados</button>
     </div>
 </div>
