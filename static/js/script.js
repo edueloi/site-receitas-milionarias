@@ -786,21 +786,21 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       });
 
-      window.addEventListener("click", () =>
-        document
-          .querySelectorAll(".dropdown-filter.open")
-          .forEach((f) => {
+      window.addEventListener("click", (e) => {
+        // Não fecha se o clique foi dentro de um dropdown-filter
+        if (!e.target.closest(".dropdown-filter")) {
+          document.querySelectorAll(".dropdown-filter.open").forEach((f) => {
             f.classList.remove("open");
             const btn = f.querySelector(".filter-btn");
             if (btn) btn.classList.remove("active");
-          })
-      );
+          });
+        }
+      });
 
-      document
-        .querySelectorAll(".dropdown-content")
-        .forEach((c) =>
-          c.addEventListener("click", (e) => e.stopPropagation())
-        );
+      // stopPropagation via delegation — funciona mesmo com itens adicionados depois
+      document.addEventListener("click", (e) => {
+        if (e.target.closest(".dropdown-content")) e.stopPropagation();
+      }, true);
 
       if (searchInput) {
         let searchDebounce;
