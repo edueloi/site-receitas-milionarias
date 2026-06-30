@@ -6,44 +6,37 @@
   let state = { page: 1, limit: 15, search: "", categorias: [], tags: [], produtor: "" };
 
   // ── Elementos ─────────────────────────────────────────────────
-  const grid          = document.getElementById("receitas-grid");
-  const emptyEl       = document.getElementById("receitas-empty");
-  const paginationEl  = document.getElementById("pagination-controls");
-  const countEl       = document.getElementById("results-count");
-  const searchInput   = document.getElementById("search-input");
-  const searchClear   = document.getElementById("search-clear-btn");
-  const limitSelect   = document.getElementById("limit-select");
-  const chipsEl       = document.getElementById("active-filters-chips");
-  const filterBadge   = document.getElementById("filter-badge");
+  const grid         = document.getElementById("receitas-grid");
+  const emptyEl      = document.getElementById("receitas-empty");
+  const paginationEl = document.getElementById("pagination-controls");
+  const countEl      = document.getElementById("results-count");
+  const searchInput  = document.getElementById("search-input");
+  const searchClear  = document.getElementById("search-clear-btn");
+  const limitSelect  = document.getElementById("limit-select");
+  const chipsEl      = document.getElementById("active-filters-chips");
+  const filterBadge  = document.getElementById("filter-badge");
+  const sidebarClear = document.getElementById("clear-filters-btn");
+  const drawerEl     = document.getElementById("filter-drawer");
+  const drawerOverlay= document.getElementById("drawer-overlay");
+  const openBtn      = document.getElementById("open-filters");
+  const closeBtn     = document.getElementById("close-filters");
+  const drawerClear  = document.getElementById("drawer-clear-btn");
+  const drawerApply  = document.getElementById("drawer-apply-btn");
 
-  // Sidebar (desktop)
-  const catEl         = document.getElementById("category-filter");
-  const tagEl         = document.getElementById("tag-filter");
-  const prodEl        = document.getElementById("producer-filter");
-  const sidebarClear  = document.getElementById("clear-filters-btn");
-
-  // Drawer (mobile/overlay)
-  const drawer        = document.getElementById("filter-drawer");
-  const drawerOverlay = document.getElementById("drawer-overlay");
-  const openBtn       = document.getElementById("open-filters");
-  const closeBtn      = document.getElementById("close-filters");
-  const drawerCatEl   = document.getElementById("drawer-category-filter");
-  const drawerTagEl   = document.getElementById("drawer-tag-filter");
-  const drawerProdEl  = document.getElementById("drawer-producer-filter");
-  const drawerClear   = document.getElementById("drawer-clear-btn");
-  const drawerApply   = document.getElementById("drawer-apply-btn");
-
-  // Se não tem grid, não é a página de receitas — sai
   if (!grid) return;
 
-  // ── Dados em cache (só busca 1x da API) ───────────────────────
+  // ── Cache de dados da API ─────────────────────────────────────
   const cache = { categorias: null, tags: null, produtores: null };
 
   // ── Imagem ────────────────────────────────────────────────────
   function buildImg(url) {
     if (!url) return "static/images/receitas_capa.png";
-    if (url.startsWith("http")) return url;
-    return `${API}/uploads/${url}`;
+    if (/^https?:\/\//i.test(url)) return url;
+    // remove leading slash, garante path correto
+    const clean = url.replace(/^\//, "");
+    const idx = clean.indexOf("uploads");
+    const path = idx !== -1 ? clean.substring(idx) : clean;
+    return `${API}/${path}`;
   }
 
   // ── Skeletons ─────────────────────────────────────────────────
@@ -69,17 +62,17 @@
     }
     if (emptyEl) emptyEl.style.display = "none";
     recipes.forEach((r) => {
-      const cat = r.categoria ? r.categoria.nome : "Receita";
-      const img = buildImg(r.imagem_url);
+      const cat  = r.categoria?.nome || "Receita";
+      const img  = buildImg(r.imagem_url);
       const prep = r.tempo_preparo_min ?? "?";
-      const dif = r.dificuldade ?? "Médio";
+      const dif  = r.dificuldade ?? "Médio";
       const a = document.createElement("a");
       a.href = `receita.html?id=${r.id}`;
       a.className = "recipe-link";
       a.innerHTML = `
         <article class="recipe-card">
           <div class="recipe-card-img-container">
-            <img src="${img}" alt="${r.titulo}" loading="lazy">
+            <img src="${img}" alt="${r.titulo}" loading="lazy" onerror="this.src='static/images/receitas_capa.png'">
             <span class="recipe-category-tag">${cat}</span>
           </div>
           <div class="recipe-card-content">
@@ -105,7 +98,11 @@
       b.className = "page-btn" + (active ? " active" : "") + (disabled ? " disabled" : "");
       b.innerHTML = label;
       b.disabled = disabled;
-      if (!disabled && !active) b.addEventListener("click", () => { state.page = page; fetchRecipes(); window.scrollTo({ top: 0, behavior: "smooth" }); });
+      if (!disabled && !active) b.addEventListener("click", () => {
+        state.page = page;
+        fetchRecipes();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
       return b;
     };
     paginationEl.appendChild(mk('<i class="fas fa-chevron-left"></i>', current - 1, current === 1, false));
@@ -126,32 +123,34 @@
   function renderActiveChips() {
     if (!chipsEl) return;
     chipsEl.innerHTML = "";
-    const add = (label, removeFunc) => {
+    const add = (label, removeFn) => {
       const chip = document.createElement("span");
       chip.className = "rp-chip";
       chip.innerHTML = `${label}<button title="Remover"><i class="fas fa-times"></i></button>`;
-      chip.querySelector("button").addEventListener("click", removeFunc);
+      chip.querySelector("button").addEventListener("click", removeFn);
       chipsEl.appendChild(chip);
     };
-    // categorias
-    state.categorias.forEach((id) => {
+    state.categorias.forEach(id => {
       const item = (cache.categorias || []).find(c => String(c.id) === String(id));
-      if (item) add(item.nome, () => { state.categorias = state.categorias.filter(x => x !== id); state.page = 1; fetchRecipes(); updateFilterBadge(); syncChips(); });
+      if (item) add(item.nome, () => {
+        state.categorias = state.categorias.filter(x => x !== id);
+        state.page = 1; refresh();
+      });
     });
-    // tags
-    state.tags.forEach((id) => {
+    state.tags.forEach(id => {
       const item = (cache.tags || []).find(t => String(t.id) === String(id));
-      if (item) add(item.nome, () => { state.tags = state.tags.filter(x => x !== id); state.page = 1; fetchRecipes(); updateFilterBadge(); syncChips(); });
+      if (item) add(item.nome, () => {
+        state.tags = state.tags.filter(x => x !== id);
+        state.page = 1; refresh();
+      });
     });
-    // produtor
     if (state.produtor) {
       const item = (cache.produtores || []).find(p => String(p.id) === String(state.produtor));
       const nome = item ? `${item.nome || ""} ${item.sobrenome || ""}`.trim() : "Produtor";
-      add(nome, () => { state.produtor = ""; state.page = 1; fetchRecipes(); updateFilterBadge(); syncChips(); });
+      add(nome, () => { state.produtor = ""; state.page = 1; refresh(); });
     }
   }
 
-  // ── Badge de filtros ──────────────────────────────────────────
   function updateFilterBadge() {
     if (!filterBadge) return;
     const n = state.categorias.length + state.tags.length + (state.produtor ? 1 : 0);
@@ -159,108 +158,109 @@
     filterBadge.style.display = n > 0 ? "inline-flex" : "none";
   }
 
-  // ── Sincroniza chips visuais com state ────────────────────────
-  function syncChips() {
-    // sidebar + drawer
-    document.querySelectorAll(".rp-filter-chips button[data-value]").forEach((btn) => {
-      const container = btn.closest(".rp-filter-chips");
-      if (!container) return;
-      const id = btn.closest("[data-filter-type]")?.dataset.filterType;
-      const val = btn.dataset.value;
-      if (!val) {
-        // "Todos"
-        btn.classList.toggle("active",
-          id === "categorias" ? state.categorias.length === 0 :
-          id === "tags" ? state.tags.length === 0 :
-          id === "produtor" ? state.produtor === "" : false
-        );
-      } else {
-        btn.classList.toggle("active",
-          id === "categorias" ? state.categorias.includes(val) :
-          id === "tags" ? state.tags.includes(val) :
-          id === "produtor" ? state.produtor === val : false
-        );
-      }
-    });
+  function refresh() {
+    updateFilterBadge();
+    renderActiveChips();
+    syncAllSelects();
+    fetchRecipes();
   }
 
-  // ── Popula chips num container ────────────────────────────────
-  function populateChips(container, items, filterType, singleSelect) {
+  // ── COMBOBOX / SELECT customizado ────────────────────────────
+  // Cria um <select> nativo estilizado para multi-select (categorias/tags)
+  // e single-select (produtor). Simples, funcional, sem bugs de dropdown.
+
+  function buildMultiSelect(container, items, filterKey, placeholder) {
     if (!container) return;
-    container.setAttribute("data-filter-type", filterType);
     container.innerHTML = "";
 
-    // Botão "Todos"
-    const allBtn = document.createElement("button");
-    allBtn.type = "button";
-    allBtn.dataset.value = "";
-    allBtn.textContent = "Todos";
-    allBtn.classList.add("active");
-    allBtn.addEventListener("click", () => {
-      if (filterType === "categorias") state.categorias = [];
-      else if (filterType === "tags") state.tags = [];
-      else if (filterType === "produtor") state.produtor = "";
-      syncChips();
-    });
-    container.appendChild(allBtn);
+    const wrap = document.createElement("div");
+    wrap.className = "rp-combo-wrap";
 
-    items.forEach((item) => {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.dataset.value = String(item.id);
-      btn.textContent = item.nome || `${item.nome || ""} ${item.sobrenome || ""}`.trim();
-      btn.addEventListener("click", () => {
-        const val = String(item.id);
-        if (singleSelect) {
-          state[filterType] = val;
-        } else {
-          const arr = state[filterType];
-          const idx = arr.indexOf(val);
-          if (idx >= 0) arr.splice(idx, 1);
-          else arr.push(val);
-        }
-        syncChips();
+    const select = document.createElement("select");
+    select.className = "rp-combo-select";
+    select.multiple = true;
+    select.setAttribute("aria-label", placeholder);
+    select.setAttribute("data-filter-key", filterKey);
+    select.setAttribute("data-placeholder", placeholder);
+
+    items.forEach(item => {
+      const opt = document.createElement("option");
+      opt.value = String(item.id);
+      opt.textContent = item.nome;
+      select.appendChild(opt);
+    });
+
+    select.addEventListener("change", () => {
+      state[filterKey] = Array.from(select.selectedOptions).map(o => o.value);
+      state.page = 1;
+      refresh();
+    });
+
+    const hint = document.createElement("span");
+    hint.className = "rp-combo-hint";
+    hint.textContent = "Ctrl+clique para selecionar múltiplos";
+    wrap.appendChild(select);
+    wrap.appendChild(hint);
+    container.appendChild(wrap);
+
+    // helper para sincronizar visual com state
+    select._syncState = () => {
+      Array.from(select.options).forEach(opt => {
+        opt.selected = state[filterKey].includes(opt.value);
       });
-      container.appendChild(btn);
-    });
-
-    syncChips();
+    };
   }
 
-  // ── Produtor: label especial ──────────────────────────────────
-  function populateProdutorChips(container, items) {
+  function buildSingleSelect(container, items, placeholder) {
     if (!container) return;
-    container.setAttribute("data-filter-type", "produtor");
     container.innerHTML = "";
-    const allBtn = document.createElement("button");
-    allBtn.type = "button";
-    allBtn.dataset.value = "";
-    allBtn.textContent = "Todos";
-    allBtn.classList.add("active");
-    allBtn.addEventListener("click", () => { state.produtor = ""; syncChips(); });
-    container.appendChild(allBtn);
-    items.forEach((item) => {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.dataset.value = String(item.id);
-      btn.textContent = `${item.nome || ""} ${item.sobrenome || ""}`.trim() || "Produtor";
-      btn.addEventListener("click", () => { state.produtor = String(item.id); syncChips(); });
-      container.appendChild(btn);
+
+    const wrap = document.createElement("div");
+    wrap.className = "rp-combo-wrap";
+
+    const select = document.createElement("select");
+    select.className = "rp-combo-select";
+    select.setAttribute("aria-label", placeholder);
+    select.setAttribute("data-filter-key", "produtor");
+
+    const emptyOpt = document.createElement("option");
+    emptyOpt.value = "";
+    emptyOpt.textContent = `Todos os produtores`;
+    select.appendChild(emptyOpt);
+
+    items.forEach(item => {
+      const opt = document.createElement("option");
+      opt.value = String(item.id);
+      opt.textContent = `${item.nome || ""} ${item.sobrenome || ""}`.trim() || "Produtor";
+      select.appendChild(opt);
     });
-    syncChips();
+
+    select.addEventListener("change", () => {
+      state.produtor = select.value;
+      state.page = 1;
+      refresh();
+    });
+
+    wrap.appendChild(select);
+    container.appendChild(wrap);
+
+    select._syncState = () => { select.value = state.produtor; };
   }
 
-  // ── Accordion dos grupos ──────────────────────────────────────
-  function bindAccordion(groupEl) {
-    const toggle = groupEl.querySelector(".rp-filter-group-toggle");
-    if (!toggle) return;
+  function syncAllSelects() {
+    document.querySelectorAll(".rp-combo-select[data-filter-key]").forEach(sel => {
+      if (sel._syncState) sel._syncState();
+    });
+  }
+
+  // ── Accordion ─────────────────────────────────────────────────
+  document.querySelectorAll(".rp-filter-group-toggle").forEach(toggle => {
     toggle.addEventListener("click", () => {
-      groupEl.classList.toggle("collapsed");
+      toggle.closest(".rp-filter-group").classList.toggle("collapsed");
     });
-  }
-  document.querySelectorAll(".rp-filter-group").forEach(bindAccordion);
+  });
 
-  // ── Carregar dados da API ─────────────────────────────────────
+  // ── Carregar filtros da API ───────────────────────────────────
   async function loadFilters() {
     try {
       const [cats, tags, prods] = await Promise.all([
@@ -272,15 +272,15 @@
       cache.tags       = tags || [];
       cache.produtores = prods || [];
 
-      // Sidebar
-      populateChips(catEl,  cache.categorias, "categorias", false);
-      populateChips(tagEl,  cache.tags,       "tags",       false);
-      populateProdutorChips(prodEl, cache.produtores);
+      // Sidebar selects
+      buildMultiSelect(document.getElementById("category-filter"), cache.categorias, "categorias", "Categorias");
+      buildMultiSelect(document.getElementById("tag-filter"),      cache.tags,       "tags",       "Tags");
+      buildSingleSelect(document.getElementById("producer-filter"), cache.produtores, "Produtor");
 
-      // Drawer
-      populateChips(drawerCatEl,  cache.categorias, "categorias", false);
-      populateChips(drawerTagEl,  cache.tags,       "tags",       false);
-      populateProdutorChips(drawerProdEl, cache.produtores);
+      // Drawer selects (duplicados para mobile)
+      buildMultiSelect(document.getElementById("drawer-category-filter"), cache.categorias, "categorias", "Categorias");
+      buildMultiSelect(document.getElementById("drawer-tag-filter"),      cache.tags,       "tags",       "Tags");
+      buildSingleSelect(document.getElementById("drawer-producer-filter"), cache.produtores, "Produtor");
 
     } catch (e) {
       console.error("Erro ao carregar filtros:", e);
@@ -290,18 +290,15 @@
   // ── Buscar receitas ───────────────────────────────────────────
   async function fetchRecipes() {
     showSkeletons(state.limit > 15 ? 9 : 6);
-    if (countEl) countEl.innerHTML = "";
+    if (countEl)      countEl.innerHTML = "";
     if (paginationEl) paginationEl.innerHTML = "";
-    if (emptyEl) emptyEl.style.display = "none";
+    if (emptyEl)      emptyEl.style.display = "none";
 
     const p = new URLSearchParams({ page: state.page, limit: state.limit, status: "ativo" });
-    if (state.search)             p.append("search", state.search);
-    if (state.categorias.length)  p.append("categorias", state.categorias.join(","));
-    if (state.tags.length)        p.append("tags", state.tags.join(","));
-    if (state.produtor)           p.append("produtor", state.produtor);
-
-    renderActiveChips();
-    updateFilterBadge();
+    if (state.search)            p.append("search", state.search);
+    if (state.categorias.length) p.append("categorias", state.categorias.join(","));
+    if (state.tags.length)       p.append("tags", state.tags.join(","));
+    if (state.produtor)          p.append("produtor", state.produtor);
 
     try {
       const res = await fetch(`${API}/recipes?${p}`);
@@ -313,7 +310,7 @@
         recipes = result;
         pagination = { currentPage: 1, totalPages: 1, totalItems: result.length };
       } else {
-        recipes = result.data || [];
+        recipes    = result.data || [];
         pagination = result.pagination || { currentPage: 1, totalPages: 1, totalItems: recipes.length };
       }
 
@@ -326,56 +323,42 @@
       }
     } catch (e) {
       console.error("Erro ao buscar receitas:", e);
-      grid.innerHTML = '<p style="text-align:center;color:#aaa;padding:40px">Erro ao carregar receitas.</p>';
+      grid.innerHTML = '<p style="text-align:center;color:#aaa;padding:60px">Erro ao carregar. Tente novamente.</p>';
     }
   }
 
-  // ── Limpar filtros ────────────────────────────────────────────
+  // ── Limpar tudo ───────────────────────────────────────────────
   function clearAllFilters() {
     state.categorias = [];
     state.tags = [];
     state.produtor = "";
     state.page = 1;
-    syncChips();
-    updateFilterBadge();
-    renderActiveChips();
-    fetchRecipes();
+    refresh();
   }
 
-  // ── Drawer open/close ─────────────────────────────────────────
-  function openDrawer() {
-    drawer?.classList.add("open");
+  // ── Drawer ────────────────────────────────────────────────────
+  function openDrawer()  {
+    drawerEl?.classList.add("open");
     drawerOverlay?.classList.add("open");
     document.body.style.overflow = "hidden";
   }
   function closeDrawer() {
-    drawer?.classList.remove("open");
+    drawerEl?.classList.remove("open");
     drawerOverlay?.classList.remove("open");
     document.body.style.overflow = "";
   }
 
-  // ── Event listeners ───────────────────────────────────────────
   openBtn?.addEventListener("click", openDrawer);
   closeBtn?.addEventListener("click", closeDrawer);
   drawerOverlay?.addEventListener("click", closeDrawer);
-
-  drawerApply?.addEventListener("click", () => {
-    state.page = 1;
-    fetchRecipes();
-    closeDrawer();
-  });
-  drawerClear?.addEventListener("click", () => {
-    clearAllFilters();
-    closeDrawer();
-  });
+  drawerClear?.addEventListener("click", () => { clearAllFilters(); closeDrawer(); });
+  drawerApply?.addEventListener("click", () => { state.page = 1; fetchRecipes(); closeDrawer(); });
 
   sidebarClear?.addEventListener("click", clearAllFilters);
-
-  document.getElementById("clear-filters-btn")?.addEventListener("click", clearAllFilters);
   document.getElementById("clear-filters-empty")?.addEventListener("click", clearAllFilters);
 
   searchInput?.addEventListener("input", () => {
-    searchClear && (searchClear.style.display = searchInput.value ? "" : "none");
+    if (searchClear) searchClear.style.display = searchInput.value ? "" : "none";
     clearTimeout(searchInput._t);
     searchInput._t = setTimeout(() => {
       state.search = searchInput.value.trim();
@@ -384,8 +367,8 @@
     }, 400);
   });
   searchClear?.addEventListener("click", () => {
-    searchInput.value = "";
-    searchClear.style.display = "none";
+    if (searchInput) searchInput.value = "";
+    if (searchClear) searchClear.style.display = "none";
     state.search = "";
     state.page = 1;
     fetchRecipes();
