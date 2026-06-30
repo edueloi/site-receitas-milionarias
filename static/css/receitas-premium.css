@@ -201,6 +201,7 @@
   padding: 20px 24px;
   background: #fff;
   border-radius: 20px;
+  overflow: visible;
   box-shadow: 0 4px 24px rgba(0,0,0,.07);
   border: 1px solid rgba(0,0,0,.06);
 }

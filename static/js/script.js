@@ -539,11 +539,12 @@ document.addEventListener("DOMContentLoaded", () => {
           ? parseFloat(rating.media_avaliacoes).toFixed(1)
           : null;
 
+        const ratingCount = rating ? (rating.quantidade_comentarios ?? rating.quantidade_avaliacoes ?? 0) : 0;
         const stars = avgRating
           ? `<div class="card-rating">
               <i class="fas fa-star star-filled"></i>
               <strong>${avgRating}</strong>
-              <span>(${rating.quantidade_avaliacoes})</span>
+              <span>(${ratingCount})</span>
             </div>`
           : `<div class="card-rating">
               <i class="fas fa-star star-filled"></i>
