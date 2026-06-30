@@ -385,6 +385,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const limitSelect = document.getElementById("limit-select");
     const clearFiltersBtn = document.getElementById("clear-filters-btn");
 
+    // Se a página tem receitas-page.js próprio, não duplicar
+    if (document.body.dataset.page === "receitas") return;
     const isListPage = !!(searchInput || categoryFilter || tagFilter || limitSelect);
     if (!isListPage) return;
 

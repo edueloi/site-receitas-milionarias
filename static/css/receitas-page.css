@@ -1,0 +1,563 @@
+/* ═══════════════════════════════════════════════════════
+   RECEITAS PAGE — layout novo completo
+   ═══════════════════════════════════════════════════════ */
+
+:root {
+  --verde: #1C3B32;
+  --verde-light: #2a5546;
+  --dourado: #C9A84C;
+  --dourado-light: #e8c96a;
+  --bg: #f8f7f4;
+  --white: #ffffff;
+  --text: #1a1a1a;
+  --text-muted: #777;
+  --border: #e8e5de;
+  --radius: 16px;
+  --shadow: 0 4px 24px rgba(0,0,0,.08);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,.14);
+  --transition: .2s ease;
+}
+
+/* ── HERO ─────────────────────────────────────────────── */
+.rp-hero {
+  position: relative;
+  min-height: 340px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding-top: 80px;
+}
+.rp-hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url('../images/receitas_capa.png') center/cover no-repeat;
+}
+.rp-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(28,59,50,.92) 0%, rgba(28,59,50,.7) 100%);
+}
+.rp-hero-content {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  text-align: center;
+  padding: 48px 16px 80px;
+}
+.rp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(201,168,76,.2);
+  border: 1px solid rgba(201,168,76,.4);
+  color: var(--dourado-light);
+  padding: 6px 18px;
+  border-radius: 100px;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  margin-bottom: 20px;
+}
+.rp-hero-content h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+.rp-hero-content h1 em {
+  color: var(--dourado-light);
+  font-style: italic;
+}
+.rp-hero-content p {
+  font-size: clamp(.9rem, 1.8vw, 1.05rem);
+  color: rgba(255,255,255,.8);
+  max-width: 520px;
+  margin: 0 auto 28px;
+}
+.rp-hero-stats {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  background: rgba(255,255,255,.1);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 100px;
+  padding: 12px 28px;
+  gap: 24px;
+}
+.rp-hero-stats > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .82rem;
+}
+.rp-hero-stats > div i { color: var(--dourado-light); font-size: .9rem; }
+.rp-hero-stats > div strong { color: #fff; font-weight: 800; }
+.rp-hero-stats > div span { color: rgba(255,255,255,.7); }
+.rp-hero-stats .sep {
+  width: 1px;
+  height: 28px;
+  background: rgba(255,255,255,.2);
+}
+.rp-hero-wave {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  line-height: 0;
+}
+.rp-hero-wave svg { width: 100%; height: 60px; display: block; }
+
+/* ── MAIN SECTION ─────────────────────────────────────── */
+.rp-main {
+  background: var(--bg);
+  padding: 40px 0 80px;
+}
+
+/* ── BARRA DE BUSCA ───────────────────────────────────── */
+.rp-searchbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.rp-search-wrap {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.rp-search-wrap > i {
+  position: absolute;
+  left: 16px;
+  color: var(--dourado);
+  font-size: .95rem;
+  pointer-events: none;
+}
+.rp-search-wrap input {
+  width: 100%;
+  padding: 14px 44px 14px 44px;
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: .95rem;
+  color: var(--text);
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.rp-search-wrap input:focus {
+  border-color: var(--dourado);
+  box-shadow: 0 0 0 4px rgba(201,168,76,.12);
+}
+.rp-search-clear {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #bbb;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 50%;
+  font-size: .85rem;
+  transition: color var(--transition);
+}
+.rp-search-clear:hover { color: #666; }
+
+.rp-filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 22px;
+  background: var(--verde);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: .9rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  position: relative;
+  transition: background var(--transition);
+}
+.rp-filter-btn:hover { background: var(--verde-light); }
+.rp-filter-badge {
+  background: var(--dourado);
+  color: #1a1a1a;
+  border-radius: 100px;
+  min-width: 20px;
+  height: 20px;
+  font-size: .72rem;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5px;
+}
+
+/* ── CHIPS FILTROS ATIVOS ─────────────────────────────── */
+.rp-active-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+  min-height: 0;
+}
+.rp-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px 5px 14px;
+  background: var(--verde);
+  color: #fff;
+  border-radius: 100px;
+  font-size: .78rem;
+  font-weight: 600;
+}
+.rp-chip button {
+  background: rgba(255,255,255,.25);
+  border: none;
+  color: #fff;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: .7rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition);
+}
+.rp-chip button:hover { background: rgba(255,255,255,.4); }
+
+/* ── LAYOUT SIDEBAR + GRID ────────────────────────────── */
+.rp-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* ── SIDEBAR ──────────────────────────────────────────── */
+.rp-sidebar {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  position: sticky;
+  top: 90px;
+}
+.rp-sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border);
+}
+.rp-sidebar-header h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: .95rem;
+  font-weight: 800;
+  color: var(--verde);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+.rp-sidebar-clear {
+  background: none;
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: .78rem;
+  color: #e44;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color var(--transition);
+}
+.rp-sidebar-clear:hover { color: #c22; }
+
+/* ── FILTER GROUP (accordion) ─────────────────────────── */
+.rp-filter-group {
+  border-bottom: 1px solid var(--border);
+}
+.rp-filter-group:last-child { border-bottom: none; }
+.rp-filter-group-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: none;
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: .87rem;
+  font-weight: 700;
+  color: var(--text);
+  cursor: pointer;
+  transition: background var(--transition);
+}
+.rp-filter-group-toggle:hover { background: #fafaf7; }
+.rp-filter-group-toggle span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.rp-filter-group-toggle span i { color: var(--verde); font-size: .85rem; }
+.rp-filter-group-toggle > i {
+  color: #aaa;
+  font-size: .78rem;
+  transition: transform .2s;
+}
+.rp-filter-group.collapsed .rp-filter-group-toggle > i { transform: rotate(-90deg); }
+.rp-filter-group-body {
+  padding: 4px 16px 14px;
+  overflow: hidden;
+}
+.rp-filter-group.collapsed .rp-filter-group-body {
+  display: none;
+}
+
+/* ── CHIPS DE FILTRO ──────────────────────────────────── */
+.rp-filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.rp-loading {
+  font-size: .8rem;
+  color: #aaa;
+  font-style: italic;
+  padding: 4px 0;
+}
+.rp-filter-chips button {
+  padding: 6px 14px;
+  border: 2px solid var(--border);
+  border-radius: 100px;
+  background: var(--bg);
+  font-family: 'Montserrat', sans-serif;
+  font-size: .78rem;
+  font-weight: 600;
+  color: #555;
+  cursor: pointer;
+  transition: all .15s;
+}
+.rp-filter-chips button:hover {
+  border-color: var(--verde);
+  color: var(--verde);
+  background: #f0f7f4;
+}
+.rp-filter-chips button.active {
+  background: var(--verde);
+  border-color: var(--verde);
+  color: #fff;
+}
+
+/* ── GRID AREA ────────────────────────────────────────── */
+.rp-grid-area { min-width: 0; }
+
+.rp-grid-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.results-count {
+  font-family: 'Montserrat', sans-serif;
+  font-size: .85rem;
+  color: var(--text-muted);
+}
+.rp-per-page {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.rp-per-page label { color: var(--text-muted); font-size: .85rem; }
+.rp-per-page select {
+  padding: 6px 12px;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: .85rem;
+  background: var(--white);
+  cursor: pointer;
+  outline: none;
+}
+
+.receitas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.receitas-empty {
+  text-align: center;
+  padding: 60px 20px;
+}
+.receitas-empty .empty-icon {
+  font-size: 3rem;
+  color: #ddd;
+  margin-bottom: 16px;
+}
+.receitas-empty h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 8px;
+}
+.receitas-empty p { color: #aaa; font-size: .9rem; margin-bottom: 20px; }
+
+.pagination-wrap {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 36px;
+  flex-wrap: wrap;
+}
+
+/* ── DRAWER (mobile) ──────────────────────────────────── */
+.rp-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 8000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s;
+}
+.rp-drawer-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.rp-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(360px, 92vw);
+  background: var(--white);
+  z-index: 8001;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform .3s cubic-bezier(.22,.61,.36,1);
+  box-shadow: -8px 0 40px rgba(0,0,0,.16);
+}
+.rp-drawer.open {
+  transform: translateX(0);
+}
+.rp-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+}
+.rp-drawer-header h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--verde);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+}
+.rp-drawer-close {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #f4f4f4;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  transition: background var(--transition);
+}
+.rp-drawer-close:hover { background: #ffe9e9; color: #d44; }
+.rp-drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--dourado) #f0f0f0;
+}
+.rp-drawer .rp-filter-group {
+  border-bottom: 1px solid var(--border);
+}
+.rp-drawer .rp-filter-group-toggle { padding: 16px 24px; }
+.rp-drawer .rp-filter-group-body { padding: 4px 20px 16px; }
+.rp-drawer-footer {
+  display: flex;
+  gap: 12px;
+  padding: 16px 24px;
+  border-top: 1px solid var(--border);
+}
+.rp-drawer-clear {
+  flex: 1;
+  padding: 13px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  background: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: .88rem;
+  font-weight: 600;
+  color: #888;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all var(--transition);
+}
+.rp-drawer-clear:hover { border-color: #d44; color: #d44; }
+.rp-drawer-apply {
+  flex: 2;
+  padding: 13px;
+  border: none;
+  border-radius: 12px;
+  background: var(--verde);
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: .88rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background var(--transition);
+}
+.rp-drawer-apply:hover { background: var(--verde-light); }
+
+/* ── RESPONSIVIDADE ───────────────────────────────────── */
+@media (max-width: 900px) {
+  .rp-layout {
+    grid-template-columns: 1fr;
+  }
+  .rp-sidebar {
+    display: none; /* sidebar esconde no mobile, usa drawer */
+  }
+}
+
+@media (max-width: 600px) {
+  .rp-hero { min-height: 280px; }
+  .rp-hero-stats {
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 20px;
+    padding: 16px 20px;
+  }
+  .rp-hero-stats .sep { display: none; }
+  .receitas-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .rp-searchbar { flex-wrap: wrap; }
+  .rp-filter-btn { flex: 1; justify-content: center; }
+}
+
+@media (max-width: 420px) {
+  .receitas-grid { grid-template-columns: 1fr; }
+}

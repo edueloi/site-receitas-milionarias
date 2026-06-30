@@ -3,450 +3,345 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Receitas Exclusivas - Acesse Centenas de Receitas Premium | Receitas Milionárias</title>
-    <meta name="description" content="Explore nossa biblioteca com centenas de receitas exclusivas. Bolos, tortas, salgados, sobremesas e muito mais. Acesso vitalício por R$ 9,90.">
-    <meta name="keywords" content="receitas exclusivas, receitas premium, bolos gourmet, tortas artesanais, salgados finos, sobremesas especiais, biblioteca de receitas, receitas profissionais">
+    <meta name="description" content="Explore nossa biblioteca com centenas de receitas exclusivas. Bolos, tortas, salgados, sobremesas e muito mais.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://receitasmilionarias.com.br/receitas.html">
-
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://receitasmilionarias.com.br/receitas.html">
     <meta property="og:title" content="Receitas Exclusivas - Centenas de Receitas Premium">
     <meta property="og:description" content="Explore nossa biblioteca com centenas de receitas exclusivas.">
     <meta property="og:image" content="https://receitasmilionarias.com.br/static/images/receitas-milionarias.png">
-    <meta property="og:site_name" content="Receitas Milionárias">
-
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Receitas Exclusivas - Centenas de Receitas Premium">
-    <meta name="twitter:description" content="Explore nossa biblioteca com centenas de receitas exclusivas.">
-    <meta name="twitter:image" content="https://receitasmilionarias.com.br/static/images/receitas-milionarias.png">
-
     <link rel="icon" type="image/png" href="static/images/logo.png">
-    <link rel="apple-touch-icon" href="static/images/logo.png">
     <meta name="theme-color" content="#1C3B32">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="static/css/style.css">
     <link rel="stylesheet" href="static/css/receitas-premium.css">
+    <link rel="stylesheet" href="static/css/receitas-page.css">
 </head>
-<body>
+<body data-page="receitas">
 
-    <div id="preloader">
-        <img src="static/images/logo.png" alt="Receitas Milionárias" class="preloader-logo">
+<div id="preloader">
+    <img src="static/images/logo.png" alt="Receitas Milionárias" class="preloader-logo">
+</div>
+
+<div id="menu-overlay" class="menu-overlay">
+    <div class="menu-panel">
+        <div class="menu-header">
+            <img src="static/images/logo-deitado.png" alt="Receitas Milionárias Logo" class="menu-logo">
+            <button id="close-menu" class="close-menu" aria-label="Fechar menu"><i class="fas fa-times"></i></button>
+        </div>
+        <nav class="overlay-nav">
+            <a href="receitas.html"><i class="fas fa-utensils"></i><span>Receitas</span></a>
+            <a href="afiliados.html"><i class="fas fa-users"></i><span>Afiliados</span></a>
+            <a href="index.html#afiliados"><i class="fas fa-handshake"></i><span>Seja Afiliado</span></a>
+            <a href="index.html#testimonials"><i class="fas fa-star"></i><span>Depoimentos</span></a>
+            <a href="index.html#faq"><i class="fas fa-question-circle"></i><span>FAQ</span></a>
+            <a href="contato.html"><i class="fas fa-envelope"></i><span>Contato</span></a>
+        </nav>
+        <div class="menu-footer">
+            <a href="cadastro.html" class="btn btn-primary"><i class="fas fa-user-plus"></i> Cadastre-se</a>
+            <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-in" class="btn btn-secondary" target="_blank" rel="noopener noreferrer"><i class="fas fa-sign-in-alt"></i> Login</a>
+            <div class="menu-social">
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Youtube"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
     </div>
+</div>
 
-    <div id="menu-overlay" class="menu-overlay">
-        <div class="menu-panel">
-            <div class="menu-header">
-                <img src="static/images/logo-deitado.png" alt="Receitas Milionárias Logo" class="menu-logo">
-                <button id="close-menu" class="close-menu" aria-label="Fechar menu">
-                    <i class="fas fa-times"></i>
+<header class="navbar">
+    <div class="container">
+        <a href="index.html" class="logo">
+            <img src="static/images/logo-deitado-escuro.png" alt="Receitas Milionárias Logo">
+        </a>
+        <nav class="nav-links">
+            <a href="receitas.html" class="active">Receitas</a>
+            <a href="afiliados.html">Afiliados</a>
+            <a href="index.html#afiliados">Seja Afiliado</a>
+            <a href="index.html#testimonials">Depoimentos</a>
+            <a href="index.html#faq">FAQ</a>
+        </nav>
+        <div class="nav-buttons">
+            <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-in" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">Login</a>
+            <a href="cadastro.html" class="btn btn-primary">Cadastre-se</a>
+        </div>
+        <button id="open-menu" class="hamburger" aria-label="Abrir menu"><i class="fas fa-bars"></i></button>
+    </div>
+</header>
+
+<main>
+
+    <!-- HERO -->
+    <section class="rp-hero">
+        <div class="rp-hero-bg"></div>
+        <div class="rp-hero-overlay"></div>
+        <div class="container rp-hero-content">
+            <span class="rp-badge"><i class="fas fa-crown"></i> Biblioteca Premium</span>
+            <h1>Receitas <em>Exclusivas</em></h1>
+            <p>Testadas, aprovadas e prontas para transformar sua cozinha e sua renda.</p>
+            <div class="rp-hero-stats">
+                <div><i class="fas fa-book-open"></i><strong>100+</strong><span>Receitas</span></div>
+                <div class="sep"></div>
+                <div><i class="fas fa-star"></i><strong>4.9</strong><span>Avaliação</span></div>
+                <div class="sep"></div>
+                <div><i class="fas fa-users"></i><strong>5k+</strong><span>Membros</span></div>
+            </div>
+        </div>
+        <div class="rp-hero-wave">
+            <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#f8f7f4"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <section class="rp-main">
+        <div class="container">
+
+            <!-- BARRA DE BUSCA + BOTÃO FILTROS -->
+            <div class="rp-searchbar">
+                <div class="rp-search-wrap">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-input" placeholder="Buscar receita ou ingrediente...">
+                    <button id="search-clear-btn" class="rp-search-clear" style="display:none;"><i class="fas fa-times"></i></button>
+                </div>
+                <button class="rp-filter-btn" id="open-filters">
+                    <i class="fas fa-sliders-h"></i>
+                    <span>Filtros</span>
+                    <span class="rp-filter-badge" id="filter-badge" style="display:none;">0</span>
                 </button>
             </div>
-            <nav class="overlay-nav">
-                <a href="receitas.html">
-                    <i class="fas fa-utensils"></i>
-                    <span>Receitas</span>
-                </a>
-                <a href="afiliados.html">
-                    <i class="fas fa-users"></i>
-                    <span>Afiliados</span>
-                </a>
-                <a href="index.html#afiliados">
-                    <i class="fas fa-handshake"></i>
-                    <span>Seja Afiliado</span>
-                </a>
-                <a href="index.html#testimonials">
-                    <i class="fas fa-star"></i>
-                    <span>Depoimentos</span>
-                </a>
-                <a href="index.html#faq">
-                    <i class="fas fa-question-circle"></i>
-                    <span>FAQ</span>
-                </a>
-                <a href="contato.html">
-                    <i class="fas fa-envelope"></i>
-                    <span>Contato</span>
-                </a>
-            </nav>
-            <div class="menu-footer">
-                <a href="cadastro.html" class="btn btn-primary">
-                    <i class="fas fa-user-plus"></i> Cadastre-se
-                </a>
-                <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-in"
-                   class="btn btn-secondary" target="_blank" rel="noopener noreferrer">
-                    <i class="fas fa-sign-in-alt"></i> Login
-                </a>
-                <div class="menu-social">
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="Youtube"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <header class="navbar">
-        <div class="container">
-            <a href="index.html" class="logo">
-                <img src="static/images/logo-deitado-escuro.png" alt="Receitas Milionárias Logo">
-            </a>
-            <nav class="nav-links">
-                <a href="receitas.html" class="active">Receitas</a>
-                <a href="afiliados.html">Afiliados</a>
-                <a href="index.html#afiliados">Seja Afiliado</a>
-                <a href="index.html#testimonials">Depoimentos</a>
-                <a href="index.html#faq">FAQ</a>
-            </nav>
-            <div class="nav-buttons">
-                <a href="https://dashboard.receitasmilionarias.com.br/authentication/sign-in" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">Login</a>
-                <a href="cadastro.html" class="btn btn-primary">Cadastre-se</a>
-            </div>
-            <button id="open-menu" class="hamburger" aria-label="Abrir menu">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-    </header>
+            <!-- CHIPS DE FILTROS ATIVOS -->
+            <div class="rp-active-chips" id="active-filters-chips"></div>
 
-    <main>
-        <!-- ── HERO PREMIUM ── -->
-        <section class="receitas-hero">
-            <div class="receitas-hero-bg"></div>
-            <div class="receitas-hero-overlay"></div>
-            <div class="receitas-hero-particles"></div>
-            <div class="container receitas-hero-content">
-                <div class="receitas-hero-badge">
-                    <i class="fas fa-crown"></i>
-                    <span>Biblioteca Premium</span>
-                </div>
-                <h1>Nossas <span class="receitas-hero-highlight">Receitas</span> Exclusivas</h1>
-                <p>Explore um universo de sabores. Receitas testadas, aprovadas e prontas para transformar sua cozinha e sua renda.</p>
-                <div class="receitas-hero-stats">
-                    <div class="hero-stat-item">
-                        <i class="fas fa-book-open"></i>
-                        <span><strong>100+</strong> Receitas</span>
+            <!-- LAYOUT: SIDEBAR + GRID -->
+            <div class="rp-layout">
+
+                <!-- SIDEBAR DE FILTROS (desktop) -->
+                <aside class="rp-sidebar" id="rp-sidebar">
+                    <div class="rp-sidebar-header">
+                        <h3><i class="fas fa-sliders-h"></i> Filtros</h3>
+                        <button class="rp-sidebar-clear" id="clear-filters-btn">Limpar tudo</button>
                     </div>
-                    <div class="hero-stat-sep"></div>
-                    <div class="hero-stat-item">
-                        <i class="fas fa-star"></i>
-                        <span><strong>4.9/5</strong> Avaliação</span>
-                    </div>
-                    <div class="hero-stat-sep"></div>
-                    <div class="hero-stat-item">
-                        <i class="fas fa-users"></i>
-                        <span><strong>5k+</strong> Membros</span>
-                    </div>
-                </div>
-            </div>
-            <div class="receitas-hero-wave">
-                <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#fafaf9"/>
-                </svg>
-            </div>
-        </section>
 
-        <!-- ── SEÇÃO PRINCIPAL ── -->
-        <section id="receitas" class="receitas-section">
-            <div class="container">
-
-                <!-- ── TOOLBAR DE FILTROS PREMIUM ── -->
-                <div class="receitas-toolbar">
-
-                    <!-- Busca -->
-                    <div class="toolbar-search">
-                        <i class="fas fa-search toolbar-search-icon"></i>
-                        <input type="text" id="search-input" placeholder="Buscar receita, ingrediente...">
-                        <button class="toolbar-search-clear" id="search-clear-btn" title="Limpar busca" style="display:none;">
-                            <i class="fas fa-times"></i>
+                    <!-- Categorias -->
+                    <div class="rp-filter-group" id="sg-categorias">
+                        <button class="rp-filter-group-toggle" type="button">
+                            <span><i class="fas fa-layer-group"></i> Categorias</span>
+                            <i class="fas fa-chevron-down"></i>
                         </button>
+                        <div class="rp-filter-group-body">
+                            <div class="rp-filter-chips" id="category-filter">
+                                <span class="rp-loading">Carregando...</span>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Filtros desktop: dropdowns inline -->
-                    <div class="toolbar-filters toolbar-filters-desktop">
-
-                        <div class="dropdown-filter" id="category-filter">
-                            <button class="filter-btn" type="button">
-                                <i class="fas fa-layer-group"></i>
-                                <span>Categorias</span>
-                                <i class="fas fa-chevron-down filter-chevron"></i>
-                            </button>
-                            <div class="dropdown-content">
-                                <!-- preenchido via JS -->
-                            </div>
-                        </div>
-
-                        <div class="dropdown-filter" id="tag-filter">
-                            <button class="filter-btn" type="button">
-                                <i class="fas fa-tags"></i>
-                                <span>Tags</span>
-                                <i class="fas fa-chevron-down filter-chevron"></i>
-                            </button>
-                            <div class="dropdown-content">
-                                <!-- preenchido via JS -->
-                            </div>
-                        </div>
-
-                        <div class="dropdown-filter" id="producer-filter">
-                            <button class="filter-btn" type="button">
-                                <i class="fas fa-user-tie"></i>
-                                <span>Produtor</span>
-                                <i class="fas fa-chevron-down filter-chevron"></i>
-                            </button>
-                            <div class="dropdown-content">
-                                <!-- preenchido via JS -->
-                            </div>
-                        </div>
-
-                        <button class="btn-clear-filters" id="clear-filters-btn" title="Limpar todos os filtros">
-                            <i class="fas fa-times"></i>
-                            <span>Limpar</span>
+                    <!-- Tags -->
+                    <div class="rp-filter-group" id="sg-tags">
+                        <button class="rp-filter-group-toggle" type="button">
+                            <span><i class="fas fa-tags"></i> Tags</span>
+                            <i class="fas fa-chevron-down"></i>
                         </button>
+                        <div class="rp-filter-group-body">
+                            <div class="rp-filter-chips" id="tag-filter">
+                                <span class="rp-loading">Carregando...</span>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Botão "Filtrar" mobile: abre modal -->
-                    <button class="toolbar-filter-mobile-btn" id="open-filter-modal" type="button">
-                        <i class="fas fa-sliders-h"></i>
-                        <span>Filtros</span>
-                        <span class="filter-count-badge" id="filter-count-badge" style="display:none;">0</span>
-                    </button>
+                    <!-- Produtor -->
+                    <div class="rp-filter-group" id="sg-produtor">
+                        <button class="rp-filter-group-toggle" type="button">
+                            <span><i class="fas fa-user-tie"></i> Produtor</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="rp-filter-group-body">
+                            <div class="rp-filter-chips" id="producer-filter">
+                                <span class="rp-loading">Carregando...</span>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
 
-                </div>
+                <!-- GRID -->
+                <div class="rp-grid-area">
+                    <!-- Per page + count -->
+                    <div class="rp-grid-toolbar">
+                        <div class="results-count" id="results-count"></div>
+                        <div class="rp-per-page">
+                            <label for="limit-select"><i class="fas fa-list"></i></label>
+                            <select id="limit-select">
+                                <option value="15">15</option>
+                                <option value="30">30</option>
+                                <option value="45">45</option>
+                            </select>
+                        </div>
+                    </div>
 
-                <!-- Chips de filtros ativos -->
-                <div class="active-filters-chips" id="active-filters-chips"></div>
+                    <div class="recipe-grid receitas-grid" id="receitas-grid"></div>
 
-                <!-- ── GRID DE RECEITAS ── -->
-                <div class="recipe-grid receitas-grid" id="receitas-grid">
-                    <!-- preenchido via JS -->
-                </div>
+                    <div class="receitas-empty" id="receitas-empty" style="display:none;">
+                        <div class="empty-icon"><i class="fas fa-search"></i></div>
+                        <h3>Nenhuma receita encontrada</h3>
+                        <p>Tente ajustar seus filtros ou buscar outro termo.</p>
+                        <button class="btn btn-primary" id="clear-filters-empty"><i class="fas fa-redo"></i> Limpar Filtros</button>
+                    </div>
 
-                <!-- Estado vazio -->
-                <div class="receitas-empty" id="receitas-empty" style="display:none;">
-                    <div class="empty-icon"><i class="fas fa-search"></i></div>
-                    <h3>Nenhuma receita encontrada</h3>
-                    <p>Tente ajustar seus filtros ou pesquisar por outro termo.</p>
-                    <button class="btn btn-primary" id="clear-filters-empty">
-                        <i class="fas fa-redo"></i> Limpar Filtros
-                    </button>
-                </div>
-
-                <!-- ── PAGINAÇÃO ── -->
-                <div class="receitas-footer-bar">
-                    <div class="results-count" id="results-count"></div>
                     <div class="pagination-wrap" id="pagination-controls"></div>
-                    <div class="per-page-selector">
-                        <label for="limit-select"><i class="fas fa-list"></i> Por página:</label>
-                        <select id="limit-select">
-                            <option value="15">15</option>
-                            <option value="30">30</option>
-                            <option value="45">45</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ── CTA BANNER ── -->
-        <section class="receitas-cta-banner">
-            <div class="container">
-                <div class="receitas-cta-inner">
-                    <div class="receitas-cta-glow"></div>
-                    <div class="receitas-cta-text">
-                        <span class="receitas-cta-badge"><i class="fas fa-lock-open"></i> Acesso Completo</span>
-                        <h2>Desbloqueie todas as receitas + Programa de Afiliados</h2>
-                        <p>Por apenas <strong>R$ 29,90/mês</strong> — cancele quando quiser.</p>
-                    </div>
-                    <div class="receitas-cta-actions">
-                        <a href="cadastro.html" class="btn-cta-receitas">
-                            <i class="fas fa-crown"></i>
-                            <span>Quero Acesso Agora</span>
-                            <i class="fas fa-arrow-right btn-arrow"></i>
-                        </a>
-                        <div class="receitas-cta-trust">
-                            <span><i class="fas fa-shield-alt"></i> 7 dias de garantia</span>
-                            <span><i class="fas fa-lock"></i> Pagamento seguro</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- ── MODAL DE FILTROS (mobile) ── -->
-    <div class="filter-modal-overlay" id="filter-modal-overlay">
-        <div class="filter-modal" id="filter-modal" role="dialog" aria-modal="true" aria-label="Filtros">
-            <div class="filter-modal-header">
-                <h3><i class="fas fa-sliders-h"></i> Filtros</h3>
-                <button class="filter-modal-close" id="close-filter-modal" type="button" aria-label="Fechar">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="filter-modal-body">
-
-                <!-- Categorias -->
-                <div class="filter-modal-section">
-                    <div class="filter-modal-section-header" data-target="modal-cats">
-                        <span><i class="fas fa-layer-group"></i> Categorias</span>
-                        <i class="fas fa-chevron-down fms-chevron"></i>
-                    </div>
-                    <div class="filter-modal-section-body" id="modal-cats">
-                        <div class="filter-modal-chips" id="modal-category-list">
-                            <span class="fmc-loading">Carregando...</span>
-                        </div>
-                    </div>
                 </div>
 
-                <!-- Tags -->
-                <div class="filter-modal-section">
-                    <div class="filter-modal-section-header" data-target="modal-tags">
-                        <span><i class="fas fa-tags"></i> Tags</span>
-                        <i class="fas fa-chevron-down fms-chevron"></i>
-                    </div>
-                    <div class="filter-modal-section-body" id="modal-tags">
-                        <div class="filter-modal-chips" id="modal-tag-list">
-                            <span class="fmc-loading">Carregando...</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Produtor -->
-                <div class="filter-modal-section">
-                    <div class="filter-modal-section-header" data-target="modal-producers">
-                        <span><i class="fas fa-user-tie"></i> Produtor</span>
-                        <i class="fas fa-chevron-down fms-chevron"></i>
-                    </div>
-                    <div class="filter-modal-section-body" id="modal-producers">
-                        <div class="filter-modal-chips" id="modal-producer-list">
-                            <span class="fmc-loading">Carregando...</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div class="filter-modal-footer">
-                <button class="filter-modal-clear" id="modal-clear-btn" type="button">
-                    <i class="fas fa-times"></i> Limpar tudo
-                </button>
-                <button class="filter-modal-apply" id="modal-apply-btn" type="button">
-                    <i class="fas fa-check"></i> Aplicar filtros
-                </button>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Footer -->
-    <footer class="footer">
+    <!-- CTA -->
+    <section class="receitas-cta-banner">
         <div class="container">
-            <div class="footer-top">
-                <div class="footer-brand">
-                    <img src="static/images/logo.png" alt="Receitas Milionárias Logo" class="footer-logo">
-                    <p class="footer-tagline">Democratizando a culinária, criando oportunidades.</p>
-                    <div class="footer-stats">
-                        <div class="footer-stat">
-                            <i class="fas fa-users"></i>
-                            <div><strong>5.000+</strong><span>Membros</span></div>
-                        </div>
-                        <div class="footer-stat">
-                            <i class="fas fa-book"></i>
-                            <div><strong>100+</strong><span>Receitas</span></div>
-                        </div>
-                    </div>
+            <div class="receitas-cta-inner">
+                <div class="receitas-cta-glow"></div>
+                <div class="receitas-cta-text">
+                    <span class="receitas-cta-badge"><i class="fas fa-lock-open"></i> Acesso Completo</span>
+                    <h2>Desbloqueie todas as receitas + Programa de Afiliados</h2>
+                    <p>Por apenas <strong>R$ 29,90/mês</strong> — cancele quando quiser.</p>
                 </div>
-                <div class="footer-links-group">
-                    <div class="footer-column">
-                        <h4>Navegação</h4>
-                        <ul>
-                            <li><a href="index.html#receitas">Receitas</a></li>
-                            <li><a href="afiliados.html">Afiliados</a></li>
-                            <li><a href="index.html#afiliados">Seja Afiliado</a></li>
-                            <li><a href="index.html#testimonials">Depoimentos</a></li>
-                            <li><a href="index.html#faq">FAQ</a></li>
-                            <li><a href="index.html#sobre">Quem Sou Eu</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Acesso Rápido</h4>
-                        <ul>
-                            <li><a href="index.html#cta-kit">Planos</a></li>
-                            <li><a href="index.html#calculadora">Calculadora</a></li>
-                            <li><a href="afiliados.html">Afiliados</a></li>
-                            <li><a href="index.html#afiliados">Seja Afiliado</a></li>
-                            <li><a href="receitas.html">Todas as Receitas</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Suporte</h4>
-                        <ul>
-                            <li><a href="index.html#faq">Perguntas Frequentes</a></li>
-                            <li><a href="contato.html">Contato</a></li>
-                            <li><a href="termos-de-uso.html">Termos de Uso</a></li>
-                            <li><a href="politica-de-privacidade.html">Política de Privacidade</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-column">
-                        <h4>Conecte-se</h4>
-                        <div class="footer-social">
-                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#" aria-label="Youtube"><i class="fab fa-youtube"></i></a>
-                        </div>
-                        <div class="footer-newsletter">
-                            <input type="email" placeholder="Seu melhor e-mail" class="newsletter-input">
-                            <button class="newsletter-btn"><i class="fas fa-paper-plane"></i></button>
-                        </div>
+                <div class="receitas-cta-actions">
+                    <a href="cadastro.html" class="btn-cta-receitas">
+                        <i class="fas fa-crown"></i><span>Quero Acesso Agora</span><i class="fas fa-arrow-right btn-arrow"></i>
+                    </a>
+                    <div class="receitas-cta-trust">
+                        <span><i class="fas fa-shield-alt"></i> 7 dias de garantia</span>
+                        <span><i class="fas fa-lock"></i> Pagamento seguro</span>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="footer-mission">
-            <div class="container">
-                <div class="mission-item">
-                    <div class="mission-icon"><i class="fas fa-bullseye"></i></div>
-                    <h4>Missão</h4>
-                    <p>Democratizar o acesso a receitas e conhecimento culinário, unindo gastronomia e empreendedorismo digital.</p>
+    </section>
+
+</main>
+
+<!-- DRAWER DE FILTROS (mobile / overlay desktop) -->
+<div class="rp-drawer-overlay" id="drawer-overlay"></div>
+<div class="rp-drawer" id="filter-drawer">
+    <div class="rp-drawer-header">
+        <h3><i class="fas fa-sliders-h"></i> Filtros</h3>
+        <button id="close-filters" class="rp-drawer-close"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="rp-drawer-body">
+
+        <div class="rp-filter-group">
+            <button class="rp-filter-group-toggle" type="button">
+                <span><i class="fas fa-layer-group"></i> Categorias</span>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="rp-filter-group-body">
+                <div class="rp-filter-chips" id="drawer-category-filter">
+                    <span class="rp-loading">Carregando...</span>
                 </div>
-                <div class="mission-item">
-                    <div class="mission-icon"><i class="fas fa-eye"></i></div>
-                    <h4>Visão</h4>
-                    <p>Ser a maior plataforma de receitas e empreendedorismo digital do Brasil nos próximos 5 anos.</p>
+            </div>
+        </div>
+
+        <div class="rp-filter-group">
+            <button class="rp-filter-group-toggle" type="button">
+                <span><i class="fas fa-tags"></i> Tags</span>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="rp-filter-group-body">
+                <div class="rp-filter-chips" id="drawer-tag-filter">
+                    <span class="rp-loading">Carregando...</span>
                 </div>
-                <div class="mission-item">
-                    <div class="mission-icon"><i class="fas fa-heart"></i></div>
-                    <h4>Valores</h4>
-                    <ul class="values-list">
-                        <li><i class="fas fa-check-circle"></i> Inovação</li>
-                        <li><i class="fas fa-check-circle"></i> Acessibilidade</li>
-                        <li><i class="fas fa-check-circle"></i> Comunidade</li>
-                        <li><i class="fas fa-check-circle"></i> Transparência</li>
+            </div>
+        </div>
+
+        <div class="rp-filter-group">
+            <button class="rp-filter-group-toggle" type="button">
+                <span><i class="fas fa-user-tie"></i> Produtor</span>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="rp-filter-group-body">
+                <div class="rp-filter-chips" id="drawer-producer-filter">
+                    <span class="rp-loading">Carregando...</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="rp-drawer-footer">
+        <button class="rp-drawer-clear" id="drawer-clear-btn"><i class="fas fa-times"></i> Limpar tudo</button>
+        <button class="rp-drawer-apply" id="drawer-apply-btn"><i class="fas fa-check"></i> Ver resultados</button>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <img src="static/images/logo.png" alt="Receitas Milionárias Logo" class="footer-logo">
+                <p class="footer-tagline">Democratizando a culinária, criando oportunidades.</p>
+                <div class="footer-stats">
+                    <div class="footer-stat"><i class="fas fa-users"></i><div><strong>5.000+</strong><span>Membros</span></div></div>
+                    <div class="footer-stat"><i class="fas fa-book"></i><div><strong>100+</strong><span>Receitas</span></div></div>
+                </div>
+            </div>
+            <div class="footer-links-group">
+                <div class="footer-column">
+                    <h4>Navegação</h4>
+                    <ul>
+                        <li><a href="index.html#receitas">Receitas</a></li>
+                        <li><a href="afiliados.html">Afiliados</a></li>
+                        <li><a href="index.html#afiliados">Seja Afiliado</a></li>
+                        <li><a href="index.html#testimonials">Depoimentos</a></li>
+                        <li><a href="index.html#faq">FAQ</a></li>
                     </ul>
                 </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <div class="container">
-                <div class="footer-bottom-content">
-                    <p>&copy; 2025 Receitas Milionárias. Todos os direitos reservados.</p>
-                    <div class="payment-methods">
-                        <i class="fab fa-cc-visa"></i>
-                        <i class="fab fa-cc-mastercard"></i>
-                        <i class="fab fa-cc-amex"></i>
-                        <i class="fab fa-pix"></i>
-                        <i class="fab fa-cc-stripe"></i>
+                <div class="footer-column">
+                    <h4>Suporte</h4>
+                    <ul>
+                        <li><a href="index.html#faq">Perguntas Frequentes</a></li>
+                        <li><a href="contato.html">Contato</a></li>
+                        <li><a href="termos-de-uso.html">Termos de Uso</a></li>
+                        <li><a href="politica-de-privacidade.html">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Conecte-se</h4>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Youtube"><i class="fab fa-youtube"></i></a>
                     </div>
-                    <p class="developer-credit">Desenvolvido com <i class="fas fa-heart"></i> por Receitas Milionárias</p>
+                    <div class="footer-newsletter">
+                        <input type="email" placeholder="Seu melhor e-mail" class="newsletter-input">
+                        <button class="newsletter-btn"><i class="fas fa-paper-plane"></i></button>
+                    </div>
                 </div>
             </div>
         </div>
-    </footer>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="footer-bottom-content">
+                <p>&copy; 2025 Receitas Milionárias. Todos os direitos reservados.</p>
+                <div class="payment-methods">
+                    <i class="fab fa-cc-visa"></i><i class="fab fa-cc-mastercard"></i><i class="fab fa-cc-amex"></i><i class="fab fa-pix"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
 
-    <a href="https://wa.me/5515997575655" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco no WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+<a href="https://wa.me/5515997575655" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+</a>
 
-    <script src="static/js/script.js"></script>
+<script src="static/js/receitas-page.js"></script>
+<script src="static/js/script.js"></script>
 </body>
 </html>
