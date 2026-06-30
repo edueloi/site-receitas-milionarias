@@ -385,12 +385,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const limitSelect = document.getElementById("limit-select");
     const clearFiltersBtn = document.getElementById("clear-filters-btn");
 
-    const isListPage = !!(
-      searchInput ||
-      categoryFilter ||
-      tagFilter ||
-      limitSelect
-    );
+    const isListPage = !!(searchInput || categoryFilter || tagFilter || limitSelect);
     if (!isListPage) return;
 
     const receitasContainer =
@@ -634,232 +629,387 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     };
 
-    const populateFilterDropdown = async (
-      filterElement,
-      endpoint,
-      stateKey
-    ) => {
-      if (!filterElement) return;
-      try {
-        const response = await fetch(`${API_BASE_URL}/${endpoint}`);
-        if (!response.ok) throw new Error("Network response was not ok");
-        const items = await response.json();
-        const content = filterElement.querySelector(".dropdown-content");
-        const buttonSpan = filterElement.querySelector(".filter-btn span");
-        if (!content || !buttonSpan) return;
+    // ── Dropdown helpers ──────────────────────────────────────
+    // Fecha todos os dropdowns abertos
+    const closeAllDropdowns = () => {
+      document.querySelectorAll(".dropdown-filter.open").forEach((f) => {
+        f.classList.remove("open");
+      });
+    };
 
-        const originalButtonText = buttonSpan.innerText;
-        buttonSpan.setAttribute("data-original-text", originalButtonText);
+    // Abre/fecha um dropdown ao clicar no botão
+    const bindDropdownToggle = (filterEl) => {
+      if (!filterEl) return;
+      const btn = filterEl.querySelector(".filter-btn");
+      if (!btn) return;
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const wasOpen = filterEl.classList.contains("open");
+        closeAllDropdowns();
+        if (!wasOpen) filterEl.classList.add("open");
+      });
+    };
+
+    // Fecha ao clicar fora
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest(".dropdown-filter")) closeAllDropdowns();
+    });
+
+    // Popula dropdown multi-select (categorias / tags)
+    const populateMultiDropdown = async (filterEl, endpoint, stateKey, label) => {
+      if (!filterEl) return;
+      const content = filterEl.querySelector(".dropdown-content");
+      const btnSpan = filterEl.querySelector(".filter-btn span");
+      if (!content || !btnSpan) return;
+
+      content.innerHTML = '<span style="padding:14px 16px;display:block;color:#aaa;font-size:.85rem;">Carregando...</span>';
+
+      try {
+        const res = await fetch(`${API_BASE_URL}/${endpoint}`);
+        if (!res.ok) throw new Error(res.status);
+        const items = await res.json();
 
         content.innerHTML = "";
+
         if (!items || items.length === 0) {
-          content.innerHTML = '<span style="padding:12px 16px;display:block;color:#aaa;font-size:.85rem;">Nenhuma opção</span>';
+          content.innerHTML = '<span style="padding:14px 16px;display:block;color:#aaa;font-size:.85rem;">Nenhuma opção</span>';
           return;
         }
 
-        // Opção "Todos"
+        // botão "Todos"
         const allBtn = document.createElement("button");
-        allBtn.textContent = "Todos";
+        allBtn.type = "button";
+        allBtn.className = "selected";
         allBtn.dataset.value = "";
-        allBtn.classList.add("selected");
+        allBtn.textContent = `Todos`;
         content.appendChild(allBtn);
 
         items.forEach((item) => {
           const btn = document.createElement("button");
+          btn.type = "button";
+          btn.dataset.value = String(item.id);
           btn.textContent = item.nome;
-          btn.dataset.value = item.id;
           content.appendChild(btn);
         });
 
-        const allBtns = content.querySelectorAll("button[data-value]");
-
+        // clique nos itens
         content.addEventListener("click", (e) => {
-          const btn = e.target.closest("button[data-value]");
-          if (!btn) return;
+          e.stopPropagation();
+          const clicked = e.target.closest("button");
+          if (!clicked) return;
 
-          const val = btn.dataset.value;
+          const val = clicked.dataset.value;
+          const allBtns = content.querySelectorAll("button");
+
           if (val === "") {
-            // "Todos" — desmarca tudo
-            allBtns.forEach((b) => b.classList.remove("selected"));
-            btn.classList.add("selected");
+            allBtns.forEach(b => b.classList.remove("selected"));
+            clicked.classList.add("selected");
             state[stateKey] = [];
           } else {
-            // remove "Todos"
-            const allBtn = content.querySelector('button[data-value=""]');
-            if (allBtn) allBtn.classList.remove("selected");
-            btn.classList.toggle("selected");
-            const selected = Array.from(allBtns)
-              .filter((b) => b.classList.contains("selected") && b.dataset.value !== "")
-              .map((b) => b.dataset.value);
-            state[stateKey] = selected;
-            // se nada selecionado, marca "Todos"
-            if (selected.length === 0 && allBtn) allBtn.classList.add("selected");
+            content.querySelector('button[data-value=""]').classList.remove("selected");
+            clicked.classList.toggle("selected");
+            const sel = Array.from(allBtns)
+              .filter(b => b.classList.contains("selected") && b.dataset.value !== "")
+              .map(b => b.dataset.value);
+            state[stateKey] = sel;
+            if (sel.length === 0) content.querySelector('button[data-value=""]').classList.add("selected");
           }
 
-          state.page = 1;
           const count = state[stateKey].length;
-          buttonSpan.innerText = count > 0 ? `${originalButtonText} (${count})` : originalButtonText;
+          btnSpan.textContent = count > 0 ? `${label} (${count})` : label;
+          state.page = 1;
           fetchRecipes();
         });
-      } catch (error) {
-        console.error(`Falha ao carregar ${endpoint}:`, error);
-        const content = filterElement.querySelector(".dropdown-content");
-        if (content)
-          content.innerHTML = '<span style="padding:12px 16px;display:block;color:#aaa;font-size:.85rem;">Erro ao carregar.</span>';
+
+      } catch (err) {
+        console.error(`Erro ao carregar ${endpoint}:`, err);
+        content.innerHTML = '<span style="padding:14px 16px;display:block;color:#e44;font-size:.85rem;">Erro ao carregar</span>';
       }
     };
 
-    // Dropdown de PRODUTOR — seleção ÚNICA (diferente de categoria/tags que são múltiplas)
-    const populateProducerDropdown = async (filterElement) => {
-      if (!filterElement) return;
-      try {
-        const response = await fetch(`${API_BASE_URL}/producers`);
-        if (!response.ok) throw new Error("Network response was not ok");
-        const items = await response.json();
-        const content = filterElement.querySelector(".dropdown-content");
-        const buttonSpan = filterElement.querySelector(".filter-btn span");
-        if (!content || !buttonSpan) return;
+    // Popula dropdown single-select (produtor)
+    const populateProducerDropdown = async (filterEl) => {
+      if (!filterEl) return;
+      const content = filterEl.querySelector(".dropdown-content");
+      const btnSpan = filterEl.querySelector(".filter-btn span");
+      if (!content || !btnSpan) return;
 
-        const originalButtonText = buttonSpan.innerText;
-        buttonSpan.setAttribute("data-original-text", originalButtonText);
+      content.innerHTML = '<span style="padding:14px 16px;display:block;color:#aaa;font-size:.85rem;">Carregando...</span>';
+
+      try {
+        const res = await fetch(`${API_BASE_URL}/producers`);
+        if (!res.ok) throw new Error(res.status);
+        const items = await res.json();
 
         content.innerHTML = "";
-        if (!items || items.length === 0) {
-          content.innerHTML = '<span style="padding:12px 16px;display:block;color:#aaa;font-size:.85rem;">Nenhum produtor</span>';
-          return;
-        }
 
         const allBtn = document.createElement("button");
-        allBtn.textContent = "Todos os produtores";
+        allBtn.type = "button";
+        allBtn.className = "selected";
         allBtn.dataset.value = "";
-        allBtn.classList.add("selected");
+        allBtn.textContent = "Todos os produtores";
         content.appendChild(allBtn);
 
-        items.forEach((item) => {
+        (items || []).forEach((item) => {
           const btn = document.createElement("button");
-          const nomeCompleto = `${item.nome || ""} ${item.sobrenome || ""}`.trim();
-          btn.textContent = nomeCompleto || "Produtor";
-          btn.dataset.value = item.id;
+          btn.type = "button";
+          btn.dataset.value = String(item.id);
+          btn.textContent = `${item.nome || ""} ${item.sobrenome || ""}`.trim() || "Produtor";
           content.appendChild(btn);
         });
 
-        const allBtns = content.querySelectorAll("button[data-value]");
-
         content.addEventListener("click", (e) => {
-          const btn = e.target.closest("button[data-value]");
-          if (!btn) return;
-          // seleção única: limpa todos e marca só o clicado
-          allBtns.forEach((b) => b.classList.remove("selected"));
-          btn.classList.add("selected");
-          state.produtor = btn.dataset.value;
+          e.stopPropagation();
+          const clicked = e.target.closest("button");
+          if (!clicked) return;
+          content.querySelectorAll("button").forEach(b => b.classList.remove("selected"));
+          clicked.classList.add("selected");
+          state.produtor = clicked.dataset.value;
+          btnSpan.textContent = clicked.dataset.value ? clicked.textContent : "Produtor";
           state.page = 1;
-          buttonSpan.innerText = btn.dataset.value
-            ? btn.textContent
-            : originalButtonText;
-          // fecha o dropdown após escolher
-          filterElement.classList.remove("open");
-          const fbtn = filterElement.querySelector(".filter-btn");
-          if (fbtn) fbtn.classList.remove("active");
+          closeAllDropdowns();
           fetchRecipes();
         });
-      } catch (error) {
-        console.error("Falha ao carregar produtores:", error);
-        const content = filterElement.querySelector(".dropdown-content");
-        if (content)
-          content.innerHTML = '<span style="padding:12px 16px;display:block;color:#aaa;font-size:.85rem;">Erro ao carregar.</span>';
+
+      } catch (err) {
+        console.error("Erro ao carregar produtores:", err);
+        content.innerHTML = '<span style="padding:14px 16px;display:block;color:#e44;font-size:.85rem;">Erro ao carregar</span>';
       }
     };
 
-    const setupEventListeners = () => {
-      [categoryFilter, tagFilter, producerFilter].forEach((filter) => {
-        if (!filter) return;
-        const btn = filter.querySelector(".filter-btn");
-        if (!btn) return;
-        btn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          const isOpen = filter.classList.contains("open");
-          document
-            .querySelectorAll(".dropdown-filter.open")
-            .forEach((f) => f.classList.remove("open"));
-          if (!isOpen) filter.classList.add("open");
-          btn.classList.toggle("active", filter.classList.contains("open"));
-        });
-      });
+    // ── Event listeners gerais ─────────────────────────────────
+    [categoryFilter, tagFilter, producerFilter].forEach(bindDropdownToggle);
 
-      window.addEventListener("click", (e) => {
-        // Não fecha se o clique foi dentro de um dropdown-filter
-        if (!e.target.closest(".dropdown-filter")) {
-          document.querySelectorAll(".dropdown-filter.open").forEach((f) => {
-            f.classList.remove("open");
-            const btn = f.querySelector(".filter-btn");
-            if (btn) btn.classList.remove("active");
-          });
+    if (searchInput) {
+      let debounce;
+      searchInput.addEventListener("input", (e) => {
+        clearTimeout(debounce);
+        debounce = setTimeout(() => {
+          state.search = e.target.value.trim();
+          state.page = 1;
+          updateSearchClear();
+          fetchRecipes();
+        }, 400);
+      });
+    }
+
+    if (limitSelect) {
+      limitSelect.addEventListener("change", (e) => {
+        state.limit = parseInt(e.target.value, 10);
+        state.page = 1;
+        fetchRecipes();
+      });
+    }
+
+    if (clearFiltersBtn) {
+      clearFiltersBtn.addEventListener("click", () => {
+        state = { page: 1, limit: state.limit, search: "", categorias: [], tags: [], produtor: "" };
+        if (searchInput) searchInput.value = "";
+        updateSearchClear();
+        // reset visual dos dropdowns
+        document.querySelectorAll(".dropdown-filter").forEach((el) => {
+          el.classList.remove("open");
+          const sp = el.querySelector(".filter-btn span");
+          if (sp) sp.textContent = sp.getAttribute("data-original") || sp.textContent;
+          el.querySelectorAll(".dropdown-content button").forEach(b => b.classList.remove("selected"));
+          const allB = el.querySelector('.dropdown-content button[data-value=""]');
+          if (allB) allB.classList.add("selected");
+        });
+        if (activeChipsContainer) activeChipsContainer.innerHTML = "";
+        fetchRecipes();
+      });
+    }
+
+    // salva label original dos botões para reset
+    [categoryFilter, tagFilter, producerFilter].forEach((el) => {
+      if (!el) return;
+      const sp = el.querySelector(".filter-btn span");
+      if (sp) sp.setAttribute("data-original", sp.textContent);
+    });
+
+    // ── Modal de filtros (mobile) ──────────────────────────────
+    const filterModalOverlay = document.getElementById("filter-modal-overlay");
+    const openFilterModalBtn  = document.getElementById("open-filter-modal");
+    const closeFilterModalBtn = document.getElementById("close-filter-modal");
+    const filterCountBadge    = document.getElementById("filter-count-badge");
+    const modalClearBtn       = document.getElementById("modal-clear-btn");
+    const modalApplyBtn       = document.getElementById("modal-apply-btn");
+
+    // estado temporário do modal (confirmado só em "Aplicar")
+    let modalState = { categorias: [], tags: [], produtor: "" };
+
+    const openFilterModal = () => {
+      if (!filterModalOverlay) return;
+      // sincroniza estado atual → modal
+      modalState = { categorias: [...state.categorias], tags: [...state.tags], produtor: state.produtor };
+      syncModalChips();
+      filterModalOverlay.classList.add("open");
+      document.body.style.overflow = "hidden";
+    };
+
+    const closeFilterModal = () => {
+      if (!filterModalOverlay) return;
+      filterModalOverlay.classList.remove("open");
+      document.body.style.overflow = "";
+    };
+
+    const updateFilterBadge = () => {
+      if (!filterCountBadge) return;
+      const total = state.categorias.length + state.tags.length + (state.produtor ? 1 : 0);
+      filterCountBadge.textContent = total;
+      filterCountBadge.style.display = total > 0 ? "inline-flex" : "none";
+    };
+
+    // sincroniza chips do modal com modalState
+    const syncModalChips = () => {
+      document.querySelectorAll("#filter-modal-overlay .filter-modal-chips button[data-value]").forEach((btn) => {
+        const list = btn.closest("[id^='modal-']");
+        if (!list) return;
+        const isCategory = list.id === "modal-category-list";
+        const isTag      = list.id === "modal-tag-list";
+        const isProd     = list.id === "modal-producer-list";
+        const val = btn.dataset.value;
+        if (val === "") {
+          // "Todos"
+          if (isCategory) btn.classList.toggle("selected", modalState.categorias.length === 0);
+          if (isTag)      btn.classList.toggle("selected", modalState.tags.length === 0);
+          if (isProd)     btn.classList.toggle("selected", modalState.produtor === "");
+        } else {
+          if (isCategory) btn.classList.toggle("selected", modalState.categorias.includes(val));
+          if (isTag)      btn.classList.toggle("selected", modalState.tags.includes(val));
+          if (isProd)     btn.classList.toggle("selected", modalState.produtor === val);
         }
       });
+    };
 
-      // stopPropagation via delegation — funciona mesmo com itens adicionados depois
-      document.addEventListener("click", (e) => {
-        if (e.target.closest(".dropdown-content")) e.stopPropagation();
-      }, true);
-
-      if (searchInput) {
-        let searchDebounce;
-        searchInput.addEventListener("input", (e) => {
-          clearTimeout(searchDebounce);
-          searchDebounce = setTimeout(() => {
-            state.search = e.target.value;
-            state.page = 1;
-            fetchRecipes();
-          }, 500);
+    // popula lista de chips no modal (multi)
+    const populateModalMulti = async (listElId, endpoint, modalKey) => {
+      const listEl = document.getElementById(listElId);
+      if (!listEl) return;
+      listEl.innerHTML = '<span class="fmc-loading">Carregando...</span>';
+      try {
+        const res = await fetch(`${API_BASE_URL}/${endpoint}`);
+        if (!res.ok) throw new Error(res.status);
+        const items = await res.json();
+        listEl.innerHTML = "";
+        // "Todos"
+        const allBtn = document.createElement("button");
+        allBtn.type = "button";
+        allBtn.dataset.value = "";
+        allBtn.textContent = "Todos";
+        allBtn.classList.add("selected");
+        listEl.appendChild(allBtn);
+        (items || []).forEach((item) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.dataset.value = String(item.id);
+          btn.textContent = item.nome;
+          listEl.appendChild(btn);
         });
-      }
-
-      if (limitSelect) {
-        limitSelect.addEventListener("change", (e) => {
-          state.limit = parseInt(e.target.value, 10);
-          state.page = 1;
-          fetchRecipes();
+        listEl.addEventListener("click", (e) => {
+          const clicked = e.target.closest("button[data-value]");
+          if (!clicked) return;
+          const val = clicked.dataset.value;
+          const btns = listEl.querySelectorAll("button[data-value]");
+          if (val === "") {
+            btns.forEach(b => b.classList.remove("selected"));
+            clicked.classList.add("selected");
+            modalState[modalKey] = [];
+          } else {
+            listEl.querySelector('button[data-value=""]').classList.remove("selected");
+            clicked.classList.toggle("selected");
+            const sel = Array.from(btns)
+              .filter(b => b.classList.contains("selected") && b.dataset.value !== "")
+              .map(b => b.dataset.value);
+            modalState[modalKey] = sel;
+            if (sel.length === 0) listEl.querySelector('button[data-value=""]').classList.add("selected");
+          }
         });
-      }
-
-      if (clearFiltersBtn) {
-        clearFiltersBtn.addEventListener("click", () => {
-          state = {
-            page: 1,
-            limit: state.limit,
-            search: "",
-            categorias: [],
-            tags: [],
-            produtor: "",
-          };
-          if (searchInput) searchInput.value = "";
-          updateSearchClear();
-          document.querySelectorAll(".dropdown-filter").forEach((el) => {
-            el.classList.remove("open");
-            const btn = el.querySelector(".filter-btn");
-            if (btn) btn.classList.remove("active");
-            const buttonSpan = el.querySelector(".filter-btn span");
-            if (buttonSpan)
-              buttonSpan.innerText =
-                buttonSpan.getAttribute("data-original-text") ||
-                buttonSpan.innerText;
-            // reseta seleção dos botões do dropdown
-            el.querySelectorAll(".dropdown-content button[data-value]").forEach((b) => b.classList.remove("selected"));
-            const allBtn = el.querySelector('.dropdown-content button[data-value=""]');
-            if (allBtn) allBtn.classList.add("selected");
-          });
-          if (activeChipsContainer) activeChipsContainer.innerHTML = "";
-          fetchRecipes();
-        });
+      } catch (e) {
+        listEl.innerHTML = '<span class="fmc-loading" style="color:#e44">Erro ao carregar</span>';
       }
     };
 
+    const populateModalProducers = async () => {
+      const listEl = document.getElementById("modal-producer-list");
+      if (!listEl) return;
+      listEl.innerHTML = '<span class="fmc-loading">Carregando...</span>';
+      try {
+        const res = await fetch(`${API_BASE_URL}/producers`);
+        if (!res.ok) throw new Error(res.status);
+        const items = await res.json();
+        listEl.innerHTML = "";
+        const allBtn = document.createElement("button");
+        allBtn.type = "button";
+        allBtn.dataset.value = "";
+        allBtn.textContent = "Todos";
+        allBtn.classList.add("selected");
+        listEl.appendChild(allBtn);
+        (items || []).forEach((item) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.dataset.value = String(item.id);
+          btn.textContent = `${item.nome || ""} ${item.sobrenome || ""}`.trim() || "Produtor";
+          listEl.appendChild(btn);
+        });
+        listEl.addEventListener("click", (e) => {
+          const clicked = e.target.closest("button[data-value]");
+          if (!clicked) return;
+          listEl.querySelectorAll("button").forEach(b => b.classList.remove("selected"));
+          clicked.classList.add("selected");
+          modalState.produtor = clicked.dataset.value;
+        });
+      } catch (e) {
+        listEl.innerHTML = '<span class="fmc-loading" style="color:#e44">Erro ao carregar</span>';
+      }
+    };
+
+    // accordion das seções do modal
+    document.querySelectorAll(".filter-modal-section-header").forEach((header) => {
+      const targetId = header.getAttribute("data-target");
+      const body = document.getElementById(targetId);
+      if (!body) return;
+      header.addEventListener("click", () => {
+        const isCollapsed = header.classList.contains("collapsed");
+        header.classList.toggle("collapsed", !isCollapsed);
+        body.classList.toggle("collapsed", !isCollapsed);
+      });
+    });
+
+    if (openFilterModalBtn) openFilterModalBtn.addEventListener("click", openFilterModal);
+    if (closeFilterModalBtn) closeFilterModalBtn.addEventListener("click", closeFilterModal);
+    if (filterModalOverlay) {
+      filterModalOverlay.addEventListener("click", (e) => {
+        if (e.target === filterModalOverlay) closeFilterModal();
+      });
+    }
+    if (modalClearBtn) {
+      modalClearBtn.addEventListener("click", () => {
+        modalState = { categorias: [], tags: [], produtor: "" };
+        syncModalChips();
+      });
+    }
+    if (modalApplyBtn) {
+      modalApplyBtn.addEventListener("click", () => {
+        state.categorias = [...modalState.categorias];
+        state.tags       = [...modalState.tags];
+        state.produtor   = modalState.produtor;
+        state.page = 1;
+        updateFilterBadge();
+        closeFilterModal();
+        fetchRecipes();
+      });
+    }
+
     const initListPage = () => {
-      setupEventListeners();
-      if (categoryFilter)
-        populateFilterDropdown(categoryFilter, "categories", "categorias");
-      if (tagFilter) populateFilterDropdown(tagFilter, "tags", "tags");
-      if (producerFilter) populateProducerDropdown(producerFilter);
+      // Desktop dropdowns
+      populateMultiDropdown(categoryFilter, "categories", "categorias", "Categorias");
+      populateMultiDropdown(tagFilter, "tags", "tags", "Tags");
+      populateProducerDropdown(producerFilter);
+      // Modal (mobile)
+      populateModalMulti("modal-category-list", "categories", "categorias");
+      populateModalMulti("modal-tag-list", "tags", "tags");
+      populateModalProducers();
       fetchRecipes();
     };
 

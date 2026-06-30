@@ -908,6 +908,232 @@
 .receitas-cta-trust i { color: var(--rp-dourado); }
 
 /* ════════════════════════════════════════════════════════════
+   BOTÃO FILTROS MOBILE
+   ════════════════════════════════════════════════════════════ */
+.toolbar-filter-mobile-btn {
+  display: none; /* fica visível só no mobile via @media */
+  align-items: center;
+  gap: 8px;
+  padding: 11px 20px;
+  background: var(--rp-verde);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: .9rem;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  transition: background .2s;
+}
+.toolbar-filter-mobile-btn:hover { background: #14302a; }
+.filter-count-badge {
+  background: var(--rp-dourado);
+  color: #1a1a1a;
+  border-radius: 50%;
+  min-width: 20px;
+  height: 20px;
+  font-size: .72rem;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   MODAL DE FILTROS
+   ════════════════════════════════════════════════════════════ */
+.filter-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.55);
+  z-index: 9000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s ease;
+}
+.filter-modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.filter-modal {
+  background: #fff;
+  width: 100%;
+  max-width: 480px;
+  border-radius: 28px 28px 0 0;
+  display: flex;
+  flex-direction: column;
+  max-height: 88vh;
+  transform: translateY(40px);
+  transition: transform .3s cubic-bezier(.22,.61,.36,1);
+  box-shadow: 0 -8px 40px rgba(0,0,0,.18);
+}
+.filter-modal-overlay.open .filter-modal {
+  transform: translateY(0);
+}
+
+.filter-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.filter-modal-header h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: var(--rp-verde);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+}
+.filter-modal-close {
+  background: #f4f4f4;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  transition: background .2s, color .2s;
+}
+.filter-modal-close:hover { background: #ffe9e9; color: #d44; }
+
+.filter-modal-body {
+  overflow-y: auto;
+  flex: 1;
+  padding: 8px 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rp-dourado) #f5f5f5;
+}
+.filter-modal-body::-webkit-scrollbar { width: 4px; }
+.filter-modal-body::-webkit-scrollbar-thumb { background: var(--rp-dourado); border-radius: 2px; }
+
+.filter-modal-section {
+  border-bottom: 1px solid #f4f4f4;
+}
+.filter-modal-section:last-child { border-bottom: none; }
+
+.filter-modal-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-size: .92rem;
+  font-weight: 700;
+  color: #333;
+  user-select: none;
+  transition: background .15s;
+}
+.filter-modal-section-header:hover { background: #fafaf7; }
+.filter-modal-section-header span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.filter-modal-section-header span i { color: var(--rp-verde); font-size: .9rem; }
+.fms-chevron { color: #aaa; font-size: .8rem; transition: transform .25s; }
+.filter-modal-section-header.collapsed .fms-chevron { transform: rotate(-90deg); }
+
+.filter-modal-section-body {
+  padding: 4px 20px 16px;
+  overflow: hidden;
+  transition: max-height .3s ease;
+}
+.filter-modal-section-body.collapsed {
+  max-height: 0 !important;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.filter-modal-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.filter-modal-chips .fmc-loading {
+  font-size: .82rem;
+  color: #aaa;
+  font-style: italic;
+}
+.filter-modal-chips button {
+  padding: 7px 16px;
+  border-radius: 20px;
+  border: 2px solid #e8e8e8;
+  background: #f8f8f8;
+  font-family: 'Montserrat', sans-serif;
+  font-size: .82rem;
+  font-weight: 600;
+  color: #555;
+  cursor: pointer;
+  transition: all .18s;
+}
+.filter-modal-chips button:hover {
+  border-color: var(--rp-verde);
+  color: var(--rp-verde);
+  background: #f0f7f4;
+}
+.filter-modal-chips button.selected {
+  background: var(--rp-verde);
+  border-color: var(--rp-verde);
+  color: #fff;
+}
+
+.filter-modal-footer {
+  display: flex;
+  gap: 12px;
+  padding: 16px 24px;
+  border-top: 1px solid #f0f0f0;
+}
+.filter-modal-clear {
+  flex: 1;
+  padding: 13px;
+  border: 2px solid #e0e0e0;
+  border-radius: 14px;
+  background: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: .9rem;
+  font-weight: 600;
+  color: #888;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all .2s;
+}
+.filter-modal-clear:hover { border-color: #d44; color: #d44; }
+.filter-modal-apply {
+  flex: 2;
+  padding: 13px;
+  border: none;
+  border-radius: 14px;
+  background: var(--rp-verde);
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+  font-size: .9rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background .2s;
+}
+.filter-modal-apply:hover { background: #14302a; }
+
+/* ════════════════════════════════════════════════════════════
    RESPONSIVIDADE
    ════════════════════════════════════════════════════════════ */
 @media (max-width: 992px) {
@@ -934,23 +1160,10 @@
     gap: 12px;
   }
   .toolbar-search { min-width: 100%; }
-  /* Filtros: cada um ocupa largura confortável de toque e quebram em linhas */
-  .toolbar-filters {
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  .toolbar-filters .dropdown-filter { flex: 1 1 calc(50% - 5px); min-width: 140px; }
-  .toolbar-filters .dropdown-filter .filter-btn { width: 100%; justify-content: space-between; }
-  .toolbar-filters .btn-clear-filters { flex: 1 1 100%; justify-content: center; }
-  /* dropdown abre full-width no mobile pra facilitar o toque */
-  .dropdown-filter.open .dropdown-content {
-    width: 100%;
-    left: 0;
-    right: 0;
-    max-height: 50vh;
-    overflow-y: auto;
-  }
+  /* Desktop filters ficam escondidos no mobile */
+  .toolbar-filters-desktop { display: none !important; }
+  /* Botão "Filtros" mobile aparece */
+  .toolbar-filter-mobile-btn { display: flex; }
 
   .receitas-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
 

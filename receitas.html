@@ -155,45 +155,49 @@
 
                 <!-- ── TOOLBAR DE FILTROS PREMIUM ── -->
                 <div class="receitas-toolbar">
+
+                    <!-- Busca -->
                     <div class="toolbar-search">
                         <i class="fas fa-search toolbar-search-icon"></i>
                         <input type="text" id="search-input" placeholder="Buscar receita, ingrediente...">
-                        <button class="toolbar-search-clear" id="search-clear-btn" title="Limpar busca">
+                        <button class="toolbar-search-clear" id="search-clear-btn" title="Limpar busca" style="display:none;">
                             <i class="fas fa-times"></i>
                         </button>
                     </div>
 
-                    <div class="toolbar-filters">
+                    <!-- Filtros desktop: dropdowns inline -->
+                    <div class="toolbar-filters toolbar-filters-desktop">
+
                         <div class="dropdown-filter" id="category-filter">
-                            <button class="filter-btn">
+                            <button class="filter-btn" type="button">
                                 <i class="fas fa-layer-group"></i>
                                 <span>Categorias</span>
                                 <i class="fas fa-chevron-down filter-chevron"></i>
                             </button>
                             <div class="dropdown-content">
-                                <!-- categorias via JS -->
+                                <!-- preenchido via JS -->
                             </div>
                         </div>
 
                         <div class="dropdown-filter" id="tag-filter">
-                            <button class="filter-btn">
+                            <button class="filter-btn" type="button">
                                 <i class="fas fa-tags"></i>
                                 <span>Tags</span>
                                 <i class="fas fa-chevron-down filter-chevron"></i>
                             </button>
                             <div class="dropdown-content">
-                                <!-- tags via JS -->
+                                <!-- preenchido via JS -->
                             </div>
                         </div>
 
                         <div class="dropdown-filter" id="producer-filter">
-                            <button class="filter-btn">
+                            <button class="filter-btn" type="button">
                                 <i class="fas fa-user-tie"></i>
                                 <span>Produtor</span>
                                 <i class="fas fa-chevron-down filter-chevron"></i>
                             </button>
                             <div class="dropdown-content">
-                                <!-- produtores via JS -->
+                                <!-- preenchido via JS -->
                             </div>
                         </div>
 
@@ -202,6 +206,14 @@
                             <span>Limpar</span>
                         </button>
                     </div>
+
+                    <!-- Botão "Filtrar" mobile: abre modal -->
+                    <button class="toolbar-filter-mobile-btn" id="open-filter-modal" type="button">
+                        <i class="fas fa-sliders-h"></i>
+                        <span>Filtros</span>
+                        <span class="filter-count-badge" id="filter-count-badge" style="display:none;">0</span>
+                    </button>
+
                 </div>
 
                 <!-- Chips de filtros ativos -->
@@ -263,6 +275,68 @@
             </div>
         </section>
     </main>
+
+    <!-- ── MODAL DE FILTROS (mobile) ── -->
+    <div class="filter-modal-overlay" id="filter-modal-overlay">
+        <div class="filter-modal" id="filter-modal" role="dialog" aria-modal="true" aria-label="Filtros">
+            <div class="filter-modal-header">
+                <h3><i class="fas fa-sliders-h"></i> Filtros</h3>
+                <button class="filter-modal-close" id="close-filter-modal" type="button" aria-label="Fechar">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="filter-modal-body">
+
+                <!-- Categorias -->
+                <div class="filter-modal-section">
+                    <div class="filter-modal-section-header" data-target="modal-cats">
+                        <span><i class="fas fa-layer-group"></i> Categorias</span>
+                        <i class="fas fa-chevron-down fms-chevron"></i>
+                    </div>
+                    <div class="filter-modal-section-body" id="modal-cats">
+                        <div class="filter-modal-chips" id="modal-category-list">
+                            <span class="fmc-loading">Carregando...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tags -->
+                <div class="filter-modal-section">
+                    <div class="filter-modal-section-header" data-target="modal-tags">
+                        <span><i class="fas fa-tags"></i> Tags</span>
+                        <i class="fas fa-chevron-down fms-chevron"></i>
+                    </div>
+                    <div class="filter-modal-section-body" id="modal-tags">
+                        <div class="filter-modal-chips" id="modal-tag-list">
+                            <span class="fmc-loading">Carregando...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Produtor -->
+                <div class="filter-modal-section">
+                    <div class="filter-modal-section-header" data-target="modal-producers">
+                        <span><i class="fas fa-user-tie"></i> Produtor</span>
+                        <i class="fas fa-chevron-down fms-chevron"></i>
+                    </div>
+                    <div class="filter-modal-section-body" id="modal-producers">
+                        <div class="filter-modal-chips" id="modal-producer-list">
+                            <span class="fmc-loading">Carregando...</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="filter-modal-footer">
+                <button class="filter-modal-clear" id="modal-clear-btn" type="button">
+                    <i class="fas fa-times"></i> Limpar tudo
+                </button>
+                <button class="filter-modal-apply" id="modal-apply-btn" type="button">
+                    <i class="fas fa-check"></i> Aplicar filtros
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
